@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-function get_liste()
+function getListe()
 {
     require('inc/db.php');
     $sqlRecupListes = "SELECT * FROM Liste ORDER BY Nom";
@@ -16,7 +16,7 @@ function get_liste()
     return $resultRecupListes;
 }
 
-function get_contacts_liste($idliste)
+function getContactListe($idliste)
 {
     require('inc/db.php');
     $sqlRecupContacts = "SELECT * FROM Contacts_liste WHERE id_liste = $idliste";
@@ -26,7 +26,7 @@ function get_contacts_liste($idliste)
     return $resultRecupContacts;
 }
 
-function get_contact_info($idcontact)
+function getContact($idcontact)
 {
     require('inc/db.php');
     $sqlRecupContacts = "SELECT * FROM Contact WHERE id = $idcontact";
@@ -36,7 +36,7 @@ function get_contact_info($idcontact)
     return $resultRecupContacts;
 }
 
-function recup_poste_contact($id)
+function getContactPoste($id)
 {
     require('inc/db.php');
     $sqlRecupPosteContact = "SELECT Poste.Nom as poste , Entite.Nom as entite FROM Poste LEFT JOIN Entite ON Poste.Entite = Entite.id  WHERE Poste.id = '$id'";
@@ -97,7 +97,7 @@ function recup_poste_contact($id)
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $listelistes = get_liste();
+                                <?php $listelistes = getListe();
                                 foreach ($listelistes as $liste) {
 
                                 ?>
@@ -109,13 +109,13 @@ function recup_poste_contact($id)
                                         </label>
                                     </td>
                                     <td><?php echo $liste['Nom']; ?></td>
-                                    <td><?php $listeContact = get_contacts_liste($liste['id']);
+                                    <td><?php $listeContact = getContactListe($liste['id']);
                                             foreach ($listeContact as $contactsid) {
                                                 //Récupération des infos du contact
-                                                $infoContact = get_contact_info($contactsid['id']);
+                                                $infoContact = getContact($contactsid['id']);
                                                 echo '<b>' . strtoupper($infoContact[0]['Nom']) . ' ' . $infoContact[0]['Prenom'] . '</b> - ' . $infoContact[0]['Grade'];
                                                 //Récupération du poste du contact
-                                                $poste = recup_poste_contact($infoContact[0]['Poste_actuel']);
+                                                $poste = getContactPoste($infoContact[0]['Poste_actuel']);
                                                 echo ' - <i>' . $poste[0]['poste'] . ' - ' . $poste[0]['entite'] . '</i><br>';;
                                             }
                                             ?></td>
