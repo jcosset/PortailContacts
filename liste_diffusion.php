@@ -18,26 +18,7 @@ error_reporting(E_ALL);
                             print_r($var);
                             echo '</pre>';
                         }
-                        // $query = "SELECT ID, uper_id, nom FROM Entite ORDER BY nom asc";
-                        // $queryGetAllEntites = $db->prepare($query);
-                        // $queryGetAllEntites->execute();
-                        // //  debugOnScreen($queryGetAllEntites->fetch(PDO::FETCH_ASSOC));
-                        // while ($items = $queryGetAllEntites->fetch(PDO::FETCH_ASSOC)) {
-                        //   $arborescence['items'][$items['ID']] = $items;
-                        //   $arborescence['parents'][$items['uper_id']][] = $items['ID'];
-                        // }
-                        // $query = "SELECT * FROM Poste ORDER BY nom asc";
-                        // $queryGetAllPoste = $db->prepare($query);
-                        // $queryGetAllPoste->execute();
-                        // while ($items = $queryGetAllPoste->fetch(PDO::FETCH_ASSOC)) {
-                        //   $arborescence['poste'][$items['Entite']][] = $items;
-                        // }
-                        // $query = "SELECT * FROM Contact ORDER BY nom asc";
-                        // $queryGetAllContact = $db->prepare($query);
-                        // $queryGetAllContact->execute();
-                        // while ($items = $queryGetAllContact->fetch(PDO::FETCH_ASSOC)) {
-                        //   $arborescence['contact'][$items['Poste_actuel']][] = $items;
-                        // }
+
                         function createButtonEdit($itemId, $name, $type)
                         {
                             return "<button class='item' data-toggle='modal' data-target='#displayerModal'  onclick='createPoste(event)' title='Edit'>
@@ -69,8 +50,8 @@ error_reporting(E_ALL);
                             $arborescence['listes'][$listes['id']] = $listes;
                         }
                         $query = 'SELECT pos.Nom as nom, md.mode, plmd.listeID as listeID
-            FROM poste_liste_mode_diffusion as plmd  join Poste as pos on plmd.posteID = pos.id  join
-            mode_diffusion as md on (md.id = plmd.modeID)';
+                        FROM poste_liste_mode_diffusion as plmd  join Poste as pos on plmd.posteID = pos.id  join
+                        mode_diffusion as md on (md.id = plmd.modeID)';
                         $queryGetAllPostes = $db->prepare($query);
                         $queryGetAllPostes->execute();
                         while ($postes = $queryGetAllPostes->fetch(PDO::FETCH_ASSOC)) {
@@ -116,24 +97,36 @@ error_reporting(E_ALL);
                         // }
                         function _createButtonEdit($itemId, $name, $type)
                         {
-                            return "<button class='item' data-toggle='modal' data-target='#displayerModal'  onclick='createPoste(event)' title='Edit'>
-              <i class='zmdi zmdi-plus zmdi-hc-lg text-primary'  data-id=$itemId data-name='$name' data-type='$type'></i>
-                </button>";
+                            return "<button class='item' data-toggle='modal' data-target='#displayerModal'
+                             onclick='createPoste(event)' title='Edit'>
+                             <i class='zmdi zmdi-plus zmdi-hc-lg text-primary'  data-id=$itemId data-name='$name'
+                             data-type='$type'></i></button>";
                         }
                         function createButtonDownload($listeID)
                         {
                             return '<form action="downloadCSV.php" method="POST" style="">
-                          <input name="listeID"    hidden value="' . $listeID . '">
-                          <button class="item" style="" id="downloadForm" type="submit" data-toggle="tooltip" data-placement="top" title="download csv">
-                            <i class="zmdi zmdi-download"  style=""></i>
+                              <input name="listeID"    hidden value="' . $listeID . '">
+                              <button class="item" style="" id="downloadForm" type="submit" data-toggle="tooltip"
+                                data-placement="top" title="download csv">
+                               <i class="zmdi zmdi-download"  style=""></i>
                           </button>
                         </form>';
+                        }
+
+
+                        function createPosteListe($posteName, $mode)
+                        {
+                            return  "<li >
+                            <select name='mode' id='modeID'> <option value='1'>" . $mode . "</option></select>
+                            <span class='item' data-toggle='modal' data-target='#largeModal'
+                            onclick=getPoste(a) style='cursor:pointer;'> " . $posteName . "</span></li>";
                         }
                         function createArborescenceListeDiff()
                         {
                             global $arborescence;
                             $html = "";
                             foreach ($arborescence["listes"] as $liste) {
+
                                 $name = $liste['nom'];
                                 $listeID = $liste['id'];
                                 $html .= "<li>";
@@ -141,9 +134,10 @@ error_reporting(E_ALL);
                                 $html .= "<ul class='listree-submenu-items'>" . createButtonDownload($listeID);
                                 if (isset($arborescence['postes'][$listeID])) {;
                                     foreach ($arborescence['postes'][$listeID] as $poste) {
+
                                         $posteName = $poste['nom'];
-                                        $html .= "<li > <span class='item' data-toggle='modal' data-target='#largeModal'
-                      onclick=getPoste(a) style='cursor:pointer;'> " . $posteName . "</span></li>";
+                                        $mode = $poste['mode'];
+                                        $html .= createPosteListe($posteName, $mode);
                                     }
                                 }
                                 $html .= '</ul>';
