@@ -84,7 +84,6 @@ function attachEventListenerDeleteBtn({ buttonAttributeClass, url, confirmMessag
     });
 }
 
-
 (function ($) {
     // USE STRICT
     "use strict";
@@ -246,7 +245,6 @@ function getPoste(id) {
             modal.append(modalRowDisplayerFactory({ label: "Pays", name: "pays", value: response.Pays }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Email fonctionnel", name: "email", placeholder: "", value: response.Email_fonctionnel }, 'input'))
 
-
         },
         error: function () {
             alert("Error");
@@ -394,7 +392,6 @@ function showContactModal(id) {
                     dropdownAutoWidth: true
                 });
             });
-
 
         }).catch(err => console.log(err))
 
