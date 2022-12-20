@@ -5,7 +5,6 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-
 function debugOnScreen($var)
 {
     echo '<pre>';
@@ -58,7 +57,8 @@ function get_all_entite()
                             </div>
                         </div>
                         <div class="table-data__tool-right">
-                            <button type="button" class="btn btn-success mb-1" data-toggle="modal" data-target="#largeModal">
+                            <button type="button" class="btn btn-success mb-1" data-toggle="modal"
+                                data-target="#largeModal">
                                 + Ajouter un poste
                             </button>
                             <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
@@ -94,39 +94,45 @@ function get_all_entite()
                                 foreach ($listepostes as $poste) {
 
                                 ?>
-                                    <tr class="tr-shadow">
-                                        <td>
-                                            <label class="au-checkbox">
-                                                <input type="checkbox">
-                                                <span class="au-checkmark"></span>
-                                            </label>
-                                        </td>
-                                        <td><?= $poste['postename'] ?></td>
-                                        <td><?= $poste['entitename'] ?></td>
+                                <tr class="tr-shadow">
+                                    <td>
+                                        <label class="au-checkbox">
+                                            <input type="checkbox">
+                                            <span class="au-checkmark"></span>
+                                        </label>
+                                    </td>
+                                    <td><?= $poste['postename'] ?></td>
+                                    <td><?= $poste['entitename'] ?></td>
 
-                                        <td><?php echo $poste['Rue'] . '<br>' . $poste['Compl'] . '<br>' . $poste['CP'] . ' ' . $poste['Ville']; ?></td>
-                                        <td><?php echo $poste['Pays']; ?></td>
-                                        <td>
-                                            <span class="block-email"><?php echo $poste['Email_fonctionnel']; ?></span>
-                                        </td>
-                                        <td>
-                                            <div class="table-data-feature">
-                                                <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-                                                    <i class="zmdi zmdi-mail-send"></i>
-                                                </button>
-                                                <button class="item" data-toggle='modal' data-target='#displayerModal'  onClick="showPosteModal(<?= ($poste['id']); ?>)" data-placement="top" title="Edit">
-                                                    <i class="zmdi zmdi-edit"></i>
-                                                </button>
-                                                <button class="item deletePoste" value=<?= $poste['id']; ?>  data-toggle="tooltip" data-placement="top" title="Delete">
-                                                    <i class="zmdi zmdi-delete"></i>
-                                                </button>
-                                                <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-                                                    <i class="zmdi zmdi-more"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="spacer"></tr>
+                                    <td><?php echo $poste['Rue'] . '<br>' . $poste['Compl'] . '<br>' . $poste['CP'] . ' ' . $poste['Ville']; ?>
+                                    </td>
+                                    <td><?php echo $poste['Pays']; ?></td>
+                                    <td>
+                                        <span class="block-email"><?php echo $poste['Email_fonctionnel']; ?></span>
+                                    </td>
+                                    <td>
+                                        <div class="table-data-feature">
+                                            <button class="item" data-toggle="tooltip" data-placement="top"
+                                                title="Send">
+                                                <i class="zmdi zmdi-mail-send"></i>
+                                            </button>
+                                            <button class="item" data-toggle='modal' data-target='#displayerModal'
+                                                onClick="showPosteModal(<?= ($poste['id']); ?>)" data-placement="top"
+                                                title="Edit">
+                                                <i class="zmdi zmdi-edit"></i>
+                                            </button>
+                                            <button class="item deletePoste" value=<?= $poste['id']; ?>
+                                                data-toggle="tooltip" data-placement="top" title="Delete">
+                                                <i class="zmdi zmdi-delete"></i>
+                                            </button>
+                                            <button class="item" data-toggle="tooltip" data-placement="top"
+                                                title="More">
+                                                <i class="zmdi zmdi-more"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="spacer"></tr>
                                 <?php } ?>
                             </tbody>
                         </table>
@@ -139,7 +145,8 @@ function get_all_entite()
 </div>
 <!-- END MAIN CONTENT-->
 <!-- modal large -->
-<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <form class="needs-validation" id="savePoste" name="savePoste" method="POST">
@@ -164,7 +171,8 @@ function get_all_entite()
                                 <label for="text-input" class=" form-control-label">Rue</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="rue" name="rue" placeholder="44 rue de Paris" class="form-control">
+                                <input type="text" id="rue" name="rue" placeholder="44 rue de Paris"
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -172,7 +180,8 @@ function get_all_entite()
                                 <label for="text-input" class=" form-control-label">Complément</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="complement" name="complement" placeholder="Bureau 55B" class="form-control">
+                                <input type="text" id="complement" name="complement" placeholder="Bureau 55B"
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -188,7 +197,8 @@ function get_all_entite()
                                 <label for="text-input" class=" form-control-label">Ville</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="ville" name="ville" placeholder="Paris" class="form-control" required>
+                                <input type="text" id="ville" name="ville" placeholder="Paris" class="form-control"
+                                    required>
                             </div>
                         </div>
                         <div class="row form-group">
@@ -196,7 +206,8 @@ function get_all_entite()
                                 <label for="text-input" class=" form-control-label">Pays</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="pays" name="pays" placeholder="France" class="form-control" required>
+                                <input type="text" id="pays" name="pays" placeholder="France" class="form-control"
+                                    required>
                             </div>
                         </div>
                         <div class="row form-group">
@@ -204,7 +215,8 @@ function get_all_entite()
                                 <label for="email" class=" form-control-label">Email fonctionnel</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="email" name="email" placeholder="email@email.com" class="form-control" required>
+                                <input type="text" id="email" name="email" placeholder="email@email.com"
+                                    class="form-control" required>
                             </div>
                         </div>
                         <div class="row form-group">
@@ -241,27 +253,28 @@ function get_all_entite()
     </div>
 </div>
 <!-- end modal large -->
-<div class="modal fade" id="displayerModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
+<div class="modal fade" id="displayerModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
 
-      <div class="modal-header">
-        <h5 class="modal-title" id="largeModalLabel">Entite</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form class="needs-validation" id="updatePoste" name="updateEntite" method="POST">
-      <div class="modal-body">
-        <div class="card-body card-block"></div>
-      </div>
-     
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-      </div>
-      </form>
+            <div class="modal-header">
+                <h5 class="modal-title" id="largeModalLabel">Entite</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form class="needs-validation" id="updatePoste" name="updateEntite" method="POST">
+                <div class="modal-body">
+                    <div class="card-body card-block"></div>
+                </div>
 
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+            </form>
+
+        </div>
     </div>
-  </div>
 </div>
 <?php include 'inc/footer.php' ?>

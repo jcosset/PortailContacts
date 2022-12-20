@@ -5,7 +5,6 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-
 function debugScreen($var)
 {
   echo '<pre>';
@@ -20,9 +19,9 @@ pos.Compl as 'Poste Complement' , pos.CP as 'Poste CP', pos.Ville as 'Poste Vill
 Civilite, cont.Nom as 'Nom', Prenom, Grade, Email as 'Email personnel',
 Email_fonctionnel as 'Email fonctionnel', mode as 'Mode de diffusion', pos.id, lis.id as ListeID, plmd.id as 'plmd'
 
-FROM poste_liste_mode_diffusion as plmd join mode_diffusion as md on (plmd.modeID=md.id) join 
-Liste as lis on (plmd.listeID = lis.id) join Poste as pos on (plmd.posteID =pos.id)  
-join Entite as ent on (pos.Entite =ent.id) join 
+FROM poste_liste_mode_diffusion as plmd join mode_diffusion as md on (plmd.modeID=md.id) join
+Liste as lis on (plmd.listeID = lis.id) join Poste as pos on (plmd.posteID =pos.id)
+join Entite as ent on (pos.Entite =ent.id) join
 Contact as cont on (cont.Poste_actuel=pos.id)
    and lis.id = :listeID group by plmd.id
 
@@ -30,10 +29,9 @@ Contact as cont on (cont.Poste_actuel=pos.id)
   $stmtPrepare = $db->prepare($stmt);
   $stmtPrepare->execute(array(":listeID" => $listeID));
 
-
   $filename = "listeDiffusion.csv";
   $fp = fopen($filename, 'w');
-  fprintf($fp, chr(0xEF).chr(0xBB).chr(0xBF));
+  fprintf($fp, chr(0xEF) . chr(0xBB) . chr(0xBF));
   $seperator = ";";
   //header
   $header = array(
@@ -53,14 +51,11 @@ Contact as cont on (cont.Poste_actuel=pos.id)
   header("Content-Type: text/csv;charset=utf-8");
   header('Content-Disposition: attachment; filename="' . $filename);
 
-
   // header("Content-Transfer-Encoding: UTF-8");
   // header('Content-Transfer-Encoding: binary');
   // header('Expires: 0');
   // header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
   // header('Pragma: public');
-
-
 
   readfile($filename);
   // fpassthru($fp);
@@ -71,5 +66,4 @@ Contact as cont on (cont.Poste_actuel=pos.id)
   exit();
 }
 
- 
 //header('Content-Disposition: attachment; filename=users.csv');

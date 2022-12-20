@@ -72,7 +72,6 @@
                         <?php
             require('inc/db.php');
 
-
             //Object
             $menus = array(
               'items' => array(),
@@ -87,8 +86,6 @@
               print_r($var);
               echo '</pre>';
             }
-
-
 
             $query = "SELECT ID, uper_id, nom FROM Entite ORDER BY nom asc";
             $queryGetAllEntites = $db->prepare($query);
@@ -126,7 +123,6 @@
               }
               return $htmlPoste;
             }
-
 
             function posteArrayToHtml($menu, $itemId)
             {
@@ -178,10 +174,7 @@
 
                     $name = $menu['items'][$itemId]['nom'];
 
-
                     if (!isset($menu['poste'][$itemId])) {
-
-
 
                       $html .= "<li>" . $name . createButtonEdit($itemId, $name, 'poste') . "</li>";
                     } else if (isset($menu['poste'][$itemId])) {
@@ -200,7 +193,6 @@
                   if (isset($menu['parents'][$itemId])) {
 
                     $name = $menu['items'][$itemId]['nom'];
-
 
                     $html .= "<li>";
                     $html .= "<div class='listree-submenu-heading'>" . $name . createButtonEdit($itemId, $name, 'poste') . "</div>";
@@ -226,13 +218,10 @@
                 </div>
             </div>
 
-
         </div>
     </div>
 </div>
 <!-- END MAIN CONTENT-->
-
-
 
 <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
     aria-hidden="true">
@@ -253,7 +242,6 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
 
             </div>
-
 
         </div>
     </div>

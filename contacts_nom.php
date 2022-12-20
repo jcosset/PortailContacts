@@ -15,7 +15,6 @@ function get_contacts()
     $resultRecupContacts = $queryRecupContacts->fetchAll(PDO::FETCH_ASSOC);
     return $resultRecupContacts;
 }
-
 function recup_poste_contact($id)
 {
     require('inc/db.php');
@@ -25,7 +24,6 @@ function recup_poste_contact($id)
     $resultRecupPosteContact = $queryRecupPosteContact->fetchAll(PDO::FETCH_ASSOC);
     return $resultRecupPosteContact;
 }
-
 function getAllPostes()
 {
     require('inc/db.php');
@@ -35,9 +33,7 @@ function getAllPostes()
     $resultRecupPosteContact = $queryRecupPosteContact->fetchAll(PDO::FETCH_ASSOC);
     return $resultRecupPosteContact;
 }
-
 ?>
-
 <!-- MAIN CONTENT-->
 <div class="main-content">
     <div class="section__content section__content--p30">
@@ -84,7 +80,6 @@ function getAllPostes()
                                     <th>Nom</th>
                                     <th>Prenom</th>
                                     <th>Grade</th>
-
                                     <th>Email pro</th>
                                     <th>Téléphone</th>
                                     <th>Email perso</th>
@@ -96,7 +91,6 @@ function getAllPostes()
                             <tbody>
                                 <?php $listecontacts = get_contacts();
                                 foreach ($listecontacts as $contact) {
-
                                 ?>
                                 <tr class="tr-shadow">
                                     <td>
@@ -126,8 +120,6 @@ function getAllPostes()
                                                 echo "Le poste n'existe pas, ou a été supprimé";
                                             }
                                             ?>
-
-
 
                                     </td>
                                     <td>

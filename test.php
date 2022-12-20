@@ -1,5 +1,5 @@
 <?php
-include 'inc/db.php'; 
+include 'inc/db.php';
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -18,4 +18,3 @@ $listecontacts = get_contacts();
 foreach ($listecontacts as $contact) {
     echo $contact['Nom'];
 }
-?>

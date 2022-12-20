@@ -28,8 +28,5 @@
 </div>
 <!-- END MAIN CONTENT-->
 
-
-
-
 <!-- end modal large -->
 <?php include 'inc/footer.php' ?>

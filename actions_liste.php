@@ -23,8 +23,6 @@ switch ($_GET['type']) {
         require "actions/liste/poste/save_poste.php";
         break;
 
-
-
     default:
         echo "error";
 }

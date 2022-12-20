@@ -5,15 +5,12 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 
-
-
 function debugScreen($var)
 {
   echo '<pre>';
   print_r($var);
   echo '</pre>';
 }
-
 
 function get_all_mode_diffusion()
 {
@@ -51,13 +48,11 @@ function get_Liste_poste()
     'postes' => array(),
   );
 
-
   foreach ($results as $item) {
     $listes['postes'][$item['listeID']][] = $item;
   }
   return $listes;
 }
-
 
 $listePostes = get_Liste_poste();
 // test()
@@ -191,12 +186,10 @@ $listePostes = get_Liste_poste();
 
                 ?>
 
-
                             </select>
                             <div class="dropDownSelect2"></div>
 
                         </div>
-
 
                     </div>
                     <div class="modal-footer">

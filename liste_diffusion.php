@@ -7,6 +7,11 @@ error_reporting(E_ALL);
 <div class="main-content">
     <div class="section__content section__content--p30">
         <div class="container-fluid">
+            <div class="card-body">
+                <button type="button" class="btn btn-success mb-1" data-toggle="modal" data-target="#largeModal">
+                    Ajouter une liste
+                </button>
+            </div>
             <div class="row">
                 <div class="col-lg-12">
                     <ul class="listree">
@@ -57,44 +62,15 @@ error_reporting(E_ALL);
                         while ($postes = $queryGetAllPostes->fetch(PDO::FETCH_ASSOC)) {
                             $arborescence['postes'][$postes['listeID']][] = $postes;
                         }
-                        // $query = "SELECT * FROM Contact ORDER BY nom asc";
-                        // $queryGetAllContact = $db->prepare($query);
-                        // $queryGetAllContact->execute();
-                        // while ($items = $queryGetAllContact->fetch(PDO::FETCH_ASSOC)) {
-                        //   $arborescence['contact'][$items['Poste_actuel']][] = $items;
-                        // }
-                        // function _contactArrayToHtml($menu, $posteId)
-                        // {
-                        //   $htmlPoste = "";
-                        //   foreach ($menu[$posteId] as $contact) {
-                        //     $isUpdated = "text-success";
-                        //     $id = $contact['id'];
-                        //     $htmlPoste .= "<li> <button class='$isUpdated' data-toggle='modal' data-target='#largeModal' onclick=getContact($id)> " . $contact['Nom'] . "</button></li>";
-                        //   }
-                        //   return $htmlPoste;
-                        // }
-                        // function _posteArrayToHtml($menu, $itemId)
-                        // {
-                        //   global $arborescence;
-                        //   $htmlPoste = "";
-                        //   foreach ($menu[$itemId] as $poste) {
-                        //     $id = $poste['id'];
-                        //     if (isset($arborescence['contact'][$id])) {
-                        //       $htmlPoste .= "<li>";
-                        //       $htmlPoste .= "<div class='listree-submenu-headingxxx text-primary  expanded'
-                        //       ><span data-toggle='modal' data-target='#largeModal' onclick=getPoste($id) style='cursor:pointer;'>
-                        //       " . $poste['Nom'] . "</span></div>";
-                        //       $htmlPoste .= "<ul class='listree-submenu-items' style='display:block;' >";
-                        //       $htmlPoste .=  contactArrayToHtml($arborescence['contact'],  $id);
-                        //       $htmlPoste .= '</ul>';
-                        //       $htmlPoste .= "</li>";;
-                        //     } else {
-                        //       $htmlPoste .= "<li ><span class='text-danger' data-toggle='modal' data-target='#largeModal'
-                        //        onclick=getPoste($id) style='cursor:pointer;'> " . $poste['Nom'] . "</span></li>";
-                        //     }
-                        //   }
-                        //   return $htmlPoste;
-                        // }
+                        function getAllModeDiffusion()
+                        {
+                            require('inc/db.php');
+                            $stmt = "SELECT id, mode FROM mode_diffusion";
+                            $stmtPrepare = $db->prepare($stmt);
+                            $stmtPrepare->execute();
+                            return $stmtPrepare->fetchAll(PDO::FETCH_ASSOC);
+                        }
+
                         function _createButtonEdit($itemId, $name, $type)
                         {
                             return "<button class='item' data-toggle='modal' data-target='#displayerModal'
@@ -112,7 +88,6 @@ error_reporting(E_ALL);
                           </button>
                         </form>';
                         }
-
 
                         function createPosteListe($posteName, $mode)
                         {
@@ -159,17 +134,42 @@ error_reporting(E_ALL);
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="largeModalLabel">Contact</h5>
+                <h5 class="modal-title" id="largeModalLabel">Ajouter une liste</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="card-body card-block"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-            </div>
+            <form class="needs-validation" id="saveListe" method="POST">
+                <div class="modal-body">
+                    <div class="card-body card-block">
+                        <div class="form-group">
+                            <label for="nom" class=" form-control-label">Nom</label>
+                            <input type="text" id="name" name="nom" placeholder="Nom" class="form-control" required>
+                        </div>
+                        <div class=" form-group">
+                            <label for="vat" class="form-control-label">Mode de diffusion</label>
+
+                            <select class="js-select2" name="modes[]" multiple="multiple" required>
+                                <?php
+                                $modes = getAllModeDiffusion();
+
+                                foreach ($modes as $mode) {
+                                    $mode_nom = $mode["mode"];
+                                    $mode_id = $mode["id"];
+                                    echo "<option value='$mode_id'>$mode_nom</option>";
+                                }
+                                ?>
+
+                            </select>
+                            <div class="dropDownSelect2"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
