@@ -12,7 +12,7 @@ function debugOnScreen($var)
     echo '</pre>';
 }
 
-function get_all_post_with_entite()
+function getAllPosteWithEntite()
 {
     require('inc/db.php');
 
@@ -25,7 +25,7 @@ function get_all_post_with_entite()
     return $sqlGetAllEntityResults;
 }
 
-function get_all_entite()
+function getAllEntite()
 {
     require('inc/db.php');
     $sqlGetAllEntity = "SELECT id, nom, uper_id from Entite order by nom ASC";
@@ -34,7 +34,7 @@ function get_all_entite()
     $sqlGetAllEntityResults = $sqlGetAllEntityPrepare->fetchAll(PDO::FETCH_ASSOC);
     return $sqlGetAllEntityResults;
 }
-// debugOnScreen(get_all_post_with_entite());
+// debugOnScreen(getAllPosteWithEntite());
 
 ?>
 
@@ -90,7 +90,7 @@ function get_all_entite()
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $listepostes = get_all_post_with_entite();
+                                <?php $listepostes = getAllPosteWithEntite();
                                 foreach ($listepostes as $poste) {
 
                                 ?>
@@ -228,7 +228,7 @@ function get_all_entite()
                                 <select class="js-select2" name="entiteId" required>
 
                                     <?php
-                                    $entites = get_all_entite();
+                                    $entites = getAllEntite();
                                     foreach ($entites as $entite) {
                                         $entite_nom = $entite["nom"];
                                         $entite_id = $entite["id"];

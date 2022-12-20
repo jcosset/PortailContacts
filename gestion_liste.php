@@ -12,7 +12,7 @@ function debugScreen($var)
   echo '</pre>';
 }
 
-function get_all_mode_diffusion()
+function getAllModeDiffusion()
 {
   require('inc/db.php');
   $stmt = "SELECT id, mode FROM mode_diffusion";
@@ -21,7 +21,7 @@ function get_all_mode_diffusion()
   return $stmtPrepare->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function get_all_Liste_diffusion()
+function getAllListeDiffusion()
 {
   require('inc/db.php');
   $stmt = "SELECT liste.id as id, liste.nom as nom, GROUP_CONCAT(md.mode  SEPARATOR ', ') as mode
@@ -33,7 +33,7 @@ function get_all_Liste_diffusion()
   return $stmtPrepare->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function get_Liste_poste()
+function getListePoste()
 {
   require('inc/db.php');
   $stmt = "SELECT pos.Nom as nom, md.mode, plmd.listeID as listeID
@@ -54,7 +54,7 @@ function get_Liste_poste()
   return $listes;
 }
 
-$listePostes = get_Liste_poste();
+$listePostes = getListePoste();
 // test()
 ?>
 
@@ -90,7 +90,7 @@ $listePostes = get_Liste_poste();
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $listes = get_all_Liste_diffusion();
+                                <?php $listes = getAllListeDiffusion();
                 foreach ($listes as $liste) {
 
                 ?>
@@ -176,7 +176,7 @@ $listePostes = get_Liste_poste();
 
                             <select class="js-select2" name="modes[]" multiple="multiple" required>
                                 <?php
-                $modes = get_all_mode_diffusion();
+                $modes = getAllModeDiffusion();
 
                 foreach ($modes as $mode) {
                   $mode_nom = $mode["mode"];

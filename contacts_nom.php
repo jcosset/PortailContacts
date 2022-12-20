@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-function get_contacts()
+function getContacts()
 {
     require('inc/db.php');
     $sqlRecupContacts = "SELECT id, Nom, Prenom, Grade, Email, Statut, Poste_actuel, email_pro, telephone
@@ -15,7 +15,7 @@ function get_contacts()
     $resultRecupContacts = $queryRecupContacts->fetchAll(PDO::FETCH_ASSOC);
     return $resultRecupContacts;
 }
-function recup_poste_contact($id)
+function recupPosteContact($id)
 {
     require('inc/db.php');
     $sqlRecupPosteContact = "SELECT Poste.Nom as poste , Entite.Nom as entite FROM Poste LEFT JOIN Entite ON Poste.Entite = Entite.id  WHERE Poste.id = '$id'";
@@ -89,7 +89,7 @@ function getAllPostes()
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $listecontacts = get_contacts();
+                                <?php $listecontacts = getContacts();
                                 foreach ($listecontacts as $contact) {
                                 ?>
                                 <tr class="tr-shadow">
@@ -113,8 +113,8 @@ function getAllPostes()
                                     </td>
                                     <td><?php echo $contact['Statut']; ?></td>
                                     <td><?php
-                                            if (recup_poste_contact($contact['Poste_actuel'])) {
-                                                $poste = recup_poste_contact($contact['Poste_actuel']);
+                                            if (recupPosteContact($contact['Poste_actuel'])) {
+                                                $poste = recupPosteContact($contact['Poste_actuel']);
                                                 echo $poste[0]['poste'] . ' - ' . $poste[0]['entite'];
                                             } else {
                                                 echo "Le poste n'existe pas, ou a été supprimé";

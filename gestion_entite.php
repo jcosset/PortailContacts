@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-function get_all_entite()
+function getAllEntite()
 {
   require('inc/db.php');
   $sqlGetAllEntity = "SELECT id, nom, uper_id from Entite order by nom";
@@ -49,7 +49,7 @@ function get_all_entite()
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $listEntite = get_all_entite();
+                                <?php $listEntite = getAllEntite();
                 $listEntiteById = array();
                 foreach ($listEntite as $b) {
                   $listEntiteById[$b['id']] = $b;
@@ -135,7 +135,7 @@ function get_all_entite()
                             <select class="js-select2" name="uper_id">
                                 <option value="0" selected="selected">AUCUNE ENTITE PARENT</option>
                                 <?php
-                $entites = get_all_entite();
+                $entites = getAllEntite();
                 foreach ($entites as $entite) {
                   $entite_nom = $entite["nom"];
                   $entite_id = $entite["id"];
