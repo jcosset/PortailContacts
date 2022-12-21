@@ -1,38 +1,12 @@
 <?php include 'inc/header.php';
 include 'inc/db.php';
+include 'crud/contact/contact.php';
+include 'crud/poste/poste.php';
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-function getContacts()
-{
-    require('inc/db.php');
-    $sqlRecupContacts = "SELECT id, Nom, Prenom, Grade, Email, Statut, Poste_actuel, email_pro, telephone
-     FROM Contact ORDER BY Nom";
-    $queryRecupContacts = $db->prepare($sqlRecupContacts);
-    $queryRecupContacts->execute();
-    $resultRecupContacts = $queryRecupContacts->fetchAll(PDO::FETCH_ASSOC);
-    return $resultRecupContacts;
-}
-function recupPosteContact($id)
-{
-    require('inc/db.php');
-    $sqlRecupPosteContact = "SELECT Poste.Nom as poste , Entite.Nom as entite FROM Poste LEFT JOIN Entite ON Poste.Entite = Entite.id  WHERE Poste.id = '$id'";
-    $queryRecupPosteContact = $db->prepare($sqlRecupPosteContact);
-    $queryRecupPosteContact->execute();
-    $resultRecupPosteContact = $queryRecupPosteContact->fetchAll(PDO::FETCH_ASSOC);
-    return $resultRecupPosteContact;
-}
-function getAllPostes()
-{
-    require('inc/db.php');
-    $sqlRecupPosteContact = "SELECT id, Nom from Poste";
-    $queryRecupPosteContact = $db->prepare($sqlRecupPosteContact);
-    $queryRecupPosteContact->execute();
-    $resultRecupPosteContact = $queryRecupPosteContact->fetchAll(PDO::FETCH_ASSOC);
-    return $resultRecupPosteContact;
-}
 ?>
 <!-- MAIN CONTENT-->
 <div class="main-content">
@@ -89,7 +63,7 @@ function getAllPostes()
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $listecontacts = getContacts();
+                                <?php $listecontacts = getAllContacts();
                                 foreach ($listecontacts as $contact) {
                                 ?>
                                 <tr class="tr-shadow">
@@ -113,8 +87,8 @@ function getAllPostes()
                                     </td>
                                     <td><?php echo $contact['Statut']; ?></td>
                                     <td><?php
-                                            if (recupPosteContact($contact['Poste_actuel'])) {
-                                                $poste = recupPosteContact($contact['Poste_actuel']);
+                                            if (getEntiteDetailsOfPoste($contact['Poste_actuel'])) {
+                                                $poste = getEntiteDetailsOfPoste($contact['Poste_actuel']);
                                                 echo $poste[0]['poste'] . ' - ' . $poste[0]['entite'];
                                             } else {
                                                 echo "Le poste n'existe pas, ou a été supprimé";

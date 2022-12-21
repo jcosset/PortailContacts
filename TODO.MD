@@ -32,3 +32,5 @@ ADD COLUMN cedex VARCHAR(255),
 ALTER TABLE contact
 ADD COLUMN addressID int;
 ALTER TABLE contact ADD FOREIGN KEY (addressID) REFERENCES address(id);
+
+CRUD LISTE

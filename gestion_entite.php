@@ -1,19 +1,13 @@
 <?php include 'inc/header.php';
 include 'inc/helpers/debug.php';
+include 'inc/db.php';
+include 'crud/entite/entite.php';
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-function getAllEntite()
-{
-  require('inc/db.php');
-  $sqlGetAllEntity = "SELECT id, nom, uper_id from Entite order by nom";
-  $sqlGetAllEntityPrepare = $db->prepare($sqlGetAllEntity);
-  $sqlGetAllEntityPrepare->execute();
-  $sqlGetAllEntityResults = $sqlGetAllEntityPrepare->fetchAll(PDO::FETCH_ASSOC);
-  return $sqlGetAllEntityResults;
-}
+
 
 ?>
 
@@ -49,7 +43,7 @@ function getAllEntite()
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $listEntite = getAllEntite();
+                                <?php $listEntite = getAllEntites();
                 $listEntiteById = array();
                 foreach ($listEntite as $b) {
                   $listEntiteById[$b['id']] = $b;
@@ -135,7 +129,7 @@ function getAllEntite()
                             <select class="js-select2" name="uper_id">
                                 <option value="0" selected="selected">AUCUNE ENTITE PARENT</option>
                                 <?php
-                $entites = getAllEntite();
+                $entites = getAllEntites();
                 foreach ($entites as $entite) {
                   $entite_nom = $entite["nom"];
                   $entite_id = $entite["id"];

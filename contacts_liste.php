@@ -1,50 +1,13 @@
 <?php include 'inc/header.php';
-include 'inc/db.php';
 
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-
-function getListe()
-{
-    require('inc/db.php');
-    $sqlRecupListes = "SELECT * FROM Liste ORDER BY Nom";
-    $queryRecupListes = $db->prepare($sqlRecupListes);
-    $queryRecupListes->execute();
-    $resultRecupListes = $queryRecupListes->fetchAll(PDO::FETCH_ASSOC);
-    return $resultRecupListes;
-}
-
-function getContactListe($idliste)
-{
-    require('inc/db.php');
-    $sqlRecupContacts = "SELECT * FROM Contacts_liste WHERE id_liste = $idliste";
-    $queryRecupContacts = $db->prepare($sqlRecupContacts);
-    $queryRecupContacts->execute();
-    $resultRecupContacts = $queryRecupContacts->fetchAll(PDO::FETCH_ASSOC);
-    return $resultRecupContacts;
-}
-
-function getContact($idcontact)
-{
-    require('inc/db.php');
-    $sqlRecupContacts = "SELECT * FROM Contact WHERE id = $idcontact";
-    $queryRecupContacts = $db->prepare($sqlRecupContacts);
-    $queryRecupContacts->execute();
-    $resultRecupContacts = $queryRecupContacts->fetchAll(PDO::FETCH_ASSOC);
-    return $resultRecupContacts;
-}
-
-function getContactPoste($id)
-{
-    require('inc/db.php');
-    $sqlRecupPosteContact = "SELECT Poste.Nom as poste , Entite.Nom as entite FROM Poste LEFT JOIN Entite ON Poste.Entite = Entite.id  WHERE Poste.id = '$id'";
-    $queryRecupPosteContact = $db->prepare($sqlRecupPosteContact);
-    $queryRecupPosteContact->execute();
-    $resultRecupPosteContact = $queryRecupPosteContact->fetchAll(PDO::FETCH_ASSOC);
-    return $resultRecupPosteContact;
-}
+include 'inc/db.php';
+include 'crud/contact/contact.php';
+include 'crud/liste/liste.php';
+include 'crud/poste/poste.php';
 
 ?>
 
@@ -109,13 +72,13 @@ function getContactPoste($id)
                                         </label>
                                     </td>
                                     <td><?php echo $liste['Nom']; ?></td>
-                                    <td><?php $listeContact = getContactListe($liste['id']);
+                                    <td><?php $listeContact = getContactsFromListe($liste['id']);
                                             foreach ($listeContact as $contactsid) {
                                                 //Récupération des infos du contact
                                                 $infoContact = getContact($contactsid['id']);
                                                 echo '<b>' . strtoupper($infoContact[0]['Nom']) . ' ' . $infoContact[0]['Prenom'] . '</b> - ' . $infoContact[0]['Grade'];
                                                 //Récupération du poste du contact
-                                                $poste = getContactPoste($infoContact[0]['Poste_actuel']);
+                                                $poste = getContactFromPoste($infoContact[0]['Poste_actuel']);
                                                 echo ' - <i>' . $poste[0]['poste'] . ' - ' . $poste[0]['entite'] . '</i><br>';;
                                             }
                                             ?></td>

@@ -51,14 +51,7 @@ Contact as cont on (cont.Poste_actuel=pos.id)
   header("Content-Type: text/csv;charset=utf-8");
   header('Content-Disposition: attachment; filename="' . $filename);
 
-  // header("Content-Transfer-Encoding: UTF-8");
-  // header('Content-Transfer-Encoding: binary');
-  // header('Expires: 0');
-  // header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-  // header('Pragma: public');
-
   readfile($filename);
-  // fpassthru($fp);
 
   // deleting file
   unlink($filename);
