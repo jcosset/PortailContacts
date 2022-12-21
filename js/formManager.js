@@ -103,6 +103,7 @@ function attachEventListenerDeleteBtn({ buttonAttributeClass, url, confirmMessag
     attachEventListenerDeleteBtn({ buttonAttributeClass: "table button.deleteContact", url: "actions_contact.php?type=delete", confirmMessage: defaultDeleteWarningMsg })
 
     updatePostModalSubmitFactory({ formAttributeId: "form#saveListe", url: "actions_liste.php?type=create" })
+    attachEventListenerDeleteBtn({ buttonAttributeClass: "table button.deleteListe", url: "actions_liste.php?type=delete", confirmMessage: defaultDeleteWarningMsg })
 
 })(jQuery);
 

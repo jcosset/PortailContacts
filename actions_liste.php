@@ -13,10 +13,10 @@ switch ($_GET['type']) {
         require "actions/liste/save_liste.php";
         break;
     case "delete":
-        require "actions/contact/delete_contact.php";
+        require "actions/liste/delete_liste.php";
         break;
     case "update":
-        require "actions/contact/update_contact.php";
+        require "actions/liste/update_liste.php";
         break;
 
     case "addPoste":

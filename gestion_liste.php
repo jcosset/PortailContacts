@@ -130,7 +130,7 @@ $listePostes = getListePoste();
                                                 data-placement="top" title="Edit">
                                                 <i class="zmdi zmdi-edit"></i>
                                             </button>
-                                            <button class="item deleteContactxxx" value=<?= $liste['id']; ?>
+                                            <button class="item deleteListe" value=<?= $liste['id']; ?>
                                                 data-toggle="tooltip" data-placement="top" title="Delete">
                                                 <i class="zmdi zmdi-delete"></i>
                                             </button>
