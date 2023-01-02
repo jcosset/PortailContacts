@@ -12,7 +12,7 @@ function debugOnScreen($var)
     echo '</pre>';
 }
 
-function getAllPosteWithEntite()
+function getAllPostesWithEntite()
 {
     require('inc/db.php');
 
@@ -34,7 +34,7 @@ function getAllEntite()
     $sqlGetAllEntityResults = $sqlGetAllEntityPrepare->fetchAll(PDO::FETCH_ASSOC);
     return $sqlGetAllEntityResults;
 }
-// debugOnScreen(getAllPosteWithEntite());
+// debugOnScreen(getAllPostesWithEntite());
 
 ?>
 
@@ -90,7 +90,7 @@ function getAllEntite()
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $listepostes = getAllPosteWithEntite();
+                                <?php $listepostes = getAllPostesWithEntite();
                                 foreach ($listepostes as $poste) {
 
                                 ?>
@@ -112,9 +112,11 @@ function getAllEntite()
                                     </td>
                                     <td>
                                         <div class="table-data-feature">
-                                            <button class="item" data-toggle="tooltip" data-placement="top"
-                                                title="Send">
-                                                <i class="zmdi zmdi-mail-send"></i>
+                                            <button class="item" data-toggle="modal" data-placement="top"
+                                                data-target='#displayerModal'
+                                                onClick="showAddPosteListeByIdModal(<?= ($poste['id']); ?>)"
+                                                title="Ajout liste diffusion">
+                                                <i class="zmdi zmdi-format-indent-increase"></i>
                                             </button>
                                             <button class="item" data-toggle='modal' data-target='#displayerModal'
                                                 onClick="showPosteModal(<?= ($poste['id']); ?>)" data-placement="top"
@@ -259,7 +261,7 @@ function getAllEntite()
         <div class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title" id="largeModalLabel">Entite</h5>
+                <h5 class="modal-title" id="largeModalLabel">Poste</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

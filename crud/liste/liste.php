@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . "/../../config.php";
 require_once SITE_ROOT . "/inc/helpers/debug.php";
-function getListe()
+function getAllListes()
 {
     global $db;
     $sqlRecupListes = "SELECT * FROM Liste ORDER BY Nom";

@@ -184,7 +184,7 @@ error_reporting(E_ALL);
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form class="needs-validation" id="addPostOrContact" name="addPostOrContact" method="POST">
+            <form class="needs-validation" id="updateListe" name="updateListe" method="POST">
                 <div class="modal-body">
                     <div class="card-body card-block"></div>
                 </div>

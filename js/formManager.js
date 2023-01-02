@@ -444,3 +444,64 @@ function showCreatePosteListeDiffusionModal(listeID) {
         }).catch(err => console.log(err))
 
 }
+
+function showAddPosteListeByIdModal(posteID) {
+    posteID = 17
+    let modal = $("#displayerModal .card-body")
+    let modalFooter = $("#displayerModal .modal-footer")
+    $("#displayerModal form").attr("id", "addPosteListeByd");
+    modal.empty()
+    modalFooter.empty()
+
+    updatePostModalSubmitFactory({ formAttributeId: "form#addPosteListeByd", url: "actions_liste.php?type=addPoste" })
+
+    Promise.all([ajaxGetPromise("actions_liste.php?type=get&all"), ajaxGetPromise("actions_liste.php?type=get&id=" + posteID + "&filter=default")])
+        .then(([listes, modesDiffusion]) => {
+
+            optionsHtmlModesDefaultSelected = ""
+            optionsHtmlListes = ""
+            listes.forEach(async (liste) => {
+                optionsHtmlListes += `<option value='${liste.id}' >${liste.nom}</option>`
+            })
+
+            let modesNames = listes[0].modes.split(",")
+            let modesIds = listes[0].ids.split(",")
+            modesNames.forEach(async (modeName, i) => {
+
+                optionsHtmlModesDefaultSelected += `<option value='${modesIds[i]}' >${modeName}</option>`
+            })
+
+            modal.append(modalRowDisplayerFactory({ label: "Liste diffusion", name: "liste", optionsHtml: optionsHtmlListes, isRequired: true }, 'select'))
+            modal.append(modalRowDisplayerFactory({ label: "Mode de diffusion", name: "mode", optionsHtml: optionsHtmlModesDefaultSelected, isRequired: true }, 'select'))
+            modal.append(modalRowDisplayerFactory({ label: "ID Poste", name: "posteID", value: posteID, iSdisabled: true, isRequired: true }, 'input'))
+
+            $("select[name='liste']").change(function () {
+                $("select[name='mode']").empty()
+                let val = $(this).val();
+                let listeSelected = listes.find(l => l.id === val)
+                let modesNames = listeSelected.modes.split(",")
+                let modesIds = listeSelected.ids.split(",")
+                optionsHtmlModesListeSelected = ""
+                modesNames.forEach(async (modeName, i) => {
+
+                    optionsHtmlModesListeSelected += `<option value='${modesIds[i]}' >${modeName}</option>`
+                })
+
+
+                $("select[name='mode']").html(optionsHtmlModesListeSelected)
+            });
+
+            modal.parent().parent().find(".modal-footer").append(modalRowDisplayerFactory({}, 'submit'))
+
+            $(".js-select-custom").each(function () {
+                $(this).select2({
+                    allowClear: true,
+                    placeholder: "Selectionner une option",
+                    dropdownParent: $(this).next('.dropDownSelect2'),
+                    dropdownAutoWidth: true
+                });
+            });
+
+        }).catch(err => { console.log(err); })
+
+}

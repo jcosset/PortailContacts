@@ -18,7 +18,8 @@ if (isset($_REQUEST['id'])) {
 
 if (isset($_REQUEST['all'])) {
 
-    $sqlFetch = $db->prepare('Select id, Nom,Rue, Compl, CP, Ville, Pays, Email_fonctionnel from Poste');
+    $sqlFetch = $db->prepare('Select nom, lis.id as id, GROUP_CONCAT(md.id  SEPARATOR ",") as ids, GROUP_CONCAT(md.mode  SEPARATOR ",") as modes  from Liste as lis join liste_mode_diffusion as lmd on (lis.id=lmd.listeID)
+    join mode_diffusion as md on (md.id = lmd.modeID) group by lis.id');
 
     if ($result = $sqlFetch->execute()) {
         $rows = $sqlFetch->fetchAll(PDO::FETCH_ASSOC);

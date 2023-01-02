@@ -30,8 +30,7 @@ include 'crud/poste/poste.php';
                             </div>
                         </div>
                         <div class="table-data__tool-right">
-                            <button type="button" class="btn btn-success mb-1" data-toggle="modal"
-                                data-target="#largeModal">
+                            <button type="button" class="btn btn-success mb-1" data-toggle="modal" data-target="#largeModal">
                                 + Ajouter une liste
                             </button>
                             <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
@@ -60,19 +59,19 @@ include 'crud/poste/poste.php';
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $listelistes = getListe();
+                                <?php $listelistes = getAllListes();
                                 foreach ($listelistes as $liste) {
 
                                 ?>
-                                <tr class="tr-shadow">
-                                    <td>
-                                        <label class="au-checkbox">
-                                            <input type="checkbox">
-                                            <span class="au-checkmark"></span>
-                                        </label>
-                                    </td>
-                                    <td><?php echo $liste['Nom']; ?></td>
-                                    <td><?php $listeContact = getContactsFromListe($liste['id']);
+                                    <tr class="tr-shadow">
+                                        <td>
+                                            <label class="au-checkbox">
+                                                <input type="checkbox">
+                                                <span class="au-checkmark"></span>
+                                            </label>
+                                        </td>
+                                        <td><?php echo $liste['Nom']; ?></td>
+                                        <td><?php $listeContact = getContactsFromListe($liste['id']);
                                             foreach ($listeContact as $contactsid) {
                                                 //Récupération des infos du contact
                                                 $infoContact = getContact($contactsid['id']);
@@ -82,28 +81,24 @@ include 'crud/poste/poste.php';
                                                 echo ' - <i>' . $poste[0]['poste'] . ' - ' . $poste[0]['entite'] . '</i><br>';;
                                             }
                                             ?></td>
-                                    <td>
-                                        <div class="table-data-feature">
-                                            <button class="item" data-toggle="tooltip" data-placement="top"
-                                                title="Send">
-                                                <i class="zmdi zmdi-mail-send"></i>
-                                            </button>
-                                            <button class="item" data-toggle="tooltip" data-placement="top"
-                                                title="Edit">
-                                                <i class="zmdi zmdi-edit"></i>
-                                            </button>
-                                            <button class="item" data-toggle="tooltip" data-placement="top"
-                                                title="Delete">
-                                                <i class="zmdi zmdi-delete"></i>
-                                            </button>
-                                            <button class="item" data-toggle="tooltip" data-placement="top"
-                                                title="More">
-                                                <i class="zmdi zmdi-more"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="spacer"></tr>
+                                        <td>
+                                            <div class="table-data-feature">
+                                                <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
+                                                    <i class="zmdi zmdi-mail-send"></i>
+                                                </button>
+                                                <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                    <i class="zmdi zmdi-edit"></i>
+                                                </button>
+                                                <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                    <i class="zmdi zmdi-delete"></i>
+                                                </button>
+                                                <button class="item" data-toggle="tooltip" data-placement="top" title="More">
+                                                    <i class="zmdi zmdi-more"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="spacer"></tr>
                                 <?php } ?>
                             </tbody>
                         </table>
@@ -116,8 +111,7 @@ include 'crud/poste/poste.php';
 </div>
 <!-- END MAIN CONTENT-->
 <!-- modal large -->
-<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <form action="" method="post" name="add_liste">
@@ -160,6 +154,12 @@ include 'crud/poste/poste.php';
             ?>
         </div>
     </div>
+</div>
+<!-- end modal large -->
+
+<?php include 'inc/footer.php' ?>
+</div>
+</div>
 </div>
 <!-- end modal large -->
 
