@@ -15,12 +15,29 @@ $comment = strip_tags($_POST['commentaire']);
 $emailPro = strip_tags($_POST['emailPro']);
 $telephone = strip_tags($_POST['telephone']);
 $commentaireNiv2 = strip_tags($_POST['commentaireNiv2']);
+$adresse = strip_tags($_POST['adresse']);
+$complement = strip_tags($_POST['complement']);
+$CP = strip_tags($_POST['CP']);
+$ville = strip_tags($_POST['ville']);
+$pays = strip_tags($_POST['pays']);
 
 if (isset($_FILES['file'])) {
   $tmpName = $_FILES['file']['tmp_name'];
   $name = $_FILES['file']['name'];
   $size = $_FILES['file']['size'];
   $error = $_FILES['file']['error'];
+}
+
+$stmt = $db->prepare('SELECT id from address where Rue=:adresse and CP=:CP and Ville=:ville and Pays=:pays;');
+$result =  $stmt->execute(array(  ':adresse' => $adresse, ':CP' => $CP, ':ville' => $ville, ':pays' => $pays));
+
+if ($result) {
+  $addressID = $stmt->fetchColumn();
+} else {
+  $stmt = $db->prepare('INSERT INTO address (Rue, CP, Ville, Pays)
+  VALUES (:adresse, :CP, :ville, :pays)');
+  $result =  $stmt->execute(array(  ':adresse' => $adresse, ':CP' => $CP, ':ville' => $ville, ':pays' => $pays));
+  $addressID = $db->lastInsertId();
 }
 
 $stmt = $db->prepare('INSERT INTO Contact (Civilite, Nom, Prenom, Grade, Email, Poste_actuel, Tag, Commentaire, Photo, Date_MAJ, Statut,
@@ -41,3 +58,4 @@ if ($result) {
   echo "Error";
   debugScreen($db->errorInfo());
 }
+
