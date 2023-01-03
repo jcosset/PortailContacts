@@ -266,7 +266,7 @@ function getAllEntite()
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form class="needs-validation" id="updatePoste" name="updateEntite" method="POST">
+            <form class="needs-validation" id="updatePoste" method="POST">
                 <div class="modal-body">
                     <div class="card-body card-block"></div>
                 </div>

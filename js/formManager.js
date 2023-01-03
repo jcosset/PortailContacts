@@ -4,7 +4,7 @@ function defaultPostAjax({ url, data }) {
         url,
         data,
         success: function (response) {
-            window.location.reload();
+            //window.location.reload();
         },
         error: function () {
             alert("Error");
@@ -13,6 +13,7 @@ function defaultPostAjax({ url, data }) {
 
 }
 function saveFormModalSubmit({ formAttributeId, url }) {
+
 
     $(formAttributeId).submit(function (event) {
 
@@ -30,9 +31,12 @@ function saveFormModalSubmit({ formAttributeId, url }) {
 }
 
 function updateFormModalSubmit({ formAttributeId, url }) {
+    console.log(formAttributeId, url, "updateFormModalSubmit")
 
-    $(formAttributeId).submit(function (event) {
+    $(document).on("submit", formAttributeId, function (event) {
+        console.log(formAttributeId, url, "updateFormModalSubmit")
 
+        console.log($("form#addPosteListeByd").serialize())
         event.preventDefault();
         if ($(formAttributeId)[0].checkValidity() === false) {
             event.stopPropagation();
@@ -48,9 +52,30 @@ function updateFormModalSubmit({ formAttributeId, url }) {
         $(formAttributeId).addClass('was-validated');
     });
 
+
+    // $(formAttriuteId).submit(function (event) {
+    //     console.log(formAttributeId, url, "updateFormModalSubmit")
+
+    //     console.log($("form#addPosteListeByd").serialize())
+    //     event.preventDefault();
+    //     if ($(formAttributeId)[0].checkValidity() === false) {
+    //         event.stopPropagation();
+    //     } else {
+    //         let data = $(formAttributeId).serialize()
+    //         let id = $("#itemID").data("id")
+    //         console.log(id)
+
+    //         console.log($(formAttributeId).serialize())
+    //         if (id) data = data + "&id=" + id,
+    //             defaultPostAjax({ url, data })
+    //     }
+    //     $(formAttributeId).addClass('was-validated');
+    // });
+
 }
 
 function updatePostModalSubmitFactory({ formAttributeId, url }, action = "save") {
+    console.log(formAttributeId, action, "1")
     if (action == "save") {
         saveFormModalSubmit({ formAttributeId, url })
     } else if (action == "update") {
@@ -94,12 +119,15 @@ function attachEventListenerDeleteBtn({ buttonAttributeClass, url, confirmMessag
     updatePostModalSubmitFactory({ formAttributeId: "form#updateEntite", url: "actions.php?type=update" }, "update")
     attachEventListenerDeleteBtn({ buttonAttributeClass: "table button.deleteEntite", url: "actions.php?type=delete", confirmMessage: deleteEntiteWaringMsg })
 
+
     updatePostModalSubmitFactory({ formAttributeId: "form#savePoste", url: "actions_poste.php?type=create" })
     updatePostModalSubmitFactory({ formAttributeId: "form#updatePoste", url: "actions_poste.php?type=update" }, "update")
     attachEventListenerDeleteBtn({ buttonAttributeClass: "table button.deletePoste", url: "actions_poste.php?type=delete", confirmMessage: defaultDeleteWarningMsg })
 
     updatePostModalSubmitFactory({ formAttributeId: "form#saveContact", url: "actions_contact.php?type=create" })
     updatePostModalSubmitFactory({ formAttributeId: "form#updateContact", url: "actions_contact.php?type=update" }, "update")
+
+
     attachEventListenerDeleteBtn({ buttonAttributeClass: "table button.deleteContact", url: "actions_contact.php?type=delete", confirmMessage: defaultDeleteWarningMsg })
 
     updatePostModalSubmitFactory({ formAttributeId: "form#saveListe", url: "actions_liste.php?type=create" })
@@ -399,9 +427,12 @@ function showContactModal(id) {
 }
 
 function showCreatePosteListeDiffusionModal(listeID) {
+
     let modal = $("#displayerModal .card-body")
     let modalFooter = $("#displayerModal .modal-footer")
+
     $("#displayerModal form").attr("id", "addPosteListe");
+
     modal.empty()
     modalFooter.empty()
 
@@ -446,17 +477,27 @@ function showCreatePosteListeDiffusionModal(listeID) {
 }
 
 function showAddPosteListeByIdModal(posteID) {
-    posteID = 17
+
+    console.log("click showAddPosteListeByd")
+    // $("#displayerModal form#updatePoste").off("submit")
     let modal = $("#displayerModal .card-body")
     let modalFooter = $("#displayerModal .modal-footer")
-    $("#displayerModal form").attr("id", "addPosteListeByd");
-    modal.empty()
-    modalFooter.empty()
+
+    $("#displayerModal form").prop("id", "addPosteListeByd");
 
     updatePostModalSubmitFactory({ formAttributeId: "form#addPosteListeByd", url: "actions_liste.php?type=addPoste" })
+    modal.empty()
+    modalFooter.empty()
+    modal.parent().parent().find(".modal-footer").append(modalRowDisplayerFactory({}, 'submit'))
 
-    Promise.all([ajaxGetPromise("actions_liste.php?type=get&all"), ajaxGetPromise("actions_liste.php?type=get&id=" + posteID + "&filter=default")])
-        .then(([listes, modesDiffusion]) => {
+
+
+    console.log($("#addPosteListeByd form"))
+
+
+
+    Promise.all([ajaxGetPromise("actions_liste.php?type=get&all")])
+        .then(([listes]) => {
 
             optionsHtmlModesDefaultSelected = ""
             optionsHtmlListes = ""
@@ -471,12 +512,14 @@ function showAddPosteListeByIdModal(posteID) {
                 optionsHtmlModesDefaultSelected += `<option value='${modesIds[i]}' >${modeName}</option>`
             })
 
-            modal.append(modalRowDisplayerFactory({ label: "Liste diffusion", name: "liste", optionsHtml: optionsHtmlListes, isRequired: true }, 'select'))
+            modal.append(modalRowDisplayerFactory({ label: "Liste diffusion", name: "listeID", optionsHtml: optionsHtmlListes, isRequired: true }, 'select'))
             modal.append(modalRowDisplayerFactory({ label: "Mode de diffusion", name: "mode", optionsHtml: optionsHtmlModesDefaultSelected, isRequired: true }, 'select'))
-            modal.append(modalRowDisplayerFactory({ label: "ID Poste", name: "posteID", value: posteID, iSdisabled: true, isRequired: true }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "ID Poste", name: "poste", value: posteID, iSdisabled: true, isRequired: true }, 'input'))
 
             $("select[name='liste']").change(function () {
+
                 $("select[name='mode']").empty()
+
                 let val = $(this).val();
                 let listeSelected = listes.find(l => l.id === val)
                 let modesNames = listeSelected.modes.split(",")
@@ -491,7 +534,9 @@ function showAddPosteListeByIdModal(posteID) {
                 $("select[name='mode']").html(optionsHtmlModesListeSelected)
             });
 
-            modal.parent().parent().find(".modal-footer").append(modalRowDisplayerFactory({}, 'submit'))
+
+
+
 
             $(".js-select-custom").each(function () {
                 $(this).select2({
