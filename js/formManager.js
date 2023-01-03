@@ -256,6 +256,7 @@ function getContact(id) {
 
 function getPoste(id) {
     let modal = $("#largeModal .card-body")
+    modal.parent().parent().find("button[type='submit']").remove()
     modal.empty()
     $.ajax({
         type: "GET",
