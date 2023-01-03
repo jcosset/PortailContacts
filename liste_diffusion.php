@@ -24,12 +24,7 @@ error_reporting(E_ALL);
                             echo '</pre>';
                         }
 
-                        function createButtonEdit($itemId, $name, $type)
-                        {
-                            return "<button class='item' data-toggle='modal' data-target='#displayerModal'  onclick='createPoste(event)' title='Edit'>
-              <i class='zmdi zmdi-plus zmdi-hc-lg text-primary'  data-id=$itemId data-name='$name' data-type='$type'></i>
-                </button>";
-                        }
+
                         ?>
                     </ul>
                 </div>
@@ -71,13 +66,7 @@ error_reporting(E_ALL);
                             return $stmtPrepare->fetchAll(PDO::FETCH_ASSOC);
                         }
 
-                        function _createButtonEdit($itemId, $name, $type)
-                        {
-                            return "<button class='item' data-toggle='modal' data-target='#displayerModal'
-                             onclick='createPoste(event)' title='Edit'>
-                             <i class='zmdi zmdi-plus zmdi-hc-lg text-primary'  data-id=$itemId data-name='$name'
-                             data-type='$type'></i></button>";
-                        }
+
                         function createButtonDownload($listeID)
                         {
                             return '<form action="downloadCSV.php" method="POST" style="">
@@ -96,6 +85,13 @@ error_reporting(E_ALL);
                             <span class='item' data-toggle='modal' data-target='#largeModal'
                             onclick=getPoste(a) style='cursor:pointer;'> " . $posteName . "</span></li>";
                         }
+
+                        function createButtonAddPoste($listeID, $name, $type)
+                        {
+                            return "<button class='item' data-toggle='modal' data-target='#displayerModal'  onclick='showCreatePosteListeDiffusionModal($listeID)' title='Edit'>
+              <i class='zmdi zmdi-plus zmdi-hc-lg text-primary'  data-id=$listeID data-name='$name' data-type='$type'></i>
+                </button>";
+                        }
                         function createArborescenceListeDiff()
                         {
                             global $arborescence;
@@ -105,7 +101,7 @@ error_reporting(E_ALL);
                                 $name = $liste['nom'];
                                 $listeID = $liste['id'];
                                 $html .= "<li>";
-                                $html .= "<div class='listree-submenu-heading'>" . $name  . "</div>";
+                                $html .= "<div class='listree-submenu-heading'>" . $name . createButtonAddPoste($listeID, $name, 'poste') . "</div>";
                                 $html .= "<ul class='listree-submenu-items'>" . createButtonDownload($listeID);
                                 if (isset($arborescence['postes'][$listeID])) {;
                                     foreach ($arborescence['postes'][$listeID] as $poste) {
