@@ -45,11 +45,11 @@ error_reporting(E_ALL);
                         $query = "SELECT id,  nom FROM Liste ORDER BY nom asc";
                         $queryGetAllListes = $db->prepare($query);
                         $queryGetAllListes->execute();
-                        //  debugOnScreen($queryGetAllEntites->fetch(PDO::FETCH_ASSOC));
+
                         while ($listes = $queryGetAllListes->fetch(PDO::FETCH_ASSOC)) {
                             $arborescence['listes'][$listes['id']] = $listes;
                         }
-                        $query = 'SELECT pos.Nom as nom, md.mode, plmd.listeID as listeID
+                        $query = 'SELECT pos.Nom as nom, pos.id as id, md.mode, plmd.listeID as listeID
                         FROM poste_liste_mode_diffusion as plmd  join Poste as pos on plmd.posteID = pos.id  join
                         mode_diffusion as md on (md.id = plmd.modeID)';
                         $queryGetAllPostes = $db->prepare($query);
@@ -78,12 +78,12 @@ error_reporting(E_ALL);
                         </form>';
                         }
 
-                        function createPosteListe($posteName, $mode)
+                        function createPosteListe($posteID, $posteName, $mode)
                         {
                             return  "<li >
                             <select name='mode' id='modeID'> <option value='1'>" . $mode . "</option></select>
                             <span class='item' data-toggle='modal' data-target='#largeModal'
-                            onclick=getPoste(a) style='cursor:pointer;'> " . $posteName . "</span></li>";
+                            onclick=getPoste(" . $posteID . ") style='cursor:pointer;'> " . $posteName . "</span></li>";
                         }
 
                         function createButtonAddPoste($listeID, $name, $type)
@@ -105,10 +105,11 @@ error_reporting(E_ALL);
                                 $html .= "<ul class='listree-submenu-items'>" . createButtonDownload($listeID);
                                 if (isset($arborescence['postes'][$listeID])) {;
                                     foreach ($arborescence['postes'][$listeID] as $poste) {
-
                                         $posteName = $poste['nom'];
                                         $mode = $poste['mode'];
-                                        $html .= createPosteListe($posteName, $mode);
+                                        $posteID = $poste['id'];
+
+                                        $html .= createPosteListe($posteID, $posteName, $mode);
                                     }
                                 }
                                 $html .= '</ul>';
@@ -130,7 +131,7 @@ error_reporting(E_ALL);
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="largeModalLabel">Ajouter une liste</h5>
+                <h5 class="modal-title" id="largeModalLabel">Liste diffusion</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
