@@ -4,7 +4,7 @@ function defaultPostAjax({ url, data }) {
         url,
         data,
         success: function (response) {
-            //window.location.reload();
+            window.location.reload();
         },
         error: function () {
             alert("Error");
