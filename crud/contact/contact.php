@@ -5,7 +5,10 @@ require_once SITE_ROOT . "/inc/db.php";
 function getContact($idcontact)
 {
     global $db;
-    $sqlRecupContacts = "SELECT * FROM Contact WHERE id = $idcontact";
+    $sqlRecupContacts = "SELECT con.id,`Civilite`, `Nom`,`Prenom`,`Grade`,`Email`,`Statut`,`Photo`,`Poste_actuel`,`Date_MAJ`,`TAG`,`Commentaire`,`telephone`,`email_pro`,`commentaire_niv_2`,`addressID`, `Rue`, `Compl`, `CP`, `Ville`, `Pays`, `cedex` 
+                            FROM `Contact` as con 
+                            left Join `address` as addr on addr.id = con.addressID 
+                            WHERE id = $idcontact";
     $queryRecupContacts = $db->prepare($sqlRecupContacts);
     $queryRecupContacts->execute();
     $resultRecupContacts = $queryRecupContacts->fetchAll(PDO::FETCH_ASSOC);

@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . "/../../config.php";
 require_once SITE_ROOT . "/inc/helpers/debug.php";
+require_once __DIR__ . "/../../crud/address/address.php";
 
 
 debugScreen($_POST);
@@ -28,28 +29,25 @@ if (isset($_FILES['file'])) {
   $error = $_FILES['file']['error'];
 }
 
-$stmt = $db->prepare('SELECT id from address where Rue=:adresse and CP=:CP and Ville=:ville and Pays=:pays;');
-$result =  $stmt->execute(array(  ':adresse' => $adresse, ':CP' => $CP, ':ville' => $ville, ':pays' => $pays));
+$addressinBDD = getIdAddress($adresse, $CP, $ville, $pays);
+$addressID = "";
 
-if ($result) {
-  $addressID = $stmt->fetchColumn();
+if ($addressinBDD) {
+  $addressID = $addressinBDD["id"];
 } else {
-  $stmt = $db->prepare('INSERT INTO address (Rue, CP, Ville, Pays)
-  VALUES (:adresse, :CP, :ville, :pays)');
-  $result =  $stmt->execute(array(  ':adresse' => $adresse, ':CP' => $CP, ':ville' => $ville, ':pays' => $pays));
-  $addressID = $db->lastInsertId();
+  $addressID = setAddress($adresse, $complement, $CP, $ville, $pays, "");
 }
 
 $stmt = $db->prepare('INSERT INTO Contact (Civilite, Nom, Prenom, Grade, Email, Poste_actuel, Tag, Commentaire, Photo, Date_MAJ, Statut,
-    email_pro, telephone, commentaire_niv_2
+    email_pro, telephone, commentaire_niv_2, addressID
     )
      VALUES (:civil, :nom, :prenom,:grade, :email, :poste, :tag, :commentaire, :photo, curdate(),
-      "En attente",:emailPro, :telephone, :commentaireNiv2)');
+      "En attente",:emailPro, :telephone, :commentaireNiv2, :addressID)');
 
 $result =  $stmt->execute(array(
   ':civil' => $civil, ':nom' => $nom, ':prenom' => $prenom, ':grade' => $grade, ':email' => $email,
   ':poste' => $poste, ':tag' => $tag, ':commentaire' => $comment, ':photo' => "#photo", ':emailPro' => $emailPro, ':telephone' => $telephone,
-  ':commentaireNiv2' => $commentaireNiv2
+  ':commentaireNiv2' => $commentaireNiv2, ':addressID' => $addressID
 ));
 
 if ($result) {
