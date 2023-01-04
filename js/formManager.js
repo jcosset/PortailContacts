@@ -4,7 +4,7 @@ function defaultPostAjax({ url, data }) {
         url,
         data,
         success: function (response) {
-            window.location.reload();
+            //window.location.reload();
         },
         error: function () {
             alert("Error");
@@ -403,7 +403,7 @@ function showContactModal(id) {
             modal.append(modalRowDisplayerFactory({ label: "Ville", name: "ville", value: contact.Ville, iSdisabled: false, isRequired: true }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Pays", name: "pays", value: contact.Pays, iSdisabled: false, isRequired: true }, 'input'))
 
-            modal.append(modalRowDisplayerFactory({ label: "adresse ID", name: "adressID", value: contact.addressID, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "adresse ID", name: "addressID", value: contact.addressID, iSdisabled: false }, 'input'))
 
             modal.append(modalRowDisplayerFactory({ label: "Tag", name: "tag", value: contact.TAG, iSdisabled: false, isRequired: true }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Commentaire", name: "commentaire", value: contact.Commentaire, iSdisabled: false, isRequired: false }, 'textarea'))
@@ -490,12 +490,6 @@ function showAddPosteListeByIdModal(posteID) {
     modalFooter.empty()
     modal.parent().parent().find(".modal-footer").append(modalRowDisplayerFactory({}, 'submit'))
 
-
-
-    console.log($("#addPosteListeByd form"))
-
-
-
     Promise.all([ajaxGetPromise("actions_liste.php?type=get&all")])
         .then(([listes]) => {
 
@@ -526,17 +520,12 @@ function showAddPosteListeByIdModal(posteID) {
                 let modesIds = listeSelected.ids.split(",")
                 optionsHtmlModesListeSelected = ""
                 modesNames.forEach(async (modeName, i) => {
-
                     optionsHtmlModesListeSelected += `<option value='${modesIds[i]}' >${modeName}</option>`
                 })
 
 
                 $("select[name='mode']").html(optionsHtmlModesListeSelected)
             });
-
-
-
-
 
             $(".js-select-custom").each(function () {
                 $(this).select2({
