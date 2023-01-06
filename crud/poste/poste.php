@@ -16,7 +16,8 @@ function getContactFromPoste($id)
 function getAllPostes()
 {
     global $db;
-    $sqlRecupPosteContact = "SELECT id, Nom from Poste";
+    $sqlRecupPosteContact = "SELECT Poste.id, Poste.Nom, ent0.Nom as 'entiteParent0',  ent1.Nom as 'entiteParent1'
+    from Poste join Entite as ent0 on (Poste.Entite = ent0.id) join Entite as ent1 on (ent0.Uper_id=ent1.id)";
     $queryRecupPosteContact = $db->prepare($sqlRecupPosteContact);
     $queryRecupPosteContact->execute();
     $resultRecupPosteContact = $queryRecupPosteContact->fetchAll(PDO::FETCH_ASSOC);

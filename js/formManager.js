@@ -4,7 +4,7 @@ function defaultPostAjax({ url, data }) {
         url,
         data,
         success: function (response) {
-            //window.location.reload();
+            window.location.reload();
         },
         error: function () {
             alert("Error");
@@ -74,7 +74,6 @@ function updateFormModalSubmit({ formAttributeId, url }) {
 }
 
 function updatePostModalSubmitFactory({ formAttributeId, url }, action = "save") {
-    console.log(formAttributeId, action, "1")
     if (action == "save") {
         saveFormModalSubmit({ formAttributeId, url })
     } else if (action == "update") {
@@ -255,7 +254,7 @@ function getContact(id) {
 }
 
 function getPoste(id) {
-    let modal = $("#largeModal .card-body")
+    let modal = $("#displayerModal .card-body")
     modal.parent().parent().find("button[type='submit']").remove()
     modal.empty()
     $.ajax({
@@ -384,7 +383,7 @@ function showContactModal(id) {
             optionsHtml = ""
             for (poste of postes) {
                 let selected = contact.Poste == poste.id ? "selected" : ""
-                optionsHtml += `<option value='${poste.id}' ${selected}>${poste.Nom}</option>`
+                optionsHtml += `<option value='${poste.id}' ${selected}>${poste.entiteParent1}\\${poste.entiteParent0}\\${poste.Nom}</option>`
 
             }
             modal.append(modalRowDisplayerFactory({ label: "Photo", name: "photo", value: contact.Nom, iSdisabled: false, isRequired: true }, 'file'))
@@ -453,7 +452,7 @@ function showCreatePosteListeDiffusionModal(listeID) {
 
             postes.forEach(async (poste) => {
 
-                optionsHtmlPostes += `<option value='${poste.id}' >${poste.Nom}</option>`
+                optionsHtmlPostes += `<option value='${poste.id}' >${poste.entiteParent1}\\${poste.entiteParent0}\\${poste.Nom}</option>`
             })
 
             modal.append(modalRowDisplayerFactory({ label: "Poste", name: "poste", optionsHtml: optionsHtmlPostes, isRequired: true }, 'select'))

@@ -16,7 +16,13 @@ if (isset($_REQUEST['id'])) {
 
 if (isset($_REQUEST['all'])) {
 
-    $sqlFetch = $db->prepare('Select id, Nom,Rue, Compl, CP, Ville, Pays, Email_fonctionnel from Poste');
+    "SELECT Poste.id, Poste.Nom, ent0.Nom as 'entiteParent0',  ent1.Nom as 'entiteParent1'
+    from Poste join Entite as ent0 on (Poste.Entite = ent0.id) join Entite as ent1 on (ent0.Uper_id=ent1.id)";
+
+    $sqlFetch = $db->prepare("Select pos.id, ent0.Nom as 'entiteParent0',  ent1.Nom as 'entiteParent1', pos.Nom,Rue, Compl, CP, Ville, Pays, Email_fonctionnel from Poste as pos
+     join
+    Entite as ent0 on (pos.Entite = ent0.id) join Entite as ent1 on (ent0.Uper_id=ent1.id)
+    ");
 
     if ($result = $sqlFetch->execute()) {
         $rows = $sqlFetch->fetchAll(PDO::FETCH_ASSOC);

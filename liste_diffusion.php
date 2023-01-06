@@ -82,7 +82,7 @@ error_reporting(E_ALL);
                         {
                             return  "<li >
                             <select name='mode' id='modeID'> <option value='1'>" . $mode . "</option></select>
-                            <span class='item' data-toggle='modal' data-target='#largeModal'
+                            <span class='item' data-toggle='modal' data-target='#displayerModal'
                             onclick=getPoste(" . $posteID . ") style='cursor:pointer;'> " . $posteName . "</span></li>";
                         }
 

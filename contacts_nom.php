@@ -230,7 +230,9 @@ error_reporting(E_ALL);
 
                                         $posteNom = $poste["Nom"];
                                         $posteId = $poste["id"];
-                                        echo "<option value='$posteId'>$posteNom</option>";
+                                        $entiteParent0 = $poste["entiteParent0"];
+                                        $entiteParent1 = $poste["entiteParent1"];
+                                        echo "<option value='$posteId'>$entiteParent1/$entiteParent0/$posteNom</option>";
                                     }
 
                                     ?>
