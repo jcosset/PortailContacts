@@ -170,6 +170,22 @@ function getAllEntite()
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">Acronyme</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="acronyme" name="acronyme" placeholder="Acronyme..." class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">Téléphone</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="telephone" name="telephone" placeholder="+33142424242" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
                                 <label for="text-input" class=" form-control-label">Rue</label>
                             </div>
                             <div class="col-12 col-md-9">
@@ -223,6 +239,22 @@ function getAllEntite()
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">Email Secrétariat</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="email-secretariat" name="email-secretariat" placeholder="email@email.com" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">Téléphone Secrétariat</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="trl-secretariat" name="tel-secretariat" placeholder="+330142424242" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
                                 <label for="vat" class=" form-control-label">Entité</label>
                             </div>
                             <!-- rs-select2--dark rs-select2--sm rs-select2--dark2 -->
@@ -271,6 +303,122 @@ function getAllEntite()
                     <div class="card-body card-block"></div>
                 </div>
 
+                <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">Nom</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="nom" name="nom" placeholder="Nom" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">Acronyme</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="acronyme" name="acronyme" placeholder="Acronyme..." class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">Téléphone</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="telephone" name="telephone" placeholder="+33142424242" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">Rue</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="rue" name="rue" placeholder="44 rue de Paris"
+                                    class="form-control">
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">Complément</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="complement" name="complement" placeholder="Bureau 55B"
+                                    class="form-control">
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">CP</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="cp" name="cp" placeholder="75000" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">Ville</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="ville" name="ville" placeholder="Paris" class="form-control"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">Pays</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="pays" name="pays" placeholder="France" class="form-control"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="email" class=" form-control-label">Email fonctionnel</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="email" name="email" placeholder="email@email.com"
+                                    class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">Email Secrétariat</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="nom" name="nom" placeholder="email@email.com" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">Téléphone Secrétariat</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="trl-secretariat" name="tel-secretariat" placeholder="+330142424242" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="vat" class=" form-control-label">Entité</label>
+                            </div>
+                            <!-- rs-select2--dark rs-select2--sm rs-select2--dark2 -->
+                            <div class="col-12 col-md-9">
+                                <select class="js-select2" name="entiteId" required>
+
+                                    <?php
+                                    $entites = getAllEntite();
+                                    foreach ($entites as $entite) {
+                                        $entite_nom = $entite["nom"];
+                                        $entite_id = $entite["id"];
+                                        echo "<option value='$entite_id'>$entite_nom</option>";
+                                    }
+
+                                    ?>
+
+                                </select>
+                                <div class="dropDownSelect2"></div>
+                            </div>
+
+                        </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                 </div>

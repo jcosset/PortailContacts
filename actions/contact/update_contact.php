@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__."/../../config.php";
+require_once __DIR__."/../../crud/address/address.php";
 require_once SITE_ROOT."/inc/helpers/debug.php";
 
 debugScreen($_POST);
@@ -29,12 +30,7 @@ if (isset($_POST['id'])) {
 
   
   if($addressID == null || $addressID == 'null'  ){
-    $stmtAddr = "insert into address (Rue, Compl, CP, Ville, Pays ) values (:rue, :complement, :cp, :ville, :pays)";
-    $stmtPrepare = $db->prepare($stmtAddr);
-    $result =  $stmtPrepare->execute(array(':rue' => $rue, ':complement'=>$complement, ':cp'=>$cp,':ville'=>$ville,
-    ':pays'=>$pays));
-    
-    $addressID = $db->lastInsertId();
+    $addressID = setAddress($rue, $complement, $CP, $ville, $pays, "");
   }
   
     $stmt = $db->prepare('UPDATE Contact SET Nom=:nom, Prenom=:prenom, Civilite=:civil, Photo=:photo,
@@ -52,6 +48,7 @@ if (isset($_POST['id'])) {
   ));
 
   if ($result) {
+    deleteOrphanAddress();
     echo "success";
   } else {
     echo "error";

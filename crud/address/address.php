@@ -45,3 +45,16 @@ function setAddress($address, $complement, $CP, $ville, $pays, $cedex)
     $addressID = $db->lastInsertId();
     return $addressID;
 } 
+
+function deleteOrphanAddress()
+{
+    $queryRecupIdAddresses = $db->prepare('DELETE FROM address 
+                                            WHERE id IN
+                                                (SELECT * FROM (SELECT addr.id FROM address as addr 
+                                                left join Contact as con on addr.id = con.addressId 
+                                                left join Entite as en1 on addr.id != en1.adresse_geo 
+                                                left join Entite as en2 on addr.id != en2.adresse_postale 
+                                                left join Poste as pos on addr.id != pos.adresse 
+                                                where con.addressId is null and en1.adresse_geo is null and en2.adresse_postale is null and pos.adresse is null)tblTMP)');
+    $queryRecupIdAddresses->execute();
+}

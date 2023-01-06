@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__."/../../config.php";
+require_once __DIR__."/../../crud/address/address.php";
 require_once SITE_ROOT."/inc/helpers/debug.php";
 
 if (isset($_POST['nom']) & isset($_POST['uper_id']) & isset($_POST['id'])) {
@@ -11,6 +12,7 @@ if (isset($_POST['nom']) & isset($_POST['uper_id']) & isset($_POST['id'])) {
 
   $stmt = $db->prepare('UPDATE Entite SET Nom=:nom, Uper_id=:uper_id where id=:id');
   if($stmt->execute(array(':nom' => $nom, ':uper_id' => $uper_id, ':id' => $id))){
+    deleteOrphanAddress();
     echo "success";
   }else{
     echo "error";
