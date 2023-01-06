@@ -49,14 +49,17 @@ error_reporting(E_ALL);
                         while ($listes = $queryGetAllListes->fetch(PDO::FETCH_ASSOC)) {
                             $arborescence['listes'][$listes['id']] = $listes;
                         }
-                        $query = 'SELECT pos.Nom as nom, pos.id as id, md.mode, plmd.listeID as listeID
+                        $query = 'SELECT ent0.Nom as entParent0, ent1.Nom as entParent1, pos.Nom as nom,
+                         pos.id as id, md.mode, plmd.listeID as listeID
                         FROM poste_liste_mode_diffusion as plmd  join Poste as pos on plmd.posteID = pos.id  join
-                        mode_diffusion as md on (md.id = plmd.modeID)';
+                        mode_diffusion as md on (md.id = plmd.modeID) join Entite as ent0 on (pos.Entite=ent0.id)
+                        join Entite as ent1 on (ent0.Uper_id=ent1.id)';
                         $queryGetAllPostes = $db->prepare($query);
                         $queryGetAllPostes->execute();
                         while ($postes = $queryGetAllPostes->fetch(PDO::FETCH_ASSOC)) {
                             $arborescence['postes'][$postes['listeID']][] = $postes;
                         }
+                        debugScreen($arborescence["postes"]);
                         function getAllModeDiffusion()
                         {
                             require('inc/db.php');
@@ -105,7 +108,7 @@ error_reporting(E_ALL);
                                 $html .= "<ul class='listree-submenu-items'>" . createButtonDownload($listeID);
                                 if (isset($arborescence['postes'][$listeID])) {;
                                     foreach ($arborescence['postes'][$listeID] as $poste) {
-                                        $posteName = $poste['nom'];
+                                        $posteName =  '<span class="text-primary">' . $poste['nom'] . '</span>\\' . $poste['entParent0'] . '\\' . $poste['entParent1'];
                                         $mode = $poste['mode'];
                                         $posteID = $poste['id'];
 
