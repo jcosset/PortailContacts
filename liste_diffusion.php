@@ -59,7 +59,7 @@ error_reporting(E_ALL);
                         while ($postes = $queryGetAllPostes->fetch(PDO::FETCH_ASSOC)) {
                             $arborescence['postes'][$postes['listeID']][] = $postes;
                         }
-                        debugScreen($arborescence["postes"]);
+
                         function getAllModeDiffusion()
                         {
                             require('inc/db.php');
