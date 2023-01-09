@@ -243,6 +243,46 @@ error_reporting(E_ALL);
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">adresse</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="adresse" name="adresse" placeholder="N° de rue..." class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">complément</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="complément" name="complément" placeholder="Bâtiment, interphone..." class="form-control">
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">Code Postal</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="CP" name="CP" placeholder="75000..." class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">Ville</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="ville" name="ville" placeholder="Ville" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">Pays</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="pays" name="pays" placeholder="Pays" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
                                 <label for="text-input" class=" form-control-label">TAG</label>
                             </div>
                             <div class="col-12 col-md-9">

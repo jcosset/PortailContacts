@@ -287,6 +287,7 @@ const ajaxGetPromise = (url) => {
             url,
             cache: false,
             success: function (response) {
+                console.log(response)
                 resolve(JSON.parse(response))
             },
             error: function () {

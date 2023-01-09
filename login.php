@@ -90,7 +90,7 @@
                         $result = mysqli_query($con, $query) or die(mysql_error());
                         $rows = mysqli_num_rows($result);
                         if ($rows == 1) {
-                            //  session_start();
+                             session_start();
                             $_SESSION['username'] = $username;
                             ini_set('session.gc_maxlifetime', 3600);
 

@@ -15,16 +15,12 @@ if (isset($_REQUEST['id'])) {
 
     if (isset($_REQUEST['filter']) && $_REQUEST['filter'] == "default") {
 
-        $stmt = 'Select cont.id as id, addressID, Civilite, Nom , Prenom, Grade, Email, CP, Rue, Ville, Statut,
-        Photo, Date_MAJ, TAG, Commentaire, commentaire_niv_2, Poste_actuel as Poste, email_pro, telephone
-        from Contact
-         where Contact.id =:id';
+        $stmt = 'SELECT con.id,`Civilite`, `Nom`,`Prenom`,`Grade`,`Email`,`Statut`,`Photo`,`Poste_actuel`,`Date_MAJ`,`TAG`,`Commentaire`,`telephone`,`email_pro`,`commentaire_niv_2`,`addressID`, `Rue`, `Compl`, `CP`, `Ville`, `Pays`, `cedex` 
+        FROM `Contact` as con 
+        left Join `address` as addr on addr.id = con.addressID 
+        where con.id =:id';
 
-        $stmt2 = 'select *
-        from Contact
-        where Contact.id =:id';
-
-        $getContact = $db->prepare($stmt2);
+        $getContact = $db->prepare($stmt);
 
 
         if ($result = $getContact->execute(array(':id' => $id))) {
