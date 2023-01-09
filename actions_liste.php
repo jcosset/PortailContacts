@@ -22,7 +22,10 @@ switch ($_GET['type']) {
     case "addPoste":
         require "actions/liste/poste/save_poste.php";
         break;
+    case "getPoste":
+        require "actions/liste/poste/get_poste.php";
+        break;
 
     default:
-        echo "error";
+        echo "Actions ERROR";
 }

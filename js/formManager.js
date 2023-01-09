@@ -156,12 +156,13 @@ function modalRowFieldTextArea({ name, placeholder, value = "", iSdisabled = tru
     return `<textarea type="text" id="${name}" name="${name}" placeholder="${placeholder}"  ${required}
     class="form-control"  ${disabled} >${value}</textarea>`
 }
-function modalRowDropdownSelect({ label, name, defaultChoice, optionsHtml, isRequired }) {
+function modalRowDropdownSelectCommun({ label, name, optionsHtml, isRequired }, type) {
     let required = isRequired == true ? "required" : ""
+    let multiple = type == "select-multiple" ? "multiple='multiple'" : ""
     return `
    <div class="form-group col-12 col-md-9">
    <label for="vat" class="form-control-label">${label}</label>
-   <select class="js-select2 js-select-custom" name="${name}" ${required}>
+   <select class="js-select2 js-select-custom" ${multiple}  name="${name}" ${required}>
 
     ${optionsHtml}
   </select>
@@ -169,6 +170,14 @@ function modalRowDropdownSelect({ label, name, defaultChoice, optionsHtml, isReq
   </div>
   `
 }
+
+function modalRowDropdownSelect(data) {
+    return modalRowDropdownSelectCommun(data, "select")
+}
+function modalRowDropdownSelectMultiple(data) {
+    return modalRowDropdownSelectCommun(data, "select-multiple")
+}
+
 
 function modalRowButton({ label, name, defaultChoice, optionsHtml }) {
     return `<button type="submit" class="btn btn-primary" id="submit">Confirm</button>`
@@ -187,6 +196,9 @@ function modalRowDisplayerFactory(data, type) {
     }
     if (type == "select") {
         return modalRowDropdownSelect(data)
+    }
+    if (type == "select-multiple") {
+        return modalRowDropdownSelectMultiple(data)
     }
     if (type == "submit") {
         return modalRowButton(data)
@@ -475,6 +487,61 @@ function showCreatePosteListeDiffusionModal(listeID) {
         }).catch(err => console.log(err))
 
 }
+
+function showUpdateListeDiffusionModal(listeID) {
+
+    let modal = $("#displayerModal .card-body")
+    let modalFooter = $("#displayerModal .modal-footer")
+
+    $("#displayerModal form").attr("id", "updateListe");
+
+    modal.empty()
+    modalFooter.empty()
+
+    updatePostModalSubmitFactory({ formAttributeId: "form#updateListe", url: "actions_liste.php?type=update" })
+
+    Promise.all([ajaxGetPromise("actions_liste.php?type=getPoste&id=" + listeID)])
+        .then(([postes]) => {
+
+            // let modesNames = ["helloe", "test"]
+            // let modesIds = ["helloe", "test"]
+
+            // optionsHtmlModes = ""
+
+            // modesNames.forEach(async (modeName, i) => {
+
+            //     optionsHtmlModes += `<option value='${modesIds[i]}' >${modeName}</option>`
+            // })
+
+            optionsHtmlPostes = ""
+            postes.forEach(async (poste) => {
+
+                optionsHtmlPostes += `<option value='${poste.id}' >${poste.entiteParent1}\\${poste.entiteParent0}\\${poste.Nom}</option>`
+            })
+
+            modal.append(modalRowDisplayerFactory({ label: "Poste à retirer", name: "postes[]", optionsHtml: optionsHtmlPostes, isRequired: true }, 'select-multiple'))
+            //modal.append(modalRowDisplayerFactory({ label: "Mode de diffusion", name: "mode", optionsHtml: optionsHtmlModes, isRequired: true }, 'select'))
+            modal.append(modalRowDisplayerFactory({ label: "ID Liste", name: "listeID", value: listeID, iSdisabled: true, isRequired: true }, 'input'))
+
+            modal.parent().parent().find(".modal-footer").append(modalRowDisplayerFactory({}, 'submit'))
+
+            $(".js-select-custom").each(function () {
+                $(this).select2({
+                    allowClear: true,
+                    placeholder: "Selectionner une option",
+                    // minimumResultsForSearch: 20,
+                    dropdownParent: $(this).next('.dropDownSelect2'),
+                    dropdownAutoWidth: true
+                });
+            });
+
+        }).catch(err => console.log(err))
+
+}
+
+
+
+
 
 function showAddPosteListeByIdModal(posteID) {
 

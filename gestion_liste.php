@@ -7,51 +7,51 @@ error_reporting(E_ALL);
 
 function debugScreen($var)
 {
-  echo '<pre>';
-  print_r($var);
-  echo '</pre>';
+    echo '<pre>';
+    print_r($var);
+    echo '</pre>';
 }
 
 function getAllModeDiffusion()
 {
-  require('inc/db.php');
-  $stmt = "SELECT id, mode FROM mode_diffusion";
-  $stmtPrepare = $db->prepare($stmt);
-  $stmtPrepare->execute();
-  return $stmtPrepare->fetchAll(PDO::FETCH_ASSOC);
+    require('inc/db.php');
+    $stmt = "SELECT id, mode FROM mode_diffusion";
+    $stmtPrepare = $db->prepare($stmt);
+    $stmtPrepare->execute();
+    return $stmtPrepare->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function getAllListeDiffusion()
 {
-  require('inc/db.php');
-  $stmt = "SELECT liste.id as id, liste.nom as nom, GROUP_CONCAT(md.mode  SEPARATOR ', ') as mode
+    require('inc/db.php');
+    $stmt = "SELECT liste.id as id, liste.nom as nom, GROUP_CONCAT(md.mode  SEPARATOR ', ') as mode
   FROM Liste as liste  join liste_mode_diffusion as lmd on liste.id = lmd.listeID  join
   mode_diffusion as md on (md.id = lmd.modeID) group by id order by nom asc
    ";
-  $stmtPrepare = $db->prepare($stmt);
-  $stmtPrepare->execute();
-  return $stmtPrepare->fetchAll(PDO::FETCH_ASSOC);
+    $stmtPrepare = $db->prepare($stmt);
+    $stmtPrepare->execute();
+    return $stmtPrepare->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function getListePoste()
 {
-  require('inc/db.php');
-  $stmt = "SELECT pos.Nom as nom, md.mode, plmd.listeID as listeID
+    require('inc/db.php');
+    $stmt = "SELECT pos.Nom as nom, md.mode, plmd.listeID as listeID
   FROM poste_liste_mode_diffusion as plmd  join Poste as pos on plmd.posteID = pos.id  join
   mode_diffusion as md on (md.id = plmd.modeID)
    ";
-  $stmtPrepare = $db->prepare($stmt);
-  $stmtPrepare->execute();
-  $results =   $stmtPrepare->fetchAll(PDO::FETCH_ASSOC);
+    $stmtPrepare = $db->prepare($stmt);
+    $stmtPrepare->execute();
+    $results =   $stmtPrepare->fetchAll(PDO::FETCH_ASSOC);
 
-  $listes = array(
-    'postes' => array(),
-  );
+    $listes = array(
+        'postes' => array(),
+    );
 
-  foreach ($results as $item) {
-    $listes['postes'][$item['listeID']][] = $item;
-  }
-  return $listes;
+    foreach ($results as $item) {
+        $listes['postes'][$item['listeID']][] = $item;
+    }
+    return $listes;
 }
 
 $listePostes = getListePoste();
@@ -91,9 +91,9 @@ $listePostes = getListePoste();
                             </thead>
                             <tbody>
                                 <?php $listes = getAllListeDiffusion();
-                foreach ($listes as $liste) {
+                                foreach ($listes as $liste) {
 
-                ?>
+                                ?>
                                 <tr class="tr-shadow">
                                     <td>
                                         <label class="au-checkbox">
@@ -105,15 +105,15 @@ $listePostes = getListePoste();
 
                                     <td><?php echo $liste['mode']; ?></td>
                                     <td><?php
-                        if (isset($listePostes["postes"][$liste["id"]])) {
-                          $postes = $listePostes["postes"][$liste["id"]];
+                                            if (isset($listePostes["postes"][$liste["id"]])) {
+                                                $postes = $listePostes["postes"][$liste["id"]];
 
-                          foreach ($postes as $poste) {
-                            echo $poste["nom"] . "  >  " . $poste["mode"] . "<br/>";
-                          }
-                        }
+                                                foreach ($postes as $poste) {
+                                                    echo $poste["nom"] . "  >  " . $poste["mode"] . "<br/>";
+                                                }
+                                            }
 
-                        ?></td>
+                                            ?></td>
                                     <td>
                                     <td>
                                         <div class="table-data-feature">
@@ -126,7 +126,7 @@ $listePostes = getListePoste();
                                                 </button>
                                             </form>
                                             <button class="item" data-toggle='modal' data-target='#displayerModal'
-                                                onClick="showContactModalxx(<?= ($liste['id']); ?>)"
+                                                onClick="showUpdateListeDiffusionModal(<?= ($liste['id']); ?>)"
                                                 data-placement="top" title="Edit">
                                                 <i class="zmdi zmdi-edit"></i>
                                             </button>
@@ -176,15 +176,15 @@ $listePostes = getListePoste();
 
                             <select class="js-select2" name="modes[]" multiple="multiple" required>
                                 <?php
-                $modes = getAllModeDiffusion();
+                                $modes = getAllModeDiffusion();
 
-                foreach ($modes as $mode) {
-                  $mode_nom = $mode["mode"];
-                  $mode_id = $mode["id"];
-                  echo "<option value='$mode_id'>$mode_nom</option>";
-                }
+                                foreach ($modes as $mode) {
+                                    $mode_nom = $mode["mode"];
+                                    $mode_id = $mode["id"];
+                                    echo "<option value='$mode_id'>$mode_nom</option>";
+                                }
 
-                ?>
+                                ?>
 
                             </select>
                             <div class="dropDownSelect2"></div>
