@@ -2,6 +2,7 @@
 
 require_once __DIR__."/../../config.php";
 require_once __DIR__."/../../crud/address/address.php";
+require_once __DIR__."/../../crud/contact/contact.php";
 require_once SITE_ROOT."/inc/helpers/debug.php";
 
 debugScreen($_POST);
@@ -29,23 +30,16 @@ if (isset($_POST['id'])) {
   $pays = strip_tags($_POST['pays']);
 
   
-  if($addressID == null || $addressID == 'null'  ){
-    $addressID = setAddress($rue, $complement, $CP, $ville, $pays, "");
+  $adresseId = getIdAddress($rue, $cp, $ville, $pays);
+
+  if ($adresseId) {
+    $adresseId = $adresseId["id"];
+  } else {
+    $adresseId = setAddress($rue, $complement, $cp, $ville, $pays, "");
   }
-  
-    $stmt = $db->prepare('UPDATE Contact SET Nom=:nom, Prenom=:prenom, Civilite=:civil, Photo=:photo,
-     Poste_actuel=:poste, Grade=:grade,
-    Email=:email, TAG=:tag, Commentaire=:comment, email_pro=:emailPro, telephone=:telephone,
-    commentaire_niv_2=:commentaireNiv2, addressID=:addressID
-      where id=:id');
 
 
-  $result =  $stmt->execute(array(
-    ':nom' => $nom, ':prenom' => $prnom, ':civil' => $civil, ':photo' => $photo,
-    ':poste' => $poste, ':grade' => $grade, ':email' => $email, ':tag' => $tag, ':comment' => $comment,
-    ':emailPro' => $emailPro, ':telephone' => $telephone, ':commentaireNiv2' => $commentaireNiv2,
-    ':id' => $id, ':addressID' => $addressID
-  ));
+  $result = updateContact($id, $nom, $prnom, $civil, $photo, $poste, $grade, $email, $tag, $comment, $emailPro, $telephone, $commentaireNiv2, $adresseId);
 
   if ($result) {
     deleteOrphanAddress();

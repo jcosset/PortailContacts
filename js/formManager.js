@@ -320,12 +320,26 @@ function showEntiteModal(id) {
             let optionsHtml = ""
             optionsHtml += `<option value='0' >AUCUN PARENT</option>`
             for (entite of entites) {
-                let selected = entity.Uper_id == entite.id ? "selected='selected'" : ""
-                optionsHtml += `<option value='${entite.id}' ${selected}>${entite.Nom}</option>`
+                let selected = entity.uper_id == entite.id ? "selected='selected'" : ""
+                optionsHtml += `<option value='${entite.id}' ${selected}>${entite.nom}</option>`
             }
 
-            modal.append(modalRowDisplayerFactory({ label: "Nom", name: "nom", value: entity.Nom, iSdisabled: false, isRequired: true }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Entite Parent", name: "uper_id", value: entity.Uper_id, optionsHtml, isRequired: true }, 'select'))
+            modal.append(modalRowDisplayerFactory({ label: "Nom", name: "nom", value: entity.nom, iSdisabled: false, isRequired: true }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Entite Parent", name: "uper_id", value: entity.uper_id, optionsHtml, isRequired: true }, 'select'))
+            modal.append(modalRowDisplayerFactory({ label: "Acronyme", name: "acronyme", value: entity.acronyme, iSdisabled: false, isRequired: true }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Téléphone", name: "telephone", value: entity.tel, iSdisabled: false, isRequired: true }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Site", name: "site", value: entity.site, iSdisabled: false, isRequired: true }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Logo", name: "logo", value: entity.logo, iSdisabled: false, isRequired: true }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Adresse Géographique", name: "adresseGeo", value: entity.rue_geo, iSdisabled: false, isRequired: true }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Complément", name: "complémentGeo", value: entity.compl_geo, iSdisabled: false, isRequired: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Code Postal", name: "CPGeo", value: entity.cp_geo, iSdisabled: false, isRequired: true }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Ville", name: "villeGeo", value: entity.ville_geo, iSdisabled: false, isRequired: true }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Pays", name: "paysGeo", value: entity.pays_geo, iSdisabled: false, isRequired: true }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Adresse Postale", name: "adressePos", value: entity.rue_pos, iSdisabled: false, isRequired: true }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Complément", name: "complémentPos", value: entity.compl_pos, iSdisabled: false, isRequired: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Code Postal", name: "CPPos", value: entity.cp_pos, iSdisabled: false, isRequired: true }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Ville", name: "villePos", value: entity.ville_pos, iSdisabled: false, isRequired: true }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Pays", name: "paysPos", value: entity.pays_pos, iSdisabled: false, isRequired: true }, 'input'))
             modal.parent().parent().find(".modal-footer").append(modalRowDisplayerFactory({}, 'submit'))
             modal.append(`<span id="itemID" name="id"  data-id=${entity.id} ></span>`)
 
@@ -410,7 +424,7 @@ function showContactModal(id) {
             modal.append(modalRowDisplayerFactory({ label: "Téléphone", name: "telephone", value: contact.telephone, iSdisabled: false, isRequired: false }, 'input'))
 
             modal.append(modalRowDisplayerFactory({ label: "Rue", name: "rue", value: contact.Rue, iSdisabled: false, isRequired: true }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Complement", name: "complement", value: contact.Compl, iSdisabled: false, isRequired: true }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Complement", name: "complement", value: contact.Compl, iSdisabled: false, isRequired: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "CP", name: "cp", value: contact.CP, iSdisabled: false, isRequired: true }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Ville", name: "ville", value: contact.Ville, iSdisabled: false, isRequired: true }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Pays", name: "pays", value: contact.Pays, iSdisabled: false, isRequired: true }, 'input'))

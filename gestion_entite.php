@@ -163,7 +163,7 @@ modal large
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">site</label>
+                                <label for="text-input" class=" form-control-label">Site</label>
                             </div>
                             <div class="col-12 col-md-9">
                                 <input type="text" id="site" name="site" placeholder="http://www.exemple.com" class="form-control" >
@@ -171,16 +171,17 @@ modal large
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">logo</label>
+                                <label for="text-input" class=" form-control-label">Logo</label>
                             </div>
                             <div class="col-12 col-md-9">
                                 <input type="text" id="logo" name="logo" placeholder="lien vers logo" class="form-control" >
                             </div>
                         </div>
                         <!-- Adresse Geo -->
+                        <h4>Adresse Géographique</h4>
                         <div class="row form-group">
                             <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">adresse</label>
+                                <label for="text-input" class=" form-control-label">Adresse</label>
                             </div>
                             <div class="col-12 col-md-9">
                                 <input type="text" id="adresseGeo" name="adresseGeo" placeholder="N° de rue..." class="form-control" required>
@@ -188,7 +189,7 @@ modal large
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">complément</label>
+                                <label for="text-input" class=" form-control-label">Complément</label>
                             </div>
                             <div class="col-12 col-md-9">
                                 <input type="text" id="complémentGeo" name="complémentGeo" placeholder="Bâtiment, interphone..." class="form-control">
@@ -220,9 +221,10 @@ modal large
                         </div>
 
                         <!-- Adresse Postale -->
+                        <h4>Adresse Postale</h4>
                         <div class="row form-group">
                             <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">adresse</label>
+                                <label for="text-input" class=" form-control-label">Adresse</label>
                             </div>
                             <div class="col-12 col-md-9">
                                 <input type="text" id="adressePos" name="adressePos" placeholder="N° de rue..." class="form-control" required>
@@ -230,7 +232,7 @@ modal large
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">complément</label>
+                                <label for="text-input" class=" form-control-label">Complément</label>
                             </div>
                             <div class="col-12 col-md-9">
                                 <input type="text" id="complémentPos" name="complémentPos" placeholder="Bâtiment, interphone..." class="form-control">
@@ -290,121 +292,7 @@ modal large
                 </div>
 
                 
-                <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">Acronyme</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <input type="text" id="adresse" name="adresse" placeholder="Acronyme" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">Téléphone</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <input type="text" id="adresse" name="adresse" placeholder="+33142424242" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">site</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <input type="text" id="site" name="site" placeholder="http://www.exemple.com" class="form-control" >
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">logo</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <input type="text" id="logo" name="logo" placeholder="lien vers logo" class="form-control" >
-                            </div>
-                        </div>
-                        <!-- Adresse Geo -->
-                        <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">adresse</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <input type="text" id="adresseGeo" name="adresseGeo" placeholder="N° de rue..." class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">complément</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <input type="text" id="complémentGeo" name="complémentGeo" placeholder="Bâtiment, interphone..." class="form-control">
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">Code Postal</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <input type="text" id="CPGeo" name="CPGeo" placeholder="75000" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">Ville</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <input type="text" id="villeGeo" name="villeGeo" placeholder="Ville" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">Pays</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <input type="text" id="paysGeo" name="paysGeo" placeholder="Pays" class="form-control" required>
-                            </div>
-                        </div>
 
-                        <!-- Adresse Postale -->
-                        <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">adresse</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <input type="text" id="adressePos" name="adressePos" placeholder="N° de rue..." class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">complément</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <input type="text" id="complémentPos" name="complémentPos" placeholder="Bâtiment, interphone..." class="form-control">
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">Code Postal</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <input type="text" id="CPPos" name="CPPos" placeholder="75000" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">Ville</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <input type="text" id="villePos" name="villePos" placeholder="Ville" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">Pays</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <input type="text" id="paysPos" name="paysPos" placeholder="Pays" class="form-control" required>
-                            </div>
-                        </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                 </div>
