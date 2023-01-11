@@ -189,10 +189,10 @@ modal large
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">Complément</label>
+                                <label for="text-input" class=" form-control-label">complement</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="complémentGeo" name="complémentGeo" placeholder="Bâtiment, interphone..." class="form-control">
+                                <input type="text" id="complementGeo" name="complementGeo" placeholder="Bâtiment, interphone..." class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -232,10 +232,10 @@ modal large
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">Complément</label>
+                                <label for="text-input" class=" form-control-label">complement</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="complémentPos" name="complémentPos" placeholder="Bâtiment, interphone..." class="form-control">
+                                <input type="text" id="complementPos" name="complementPos" placeholder="Bâtiment, interphone..." class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">

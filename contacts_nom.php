@@ -251,10 +251,10 @@ error_reporting(E_ALL);
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">complément</label>
+                                <label for="text-input" class=" form-control-label">complement</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="complément" name="complément" placeholder="Bâtiment, interphone..." class="form-control">
+                                <input type="text" id="complement" name="complement" placeholder="Bâtiment, interphone..." class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">

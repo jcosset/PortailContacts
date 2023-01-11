@@ -195,7 +195,7 @@ function getAllEntite()
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">Complément</label>
+                                <label for="text-input" class=" form-control-label">complement</label>
                             </div>
                             <div class="col-12 col-md-9">
                                 <input type="text" id="complement" name="complement" placeholder="Bureau 55B"

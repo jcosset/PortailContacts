@@ -35,7 +35,7 @@ Contact as cont on (cont.Poste_actuel=pos.id)
   $seperator = ";";
   //header
   $header = array(
-    "Nom du poste", "Nom du partenaire", "Poste rue", "Poste complément", "Poste CP", "Poste ville",
+    "Nom du poste", "Nom du partenaire", "Poste rue", "Poste complement", "Poste CP", "Poste ville",
     "Poste pays", "Civilite", "Nom", "Prenom", "Grade", "Email personnel", "Email fonctionnel", "Mode de diffusion"
   );
   fputcsv($fp, $header, $seperator);

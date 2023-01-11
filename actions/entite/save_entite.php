@@ -11,12 +11,12 @@ if (isset($_POST['nom']) & isset($_POST['uper_id'])) {
   $acronyme = strip_tags($_POST['acronyme']);
   $telephone = strip_tags($_POST['telephone']);
   $adresse_geo = strip_tags($_POST['adresseGeo']);
-  $compl_geo = strip_tags($_POST['complémentGeo']);
+  $compl_geo = strip_tags($_POST['complementGeo']);
   $CP_geo = strip_tags($_POST['CPGeo']);
   $ville_geo = strip_tags($_POST['villeGeo']);
   $pays_geo = strip_tags($_POST['paysGeo']);
   $adresse_pos = strip_tags($_POST['adressePos']);
-  $compl_pos = strip_tags($_POST['complémentPos']);
+  $compl_pos = strip_tags($_POST['complementPos']);
   $CP_pos = strip_tags($_POST['CPPos']);
   $ville_pos = strip_tags($_POST['villePos']);
   $pays_pos = strip_tags($_POST['paysPos']);

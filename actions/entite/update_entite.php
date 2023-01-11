@@ -17,12 +17,12 @@ if (isset($_POST['nom']) & isset($_POST['uper_id']) & isset($_POST['id'])) {
   $site = strip_tags($_POST['site']);
   $logo = strip_tags($_POST['logo']);
   $adresse_geo = strip_tags($_POST['adresseGeo']);
-  $compl_geo = strip_tags($_POST['complémentGeo']);
+  $compl_geo = strip_tags($_POST['complementGeo']);
   $cp_geo = strip_tags($_POST['CPGeo']);
   $ville_geo = strip_tags($_POST['villeGeo']);
   $pays_geo = strip_tags($_POST['paysGeo']);
   $adresse_pos = strip_tags($_POST['adressePos']);
-  $compl_pos = strip_tags($_POST['complémentPos']);
+  $compl_pos = strip_tags($_POST['complementPos']);
   $cp_pos = strip_tags($_POST['CPPos']);
   $ville_pos = strip_tags($_POST['villePos']);
   $pays_pos = strip_tags($_POST['paysPos']);
