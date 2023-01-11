@@ -28,4 +28,5 @@ Alter table Poste add column adresse int;
 Alter table Poste add column email_secretariat varchar(255);
 Alter table Poste add column tel_secretariat varchar(255);
 Alter table Poste add column tel varchar(16);
+ALTER table address MODIFY CP int;
 
