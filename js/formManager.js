@@ -553,10 +553,6 @@ function showUpdateListeDiffusionModal(listeID) {
 
 }
 
-
-
-
-
 function showAddPosteListeByIdModal(posteID) {
 
     console.log("click showAddPosteListeByd")
