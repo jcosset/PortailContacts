@@ -53,7 +53,7 @@ error_reporting(E_ALL);
                          pos.id as id, md.mode, plmd.listeID as listeID
                         FROM poste_liste_mode_diffusion as plmd  join Poste as pos on plmd.posteID = pos.id  join
                         mode_diffusion as md on (md.id = plmd.modeID) join Entite as ent0 on (pos.Entite=ent0.id)
-                        join Entite as ent1 on (ent0.Uper_id=ent1.id)';
+                        left join Entite as ent1 on (ent0.Uper_id=ent1.id)';
                         $queryGetAllPostes = $db->prepare($query);
                         $queryGetAllPostes->execute();
                         while ($postes = $queryGetAllPostes->fetch(PDO::FETCH_ASSOC)) {

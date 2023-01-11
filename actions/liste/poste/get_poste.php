@@ -9,7 +9,7 @@ if (isset($_REQUEST['id'])) {
      plmd.listeID as listeID, lis.Nom as listeName
     FROM poste_liste_mode_diffusion as plmd  join Poste as pos on plmd.posteID = pos.id  join
     mode_diffusion as md on (md.id = plmd.modeID) join Liste as lis on (lis.id=plmd.listeID)
-    join Entite as ent0 on (pos.Entite = ent0.id) join Entite as ent1 on (ent0.Uper_id=ent1.id)
+    join Entite as ent0 on (pos.Entite = ent0.id) left join Entite as ent1 on (ent0.Uper_id=ent1.id)
     and lis.id =:id');
     if ($result = $getPoste->execute(array(':id' => $id))) {
         $row = $getPoste->fetchAll(PDO::FETCH_ASSOC);
