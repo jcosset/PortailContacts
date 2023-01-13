@@ -30,21 +30,14 @@ function saveFormModalSubmit({ formAttributeId, url }) {
 }
 
 function updateFormModalSubmit({ formAttributeId, url }) {
-    console.log(formAttributeId, url, "updateFormModalSubmit")
-
     $(document).on("submit", formAttributeId, function (event) {
-        console.log(formAttributeId, url, "updateFormModalSubmit")
 
-        console.log($("form#addPosteListeByd").serialize())
         event.preventDefault();
         if ($(formAttributeId)[0].checkValidity() === false) {
             event.stopPropagation();
         } else {
             let data = $(formAttributeId).serialize()
             let id = $("#itemID").data("id")
-            console.log(id)
-
-            console.log($(formAttributeId).serialize())
             if (id) data = data + "&id=" + id,
                 defaultPostAjax({ url, data })
         }
@@ -190,10 +183,11 @@ function modalRowFile({ label, name }) {
 function modalRowDisplayerFactory(data, type) {
 
     let val = data.value
-    if (val == null || val == undefined || val == "null" || val == "undefined" || val.trim() == "") {
+
+    if (val == null || val == undefined || val == "null" || val == "undefined" || val == "") {
         data.value = ""
         data.placeholder = ""
-        console.log(data.label, data.value)
+
     }
 
     if (type == "input") {
@@ -283,7 +277,6 @@ function getPoste(id) {
         cache: false,
         success: function (response) {
             response = JSON.parse(response)
-            console.log(response)
 
             modal.append(modalRowDisplayerFactory({ label: "Nom", name: "nom", value: response.Nom }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Rue", name: "rue", value: response.Rue }, 'input'))
@@ -409,8 +402,6 @@ function showContactModal(id) {
     let modalFooter = $("#displayerModal .modal-footer")
     modal.empty()
     modalFooter.empty()
-
-    console.log(modal)
 
     Promise.all([ajaxGetPromise("actions_poste.php?type=get&all"), ajaxGetPromise("actions_contact.php?type=get&id=" + id + "&filter=default")])
         .then(([postes, contact]) => {
