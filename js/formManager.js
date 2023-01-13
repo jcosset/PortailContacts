@@ -4,7 +4,7 @@ function defaultPostAjax({ url, data }) {
         url,
         data,
         success: function (response) {
-            // window.location.reload();
+            window.location.reload();
         },
         error: function () {
             alert("Error");
@@ -188,6 +188,14 @@ function modalRowFile({ label, name }) {
 }
 
 function modalRowDisplayerFactory(data, type) {
+
+    let val = data.value
+    if (val == null || val == undefined || val == "null" || val == "undefined" || val.trim() == "") {
+        data.value = ""
+        data.placeholder = ""
+        console.log(data.label, data.value)
+    }
+
     if (type == "input") {
         return modalRowFieldWrapWithHeaderAndFooter(modalRowFieldInput, data)
     }
