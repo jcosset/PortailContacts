@@ -53,12 +53,13 @@ error_reporting(E_ALL);
                          pos.id as id, md.mode, plmd.listeID as listeID
                         FROM poste_liste_mode_diffusion as plmd  join Poste as pos on plmd.posteID = pos.id  join
                         mode_diffusion as md on (md.id = plmd.modeID) join Entite as ent0 on (pos.Entite=ent0.id)
-                        left join Entite as ent1 on (ent0.Uper_id=ent1.id)';
-                        $query = $db->prepare($query);
+                        join Entite as ent1 on (ent0.Uper_id=ent1.id)';
+                        $queryGetAllPostes = $db->prepare($query);
                         $queryGetAllPostes->execute();
                         while ($postes = $queryGetAllPostes->fetch(PDO::FETCH_ASSOC)) {
                             $arborescence['postes'][$postes['listeID']][] = $postes;
                         }
+
 
                         function getAllModeDiffusion()
                         {
@@ -129,7 +130,8 @@ error_reporting(E_ALL);
     </div>
 </div>
 <!-- END MAIN CONTENT-->
-<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -173,7 +175,8 @@ error_reporting(E_ALL);
     </div>
 </div>
 <!-- end modal large -->
-<div class="modal fade" id="displayerModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+<div class="modal fade" id="displayerModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
