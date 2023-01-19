@@ -344,7 +344,7 @@ function showEntiteModal(id) {
             modal.parent().parent().find(".modal-footer").append(modalRowDisplayerFactory({}, 'submit'))
             modal.append(`<span id="itemID" name="id"  data-id=${entity.id} ></span>`)
 
-            $(".js-select2").each(function () {
+            $(".js-select-custom").each(function () {
                 $(this).select2({
                     allowClear: true,
                     placeholder: "Selectionner une option",
@@ -369,7 +369,7 @@ function showPosteModal(id) {
             optionsHtml = ""
             for (entite of entites) {
                 let selected = poste.Entite == entite.id ? "selected" : ""
-                optionsHtml += `<option value='${entite.id}' ${selected}>${entite.Nom}</option>`
+                optionsHtml += `<option value='${entite.id}' ${selected}>${entite.nom}</option>`
 
             }
             modal.append(modalRowDisplayerFactory({ label: "Nom", name: "nom", value: poste.Nom, iSdisabled: false, isRequired: true }, 'input'))
