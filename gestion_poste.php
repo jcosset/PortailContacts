@@ -34,8 +34,6 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
     $entites[$entiteUnsorted["id"]] = $entiteUnsorted;
 }
 
-debugScreen(getAllPostesWithEntite());
-
 ?>
 
 <!-- MAIN CONTENT-->
