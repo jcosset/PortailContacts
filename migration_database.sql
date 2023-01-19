@@ -30,3 +30,75 @@ Alter table Poste add column tel_secretariat varchar(255);
 Alter table Poste add column tel varchar(16);
 ALTER table address MODIFY CP int;
 
+-- Procédures stockées 19/01/2023
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `liste_poste_recursive`()
+with recursive cte  as (
+  select     id,
+             Nom,
+             Uper_id,
+    		1 lvl
+  from       Entite
+
+  union all
+  select     p.id,
+             concat(t.Nom,'/' ,p.Nom),
+             t.Uper_id,
+    			lvl+1
+
+  from       cte p,  Entite t
+          WHERE p.Uper_id = t.id
+)
+select pos.id as id, cte.Nom as entitename, pos.Nom as nom, md.mode, plmd.listeID as listeID from cte
+join Poste  as pos on (pos.Entite = cte.id)
+join poste_liste_mode_diffusion as plmd   on plmd.posteID = pos.id  join
+mode_diffusion as md on (md.id = plmd.modeID)
+WHERE lvl >0 and Uper_id = 0$$
+DELIMITER ;
+
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `recursive_entite`()
+with recursive cte  as (
+  select     id,
+             Nom,
+             Uper_id,
+    		1 lvl
+  from       Entite
+
+  union all
+  select     p.id,
+             concat(t.Nom,'\\' ,p.Nom),
+             t.Uper_id,
+    			lvl+1
+
+  from       cte p,  Entite t
+          WHERE p.Uper_id = t.id
+)
+select id, Nom as nom, Uper_id as uper_id from cte WHERE lvl >0 and Uper_id = 0$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `recursive_poste`()
+with recursive cte  as (
+  select     id,
+             Nom,
+             Uper_id,
+    		1 lvl
+  from       Entite
+
+  union all
+  select     p.id,
+             concat(t.Nom,'\\' ,p.Nom),
+             t.Uper_id,
+    			lvl+1
+
+  from       cte p,  Entite t
+          WHERE p.Uper_id = t.id
+)
+select Poste.id as id, cte.Nom as entitename, Poste.Nom as Nom from cte
+join Poste on (Poste.Entite = cte.id) WHERE lvl >0 and Uper_id = 0$$
+DELIMITER ;
