@@ -10,7 +10,8 @@ ini_set('display_startup_errors', TRUE);
 function getAllEntites()
 {
     global $db;
-    $sqlGetAllEntity = "SELECT id, nom, uper_id from Entite order by nom";
+    //$sqlGetAllEntity = "SELECT id, nom, uper_id from Entite order by nom";
+    $sqlGetAllEntity = "CALL recursive_entite()";
     $sqlGetAllEntityPrepare = $db->prepare($sqlGetAllEntity);
     $sqlGetAllEntityPrepare->execute();
     $sqlGetAllEntityResults = $sqlGetAllEntityPrepare->fetchAll(PDO::FETCH_ASSOC);

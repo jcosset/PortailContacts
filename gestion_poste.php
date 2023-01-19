@@ -1,5 +1,7 @@
 <?php include 'inc/header.php';
 include 'inc/db.php';
+include 'crud/entite/entite.php';
+
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -16,7 +18,7 @@ function getAllPostesWithEntite()
 {
     require('inc/db.php');
 
-    $sqlGetAllEntity = "SELECT pos.id,pos.Nom as postename, ent.Nom as entitename, Rue, Compl,Ville,CP,
+    $sqlGetAllEntity = "SELECT pos.id,pos.Nom as postename, ent.id as entiteID, Rue, Compl,Ville,CP,
      Pays, Email_fonctionnel from Poste as pos join Entite as ent on (pos.Entite=ent.id) Order by postename Asc";
 
     $sqlGetAllEntityPrepare = $db->prepare($sqlGetAllEntity);
@@ -25,16 +27,14 @@ function getAllPostesWithEntite()
     return $sqlGetAllEntityResults;
 }
 
-function getAllEntite()
-{
-    require('inc/db.php');
-    $sqlGetAllEntity = "SELECT id, nom, uper_id from Entite order by nom ASC";
-    $sqlGetAllEntityPrepare = $db->prepare($sqlGetAllEntity);
-    $sqlGetAllEntityPrepare->execute();
-    $sqlGetAllEntityResults = $sqlGetAllEntityPrepare->fetchAll(PDO::FETCH_ASSOC);
-    return $sqlGetAllEntityResults;
-}
 // debugOnScreen(getAllPostesWithEntite());
+$entitesUnsorted = getAllEntites();
+$entites = [];
+foreach ($entitesUnsorted as $entiteUnsorted) {
+    $entites[$entiteUnsorted["id"]] = $entiteUnsorted;
+}
+
+debugScreen(getAllPostesWithEntite());
 
 ?>
 
@@ -91,6 +91,8 @@ function getAllEntite()
                             </thead>
                             <tbody>
                                 <?php $listepostes = getAllPostesWithEntite();
+
+
                                 foreach ($listepostes as $poste) {
 
                                 ?>
@@ -102,7 +104,8 @@ function getAllEntite()
                                         </label>
                                     </td>
                                     <td><?= $poste['postename'] ?></td>
-                                    <td><?= $poste['entitename'] ?></td>
+                                    <td><?= $entites[$poste['entiteID']]['nom'] ?></td>
+
 
                                     <td><?php echo $poste['Rue'] . '<br>' . $poste['Compl'] . '<br>' . $poste['CP'] . ' ' . $poste['Ville']; ?>
                                     </td>
@@ -173,7 +176,8 @@ function getAllEntite()
                                 <label for="text-input" class=" form-control-label">Acronyme</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="acronyme" name="acronyme" placeholder="Acronyme..." class="form-control" required>
+                                <input type="text" id="acronyme" name="acronyme" placeholder="Acronyme..."
+                                    class="form-control" required>
                             </div>
                         </div>
                         <div class="row form-group">
@@ -181,7 +185,8 @@ function getAllEntite()
                                 <label for="text-input" class=" form-control-label">Téléphone</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="telephone" name="telephone" placeholder="+33142424242" class="form-control" required>
+                                <input type="text" id="telephone" name="telephone" placeholder="+33142424242"
+                                    class="form-control" required>
                             </div>
                         </div>
                         <div class="row form-group">
@@ -242,7 +247,8 @@ function getAllEntite()
                                 <label for="text-input" class=" form-control-label">Email Secrétariat</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="email-secretariat" name="email-secretariat" placeholder="email@email.com" class="form-control" required>
+                                <input type="text" id="email-secretariat" name="email-secretariat"
+                                    placeholder="email@email.com" class="form-control" required>
                             </div>
                         </div>
                         <div class="row form-group">
@@ -250,7 +256,8 @@ function getAllEntite()
                                 <label for="text-input" class=" form-control-label">Téléphone Secrétariat</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="trl-secretariat" name="tel-secretariat" placeholder="+330142424242" class="form-control" required>
+                                <input type="text" id="trl-secretariat" name="tel-secretariat"
+                                    placeholder="+330142424242" class="form-control" required>
                             </div>
                         </div>
                         <div class="row form-group">
@@ -262,7 +269,7 @@ function getAllEntite()
                                 <select class="js-select2" name="entiteId" required>
 
                                     <?php
-                                    $entites = getAllEntite();
+
                                     foreach ($entites as $entite) {
                                         $entite_nom = $entite["nom"];
                                         $entite_id = $entite["id"];
