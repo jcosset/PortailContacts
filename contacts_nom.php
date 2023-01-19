@@ -225,14 +225,14 @@ error_reporting(E_ALL);
                                     <?php
 
                                     $postes = getAllPostes();
-
+                                    debugScreen($postes);
                                     foreach ($postes as $poste) {
 
                                         $posteNom = $poste["Nom"];
                                         $posteId = $poste["id"];
-                                        $entiteParent0 = $poste["entiteParent0"];
-                                        $entiteParent1 = $poste["entiteParent1"];
-                                        echo "<option value='$posteId'>$entiteParent1\\$entiteParent0\\$posteNom</option>";
+                                        $entitename = $poste["entitename"];
+
+                                        echo "<option value='$posteId'>$entitename\\$posteNom</option>";
                                     }
 
                                     ?>
@@ -246,7 +246,8 @@ error_reporting(E_ALL);
                                 <label for="text-input" class=" form-control-label">adresse</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="adresse" name="adresse" placeholder="N° de rue..." class="form-control" required>
+                                <input type="text" id="adresse" name="adresse" placeholder="N° de rue..."
+                                    class="form-control" required>
                             </div>
                         </div>
                         <div class="row form-group">
@@ -254,7 +255,8 @@ error_reporting(E_ALL);
                                 <label for="text-input" class=" form-control-label">complement</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="complement" name="complement" placeholder="Bâtiment, interphone..." class="form-control">
+                                <input type="text" id="complement" name="complement"
+                                    placeholder="Bâtiment, interphone..." class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -262,7 +264,8 @@ error_reporting(E_ALL);
                                 <label for="text-input" class=" form-control-label">Code Postal</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="CP" name="CP" placeholder="75000..." class="form-control" required>
+                                <input type="text" id="CP" name="CP" placeholder="75000..." class="form-control"
+                                    required>
                             </div>
                         </div>
                         <div class="row form-group">
@@ -270,7 +273,8 @@ error_reporting(E_ALL);
                                 <label for="text-input" class=" form-control-label">Ville</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="ville" name="ville" placeholder="Ville" class="form-control" required>
+                                <input type="text" id="ville" name="ville" placeholder="Ville" class="form-control"
+                                    required>
                             </div>
                         </div>
                         <div class="row form-group">
@@ -278,7 +282,8 @@ error_reporting(E_ALL);
                                 <label for="text-input" class=" form-control-label">Pays</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="pays" name="pays" placeholder="Pays" class="form-control" required>
+                                <input type="text" id="pays" name="pays" placeholder="Pays" class="form-control"
+                                    required>
                             </div>
                         </div>
                         <div class="row form-group">

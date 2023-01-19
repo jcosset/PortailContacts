@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . "/../../config.php";
+require_once __DIR__ . "/../../crud/poste/poste.php";
 require_once SITE_ROOT . "/inc/helpers/debug.php";
 
 if (isset($_REQUEST['id'])) {
@@ -27,6 +28,16 @@ if (isset($_REQUEST['all'])) {
     if ($result = $sqlFetch->execute()) {
         $rows = $sqlFetch->fetchAll(PDO::FETCH_ASSOC);
         echo json_encode($rows);
+    } else {
+        echo json_encode("erreur");
+    }
+}
+
+if (isset($_REQUEST['all_filtered'])) {
+
+    $getPostes = getAllPostes();
+    if ($getPostes) {
+        echo json_encode($getPostes);
     } else {
         echo json_encode("erreur");
     }

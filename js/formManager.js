@@ -403,14 +403,13 @@ function showContactModal(id) {
     modal.empty()
     modalFooter.empty()
 
-    Promise.all([ajaxGetPromise("actions_poste.php?type=get&all"), ajaxGetPromise("actions_contact.php?type=get&id=" + id + "&filter=default")])
+    Promise.all([ajaxGetPromise("actions_poste.php?type=get&all_filtered"), ajaxGetPromise("actions_contact.php?type=get&id=" + id + "&filter=default")])
         .then(([postes, contact]) => {
 
             optionsHtml = ""
             for (poste of postes) {
-                let selected = contact.Poste == poste.id ? "selected" : ""
-                let parent1 = poste.entiteParent1 == "null" ? poste.entiteParent1 + "\\" : ""
-                optionsHtml += `<option value='${poste.id}' ${selected}>${parent1}${poste.entiteParent0}\\${poste.Nom}</option>`
+                let selected = contact.Poste_actuel == poste.id ? "selected" : ""
+                optionsHtml += `<option value='${poste.id}' ${selected}>${poste.entitename}\\${poste.Nom}</option>`
 
             }
             modal.append(modalRowDisplayerFactory({ label: "Photo", name: "photo", value: contact.Nom, iSdisabled: false, isRequired: true }, 'file'))
@@ -464,7 +463,7 @@ function showCreatePosteListeDiffusionModal(listeID) {
 
     updatePostModalSubmitFactory({ formAttributeId: "form#addPosteListe", url: "actions_liste.php?type=addPoste" })
 
-    Promise.all([ajaxGetPromise("actions_poste.php?type=get&all"), ajaxGetPromise("actions_liste.php?type=get&id=" + listeID + "&filter=default")])
+    Promise.all([ajaxGetPromise("actions_poste.php?type=get&all_filtered"), ajaxGetPromise("actions_liste.php?type=get&id=" + listeID + "&filter=default")])
         .then(([postes, modesDiffusion]) => {
 
             let modesNames = modesDiffusion.modes.split(",")
@@ -478,8 +477,7 @@ function showCreatePosteListeDiffusionModal(listeID) {
             })
 
             postes.forEach(async (poste) => {
-                let parent1 = poste.entiteParent1 == "null" ? poste.entiteParent1 + "\\" : ""
-                optionsHtmlPostes += `<option value='${poste.id}' >${parent1}${poste.entiteParent0}\\${poste.Nom}</option>`
+                optionsHtmlPostes += `<option value='${poste.id}' >${poste.entitename}\\${poste.Nom}</option>`
             })
 
             modal.append(modalRowDisplayerFactory({ label: "Poste", name: "poste", optionsHtml: optionsHtmlPostes, isRequired: true }, 'select'))
