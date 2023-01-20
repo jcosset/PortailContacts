@@ -14,7 +14,7 @@ function defaultPostAjax({ url, data }) {
 }
 function saveFormModalSubmit({ formAttributeId, url }) {
 
-    $(formAttributeId).submit(function (event) {
+    $(document).on("submit", formAttributeId, function (event) {
 
         console.log($(formAttributeId).serialize())
         event.preventDefault();
