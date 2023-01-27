@@ -590,7 +590,7 @@ function showAddPosteListeByIdModal(posteID) {
             modal.append(modalRowDisplayerFactory({ label: "Mode de diffusion", name: "mode", optionsHtml: optionsHtmlModesDefaultSelected, isRequired: true }, 'select'))
             modal.append(modalRowDisplayerFactory({ label: "ID Poste", name: "poste", value: posteID, iSdisabled: true, isRequired: true }, 'input'))
 
-            $("select[name='liste']").change(function () {
+            $("select[name='listeID']").change(function () {
 
                 $("select[name='mode']").empty()
 
