@@ -134,7 +134,7 @@
 
                   $htmlPoste .= "<li>";
                   $htmlPoste .= "<div class='listree-submenu-headingxxx text-primary  expanded'
-                  ><span data-toggle='modal' data-target='#largeModal' onclick=getPoste($id) style='cursor:pointer;'>
+                  ><span data-toggle='modal' data-target='#displayerModal' onclick=getPoste($id) style='cursor:pointer;'>
                   " . $poste['Nom'] . "</span></div>";
                   $htmlPoste .= "<ul class='listree-submenu-items' style='display:block;' >";
 
@@ -195,7 +195,9 @@
                     $name = $menu['items'][$itemId]['nom'];
 
                     $html .= "<li>";
-                    $html .= "<div class='listree-submenu-heading'>" . $name . createButtonEdit($itemId, $name, 'poste') . "</div>";
+                    $html .= "<div class='listree-submenu-heading'>" . "$name"  . createButtonEdit($itemId, $name, 'poste') . "
+                       </div>";
+
                     $html .= "<ul class='listree-submenu-items'>";
 
                     $html .= createMenu($itemId, $menu);

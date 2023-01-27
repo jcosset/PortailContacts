@@ -136,14 +136,14 @@ function modalRowFieldWrapWithHeaderAndFooter(fieldFunction, data) {
     return header + labelField + inputHeader + field + footer
 }
 
-function modalRowFieldInput({ name, placeholder, value = "", iSdisabled = true, isRequired }) {
+function modalRowFieldInput({ name, placeholder = "", value = "", iSdisabled = true, isRequired }) {
     let disabled = iSdisabled == true ? "readonly" : ""
     let required = isRequired == true ? "required" : ""
     return `<input type="text" id="${name}" name="${name}" value="${value}" ${required}
      placeholder="${placeholder}" class="form-control" ${disabled} >`
 
 }
-function modalRowFieldTextArea({ name, placeholder, value = "", iSdisabled = true, isRequired }) {
+function modalRowFieldTextArea({ name, placeholder = "", value = "", iSdisabled = true, isRequired }) {
     let disabled = iSdisabled == true ? "readonly" : ""
     let required = isRequired == true ? "required" : ""
     return `<textarea type="text" id="${name}" name="${name}" placeholder="${placeholder}"  ${required}
@@ -268,9 +268,14 @@ function getContact(id) {
 }
 
 function getPoste(id) {
+    // let modal = $("#displayerModal .card-body")
+    // modal.parent().parent().find("button[type='submit']").remove()
+    // modal.empty()
+
     let modal = $("#displayerModal .card-body")
-    modal.parent().parent().find("button[type='submit']").remove()
+    let modalFooter = $("#displayerModal .modal-footer")
     modal.empty()
+    modalFooter.empty()
     $.ajax({
         type: "GET",
         url: "actions_poste.php?type=get&id=" + id,
@@ -527,8 +532,8 @@ function showUpdateListeDiffusionModal(listeID) {
 
             optionsHtmlPostes = ""
             postes.forEach(async (poste) => {
-                let parent1 = poste.entiteParent1 == "null" ? poste.entiteParent1 + "\\" : ""
-                optionsHtmlPostes += `<option value='${poste.id}' >${parent1}${poste.entiteParent0}\\${poste.Nom}</option>`
+
+                optionsHtmlPostes += `<option value='${poste.id}' >${poste.Nom}</option>`
             })
 
             modal.append(modalRowDisplayerFactory({ label: "Poste à retirer", name: "postes[]", optionsHtml: optionsHtmlPostes, isRequired: true }, 'select-multiple'))
