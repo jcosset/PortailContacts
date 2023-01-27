@@ -556,7 +556,7 @@ function showUpdateListeDiffusionModal(listeID) {
             optionsHtmlPostes = ""
             postes.forEach(async (poste) => {
 
-                optionsHtmlPostes += `<option value='${poste.id}' >${poste.Nom}</option>`
+                optionsHtmlPostes += `<option value='${poste.id}' >${poste.entitename}\\${poste.nom}</option>`
             })
 
             modal.append(modalRowDisplayerFactory({ label: "Poste à retirer", name: "postes[]", optionsHtml: optionsHtmlPostes, isRequired: true }, 'select-multiple'))
