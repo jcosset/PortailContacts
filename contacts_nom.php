@@ -147,11 +147,20 @@ error_reporting(E_ALL);
 
                         <div class="row form-group">
                             <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">Civilité</label>
+                                <label for="select" class=" form-control-label">Civilite</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="civilite" name="civilite"
-                                    placeholder="Monsieur, Madame, Neutre, ..." class="form-control" required>
+                                <select class="js-select2" name="civilite">
+                                    <?php
+
+                                    $civilites = ["Madame", "Monsieur"];
+                                    foreach ($civilites as $civilite) {
+                                        echo "<option value='$civilite'>$civilite</option>";
+                                    }
+                                    ?>
+                                    <option value="Autre" selected="selected">Autre</option>
+                                </select>
+                                <div class="dropDownSelect2"></div>
                             </div>
                         </div>
                         <div class="row form-group">

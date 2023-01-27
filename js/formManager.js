@@ -1,3 +1,9 @@
+
+
+function capitalize(s) {
+    return s[0].toUpperCase() + s.slice(1);
+}
+
 function defaultPostAjax({ url, data }) {
     $.ajax({
         type: "POST",
@@ -249,6 +255,7 @@ function getContact(id) {
             console.log(response)
 
             modal.append(modalRowDisplayerFactory({ label: "Photo", name: "photo", placeholder: "", value: response.Photo }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Civilite", name: "civilite", value: capitalize(response.Civilite) }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Nom", name: "nom", placeholder: "", value: response.Nom }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Prenom", name: "prenom", placeholder: "", value: response.Prenom }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Grade", name: "grade", placeholder: "", value: response.Grade }, 'input'))
@@ -411,17 +418,25 @@ function showContactModal(id) {
     Promise.all([ajaxGetPromise("actions_poste.php?type=get&all_filtered"), ajaxGetPromise("actions_contact.php?type=get&id=" + id + "&filter=default")])
         .then(([postes, contact]) => {
 
-            optionsHtml = ""
+            optionsHtmlPostes = ""
             for (poste of postes) {
                 let selected = contact.Poste_actuel == poste.id ? "selected" : ""
-                optionsHtml += `<option value='${poste.id}' ${selected}>${poste.entitename}\\${poste.Nom}</option>`
+                optionsHtmlPostes += `<option value='${poste.id}' ${selected}>${poste.entitename}\\${poste.Nom}</option>`
+
+            }
+
+            civilites = ["Madame", "Monsieur", "Autre"]
+            optionsHtmlCivilites = ""
+            for (civilite of civilites) {
+                let selected = contact.Civilite.toLowerCase() == civilite.toLowerCase() ? "selected" : ""
+                optionsHtmlCivilites += `<option value='${civilite}' ${selected}>${civilite}</option>`
 
             }
             modal.append(modalRowDisplayerFactory({ label: "Photo", name: "photo", value: contact.Nom, iSdisabled: false, isRequired: true }, 'file'))
-            modal.append(modalRowDisplayerFactory({ label: "Civilite", name: "civilite", value: contact.Civilite, iSdisabled: false, isRequired: true }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Civilite", name: "civilite", optionsHtml: optionsHtmlCivilites, isRequired: true }, 'select'))
             modal.append(modalRowDisplayerFactory({ label: "Nom", name: "nom", value: contact.Nom, iSdisabled: false, isRequired: true }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Prénom", name: "prenom", value: contact.Prenom, iSdisabled: false, isRequired: true }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Poste", name: "poste", optionsHtml, isRequired: true }, 'select'))
+            modal.append(modalRowDisplayerFactory({ label: "Poste", name: "poste", optionsHtml: optionsHtmlPostes, isRequired: true }, 'select'))
             modal.append(modalRowDisplayerFactory({ label: "Grade", name: "grade", value: contact.Grade, iSdisabled: false, isRequired: true }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Email", name: "email", value: contact.Email, iSdisabled: false, isRequired: true }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Email pro", name: "emailPro", value: contact.email_pro, iSdisabled: false, isRequired: false }, 'input'))
