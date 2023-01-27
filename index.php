@@ -143,7 +143,7 @@
                   $htmlPoste .= '</ul>';
                   $htmlPoste .= "</li>";;
                 } else {
-                  $htmlPoste .= "<li ><span class='text-danger' data-toggle='modal' data-target='#largeModal'
+                  $htmlPoste .= "<li ><span class='text-danger' data-toggle='modal' data-target='#displayerModal'
                    onclick=getPoste($id) style='cursor:pointer;'> " . $poste['Nom'] . "</span></li>";
                 }
               }
