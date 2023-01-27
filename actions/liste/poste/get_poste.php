@@ -18,8 +18,6 @@ if (isset($_REQUEST['id'])) {
         echo json_encode("erreur");
     }
 
-
-
     // $getPoste = $db->prepare('SELECT pos.id as id, pos.Nom as Nom, md.mode,
     //     plmd.listeID as listeID, lis.Nom as listeName
     //    FROM poste_liste_mode_diffusion as plmd  join Poste as pos on plmd.posteID = pos.id  join
