@@ -36,10 +36,7 @@ function getAllListeDiffusion()
 function getListePoste()
 {
     require('inc/db.php');
-    $stmt = "SELECT pos.Nom as nom, md.mode, plmd.listeID as listeID
-  FROM poste_liste_mode_diffusion as plmd  join Poste as pos on plmd.posteID = pos.id  join
-  mode_diffusion as md on (md.id = plmd.modeID)
-   ";
+    $stmt = "call liste_poste_recursive()";
     $stmtPrepare = $db->prepare($stmt);
     $stmtPrepare->execute();
     $results =   $stmtPrepare->fetchAll(PDO::FETCH_ASSOC);
@@ -109,7 +106,7 @@ $listePostes = getListePoste();
                                                 $postes = $listePostes["postes"][$liste["id"]];
 
                                                 foreach ($postes as $poste) {
-                                                    echo $poste["nom"] . "  >  " . $poste["mode"] . "<br/>";
+                                                    echo strtoupper($poste["nom"]) . " > " . $poste["entitename"] . "  >  " . $poste["mode"] . "<br/><br/>";
                                                 }
                                             }
 
