@@ -28,7 +28,7 @@ function getAllPostes()
 function getEntiteDetailsOfPoste($id)
 {
     global $db;
-    $sqlgetEntiteDetailsOfPoste = "SELECT Poste.Nom as poste , Entite.Nom as entite FROM Poste LEFT JOIN Entite ON Poste.Entite = Entite.id  WHERE Poste.id = '$id'";
+    $sqlgetEntiteDetailsOfPoste = "CALL recursive_poste_with_id($id)";
     $querygetEntiteDetailsOfPoste = $db->prepare($sqlgetEntiteDetailsOfPoste);
     $querygetEntiteDetailsOfPoste->execute();
     $resultgetEntiteDetailsOfPoste = $querygetEntiteDetailsOfPoste->fetchAll(PDO::FETCH_ASSOC);

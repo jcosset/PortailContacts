@@ -53,12 +53,13 @@ error_reporting(E_ALL);
                                     </th>
                                     <th>Nom</th>
                                     <th>Prenom</th>
+                                    <th>Poste</th>
                                     <th>Grade</th>
                                     <th>Email pro</th>
                                     <th>Téléphone</th>
                                     <th>Email perso</th>
                                     <th>Statut</th>
-                                    <th>Poste</th>
+
                                     <th></th>
                                 </tr>
                             </thead>
@@ -75,6 +76,16 @@ error_reporting(E_ALL);
                                     </td>
                                     <td><?php echo $contact['Nom']; ?></td>
                                     <td><?php echo $contact['Prenom']; ?></td>
+                                    <td><?php
+                                            if (getEntiteDetailsOfPoste($contact['Poste_actuel'])) {
+                                                $poste = getEntiteDetailsOfPoste($contact['Poste_actuel']);
+                                                echo $poste[0]['Nom'] . ' - ' . $poste[0]['entitename'];
+                                            } else {
+                                                echo "Le poste n'existe pas, ou a été supprimé";
+                                            }
+                                            ?>
+
+                                    </td>
                                     <td><?php echo $contact['Grade']; ?></td>
                                     <td>
                                         <span class="block-email"><?php echo $contact['email_pro']; ?></span>
@@ -86,16 +97,7 @@ error_reporting(E_ALL);
                                         <span class="block-email"><?php echo $contact['Email']; ?></span>
                                     </td>
                                     <td><?php echo $contact['Statut']; ?></td>
-                                    <td><?php
-                                            if (getEntiteDetailsOfPoste($contact['Poste_actuel'])) {
-                                                $poste = getEntiteDetailsOfPoste($contact['Poste_actuel']);
-                                                echo $poste[0]['poste'] . ' - ' . $poste[0]['entite'];
-                                            } else {
-                                                echo "Le poste n'existe pas, ou a été supprimé";
-                                            }
-                                            ?>
 
-                                    </td>
                                     <td>
                                         <div class="table-data-feature">
                                             <button class="item" data-toggle="tooltip" data-placement="top"
