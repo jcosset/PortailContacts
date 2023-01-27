@@ -43,6 +43,7 @@ function updateFormModalSubmit({ formAttributeId, url }) {
             event.stopPropagation();
         } else {
             let data = $(formAttributeId).serialize()
+            console.log(data)
             let id = $("#itemID").data("id")
             if (id) data = data + "&id=" + id,
                 defaultPostAjax({ url, data })
@@ -133,19 +134,24 @@ function attachEventListenerDeleteBtn({ buttonAttributeClass, url, confirmMessag
 })(jQuery);
 
 function modalRowFieldWrapWithHeaderAndFooter(fieldFunction, data) {
-    const { label } = data
+    const { label, hidden } = data
+
     let header = '<div class="form-group"><div class="col col-md-3">'
     let labelField = `<label for="text-input" class="form-control-label">${label}</label></div>`
     let field = fieldFunction(data)
     let inputHeader = '<div class="col-12 col-md-9">'
     let footer = "</div></div>"
-    return header + labelField + inputHeader + field + footer
+    if (!hidden) return header + labelField + inputHeader + field + footer
+
+    return field
 }
 
-function modalRowFieldInput({ name, placeholder = "", value = "", iSdisabled = true, isRequired }) {
+function modalRowFieldInput({ name, placeholder = "", value = "", iSdisabled = true, isRequired, hidden }) {
     let disabled = iSdisabled == true ? "readonly" : ""
     let required = isRequired == true ? "required" : ""
-    return `<input type="text" id="${name}" name="${name}" value="${value}" ${required}
+    let type = hidden ? "hidden" : "text"
+
+    return `<input type="${type}" id="${name}" name="${name}" value="${value}" ${required}
      placeholder="${placeholder}" class="form-control" ${disabled} >`
 
 }
@@ -229,7 +235,7 @@ function createPoste(agrs) {
     modalFooter.empty()
 
     modal.append(modalRowDisplayerFactory({ label: "Partenaire", name: "partenaire", iSdisabled: true, value: partenaireName }, 'input'))
-    modal.append(modalRowDisplayerFactory({ label: "Partenaire ID", name: "entiteId", iSdisabled: true, value: parteneaireId }, 'input'))
+    modal.append(modalRowDisplayerFactory({ label: "Partenaire ID", name: "entiteId", value: parteneaireId, hidden: true }, 'input'))
     modal.append(modalRowDisplayerFactory({ label: "Nom", name: "nom", placeholder: "Nom", isRequired: true, iSdisabled: false }, 'input'))
     modal.append(modalRowDisplayerFactory({ label: "Rue", name: "rue", placeholder: "rue", iSdisabled: false }, 'input'))
     modal.append(modalRowDisplayerFactory({ label: "Complement", name: "complement", placeholder: "complement", iSdisabled: false }, 'input'))
@@ -448,7 +454,9 @@ function showContactModal(id) {
             modal.append(modalRowDisplayerFactory({ label: "Ville", name: "ville", value: contact.Ville, iSdisabled: false, isRequired: true }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Pays", name: "pays", value: contact.Pays, iSdisabled: false, isRequired: true }, 'input'))
 
-            modal.append(modalRowDisplayerFactory({ label: "adresse ID", name: "addressID", value: contact.addressID, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({
+                label: "Adresse ID", name: "addressID", value: contact.addressID, iSdisabled: true, hidden: true
+            }, 'input'))
 
             modal.append(modalRowDisplayerFactory({ label: "Tag", name: "tag", value: contact.TAG, iSdisabled: false, isRequired: true }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Commentaire", name: "commentaire", value: contact.Commentaire, iSdisabled: false, isRequired: false }, 'textarea'))
@@ -502,7 +510,7 @@ function showCreatePosteListeDiffusionModal(listeID) {
 
             modal.append(modalRowDisplayerFactory({ label: "Poste", name: "poste", optionsHtml: optionsHtmlPostes, isRequired: true }, 'select'))
             modal.append(modalRowDisplayerFactory({ label: "Mode de diffusion", name: "mode", optionsHtml: optionsHtmlModes, isRequired: true }, 'select'))
-            modal.append(modalRowDisplayerFactory({ label: "ID Liste", name: "listeID", value: listeID, iSdisabled: true, isRequired: true }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "ID Liste", name: "listeID", value: listeID, isRequired: true, hidden: true }, 'input'))
 
             modal.parent().parent().find(".modal-footer").append(modalRowDisplayerFactory({}, 'submit'))
 
@@ -553,7 +561,7 @@ function showUpdateListeDiffusionModal(listeID) {
 
             modal.append(modalRowDisplayerFactory({ label: "Poste à retirer", name: "postes[]", optionsHtml: optionsHtmlPostes, isRequired: true }, 'select-multiple'))
             //modal.append(modalRowDisplayerFactory({ label: "Mode de diffusion", name: "mode", optionsHtml: optionsHtmlModes, isRequired: true }, 'select'))
-            modal.append(modalRowDisplayerFactory({ label: "ID Liste", name: "listeID", value: listeID, iSdisabled: true, isRequired: true }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "ID Liste", name: "listeID", value: listeID, isRequired: true, hidden: true }, 'input'))
 
             modal.parent().parent().find(".modal-footer").append(modalRowDisplayerFactory({}, 'submit'))
 
