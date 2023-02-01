@@ -175,10 +175,10 @@
                 </button>
             </div>
 
-            <div class="modal-body">
+            <div class="modal-body" style="font-size:small">
 
                 <!-- jdj -->
-                <div style="display:flex" class="detail">
+                <div style="display:flex" style="font-size:12px;">
                     <div style="width:50%;background:white;border:solid 1px;">
                         <div style="text-align:center">
                             <div style="width:40%; margin:0 auto;"> <img src="images/photo.png" alt="phooto"></div>
@@ -192,7 +192,7 @@
                             <button type=" button" class="btn btn-secondary">Editer</button>
                         </div>
                     </div>
-                    <div style="width:50%;background:white;border:solid 1px;padding-left:0.4em;">
+                    <div style="width:50%;background:white;border:solid 1px;padding-left:0.4em;line-height:15px;">
 
                         <div>
                             <p><label>Civilite :&nbsp </label><span id="civilite">Monsieur</span></p>
