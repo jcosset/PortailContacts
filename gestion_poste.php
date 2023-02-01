@@ -44,7 +44,7 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                 <div class="col-lg-12">
                     <h2 class="title-1 m-b-25">Gestion - Postes</h2>
                     <div class="table-data__tool">
-                        <div class="table-data__tool-left">
+                        <!-- <div class="table-data__tool-left">
                             <div class="rs-select2--light rs-select2--md">
                                 <select class="js-select2" name="property">
                                     <option selected="selected">All Properties</option>
@@ -53,7 +53,7 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                 </select>
                                 <div class="dropDownSelect2"></div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="table-data__tool-right">
                             <button type="button" class="btn btn-success mb-1" data-toggle="modal"
                                 data-target="#largeModal">
@@ -69,7 +69,7 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                             </div>
                         </div>
                     </div>
-                    <div class="table-responsive table-responsive-data2">
+                    <div class="table-responsive ">
                         <table class="table table-data2">
                             <thead>
                                 <tr>
@@ -102,7 +102,9 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                         </label>
                                     </td>
                                     <td><?= $poste['postename'] ?></td>
-                                    <td><?= $entites[$poste['entiteID']]['nom'] ?></td>
+                                    <td style="word-break:break-word;">
+                                        <?= $entites[$poste['entiteID']]['nom'] ?>
+                                    </td>
 
 
                                     <td><?php echo $poste['Rue'] . '<br>' . $poste['Compl'] . '<br>' . $poste['CP'] . ' ' . $poste['Ville']; ?>

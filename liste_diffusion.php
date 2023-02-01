@@ -45,11 +45,7 @@ error_reporting(E_ALL);
                         while ($listes = $queryGetAllListes->fetch(PDO::FETCH_ASSOC)) {
                             $arborescence['listes'][$listes['id']] = $listes;
                         }
-                        // $query = 'SELECT ent0.Nom as entParent0, ent1.Nom as entParent1, pos.Nom as nom,
-                        //  pos.id as id, md.mode, plmd.listeID as listeID
-                        // FROM poste_liste_mode_diffusion as plmd  join Poste as pos on plmd.posteID = pos.id  join
-                        // mode_diffusion as md on (md.id = plmd.modeID) join Entite as ent0 on (pos.Entite=ent0.id)
-                        // join Entite as ent1 on (ent0.Uper_id=ent1.id)';
+
                         $query = "CALL liste_poste_recursive()";
                         $queryGetAllPostes = $db->prepare($query);
                         $queryGetAllPostes->execute();
@@ -80,7 +76,8 @@ error_reporting(E_ALL);
 
                         function createPosteListe($posteID, $posteName, $mode)
                         {
-                            return  "<li >
+                            return  "<li style='overflow-x:auto;' >
+
                             <select name='mode' id='modeID'> <option value='1'>" . $mode . "</option></select>
                             <span class='item' data-toggle='modal' data-target='#displayerModal'
                             onclick=getPoste(" . $posteID . ") style='cursor:pointer;'> " . $posteName . "</span></li>";
@@ -100,12 +97,12 @@ error_reporting(E_ALL);
 
                                 $name = $liste['nom'];
                                 $listeID = $liste['id'];
-                                $html .= "<li>";
+                                $html .= "<li    > ";
                                 $html .= "<div class='listree-submenu-heading'>" . $name . createButtonAddPoste($listeID, $name, 'poste') . "</div>";
-                                $html .= "<ul class='listree-submenu-items'>" . createButtonDownload($listeID);
+                                $html .= "<ul class='listree-submenu-items'" . createButtonDownload($listeID);
                                 if (isset($arborescence['postes'][$listeID])) {;
                                     foreach ($arborescence['postes'][$listeID] as $poste) {
-                                        $posteName =  '<span class="text-primary">' . $poste['nom'] . '</span>-' . $poste['entitename'];
+                                        $posteName =  '<span class="text-primary">' . $poste['nom'] . '</span>-<span ">' . $poste['entitename'] . '</span>';
                                         $mode = $poste['mode'];
                                         $posteID = $poste['id'];
 

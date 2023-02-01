@@ -25,7 +25,7 @@ error_reporting(E_ALL);
                         </button>
                     </div>
 
-                    <div class="table-responsive table-responsive-data2">
+                    <div class="table-responsive">
                         <table class="table table-data2">
                             <thead>
                                 <tr>

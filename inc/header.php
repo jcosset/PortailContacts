@@ -1,7 +1,8 @@
 <?php session_start();
-if(!isset($_SESSION["username"])){
-header("Location: login.php"); // Redirection vers login
-exit(); } ?>
+if (!isset($_SESSION["username"])) {
+    header("Location: login.php"); // Redirection vers login
+    exit();
+} ?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -33,10 +34,11 @@ exit(); } ?>
     <link href="vendor/slick/slick.css" rel="stylesheet" media="all">
     <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
     <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
-    <link rel="stylesheet" href="css/listree.min.css"/>
+    <link rel="stylesheet" href="css/listree.min.css" />
 
     <!-- Main CSS-->
     <link href="css/theme.css" rel="stylesheet" media="all">
+    <link href="css/custom.css" rel="stylesheet" media="all">
 
 </head>
 
@@ -146,10 +148,10 @@ exit(); } ?>
                                     <a href="gestion_poste.php">Poste</a>
                                 </li>
                                 <li>
-                                    <a  href="gestion_liste.php">Liste</a>
+                                    <a href="gestion_liste.php">Liste</a>
                                 </li>
                                 <li>
-                                    <a  href="liste_diffusion.php">Liste de diffusion</a>
+                                    <a href="liste_diffusion.php">Liste de diffusion</a>
                                 </li>
                                 <li>
                                     <a style="color:red;" href="correction.php">Correction</a>
@@ -168,7 +170,7 @@ exit(); } ?>
                         <li class="has-sub">
                             <a class="js-arrow" href="release.php">
                                 <i class="fa fa-angle-double-up"></i>Release</a>
-                           
+
                         </li>
                     </ul>
                 </nav>
@@ -184,7 +186,8 @@ exit(); } ?>
                     <div class="container-fluid">
                         <div class="header-wrap">
                             <form class="form-header" action="" method="POST">
-                                <input class="au-input au-input--xl" type="text" name="search" placeholder="Rechercher ..." />
+                                <input class="au-input au-input--xl" type="text" name="search"
+                                    placeholder="Rechercher ..." />
                                 <button class="au-btn--submit" type="submit">
                                     <i class="zmdi zmdi-search"></i>
                                 </button>
@@ -195,7 +198,7 @@ exit(); } ?>
                                         <div class="content">
                                             <a class="js-acc-btn" href="#"><?php $_SESSION['username']; ?></a>
                                         </div>
-                                        <div class="account-dropdown js-dropdown">  
+                                        <div class="account-dropdown js-dropdown">
                                             <div class="account-dropdown__body">
                                                 <div class="account-dropdown__item">
                                                     <a href="compte.php">
