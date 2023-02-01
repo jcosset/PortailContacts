@@ -192,7 +192,9 @@
                             <button type=" button" class="btn btn-secondary">Editer</button>
                         </div>
                     </div>
-                    <div style="width:50%;background:white;border:solid 1px;padding-left:0.4em;line-height:15px;">
+                    <div style="width:50%;background:white;border:solid 1px;padding-left:0.4em;line-height:15px;
+                    padding-top:0.4em;
+                    ">
 
                         <div>
                             <p><label>Civilite :&nbsp </label><span id="civilite">Monsieur</span></p>
