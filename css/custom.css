@@ -1,22 +1,6 @@
- /* .table-data2.table tbody td {
-    font-size: 14px;
-    color: #808080;
-    vertical-align: middle;
-    padding: 6px 10px;
-    /* padding: 25px 40px; */
-    padding-right: 10px;
-    border: none;
+
+.select2-container--default .select2-results>.select2-results__options {
+     /* max-height: 200px;
+     overflow-y: auto; */
+    overflow-wrap: break-word;
 }
-
-table, table td, .table th {
-
-    vertical-align: inherit;
-        /* -webkit-box-sizing: border-box;
-        -moz-box-sizing: unset;
-         box-sizing: unset;
-    /* overflow-wrap: anywhere; */
-}
-
-*, ::after, ::before {
-    box-sizing: unset
-} */
