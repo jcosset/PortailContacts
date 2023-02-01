@@ -176,10 +176,71 @@
             </div>
 
             <div class="modal-body">
+
+                <!-- jdj -->
+                <div style="display:flex" class="detail">
+                    <div style="width:50%;background:white;border:solid 1px;">
+                        <div style="text-align:center">
+                            <p id="status">statut</p>
+                            <p id="updateDate">Date de la dernière mise à jour</p>
+                            <p id="tag">TAG</p>
+                        </div>
+                        <div style="text-align:center">
+                            <button type=" button" class="btn btn-secondary">Editer</button>
+                        </div>
+                    </div>
+                    <div style="width:50%;background:white;border:solid 1px;padding-left:0.4em;">
+
+                        <div>
+                            <p><label>Civilite : </label><span id="civilite">Monsieur</span></p>
+                            <p><label>Nom : </label><span id="firstname">Monsieur</span></p>
+                            <p><label>Prénom : </label><span id="lastname">Monsieur</span></p>
+                            <p><label>Grade : </label><span id="grade">Monsieur</span></p>
+
+                        </div>
+                        <div style="margin-top:15px;">
+                            <p><label>Adresse email : </label><span id="emailPro">mail</span></p>
+                            <p><label>Informations niv 1 : </label><span id="niv1info">Monsieur</span></p>
+
+                        </div>
+
+                        <div style="margin-top:15px;">
+                            <h5 style="text-align:center">Informations confidentielles</h5>
+                            <p><label>Téléphone portable : </label><span id="privateNumber">mail</span></p>
+                            <p><label>Adresse email perso : </label><span id="privateEmail">Monsieur</span></p>
+                            <p><label>Adresse postale perso : </label><span id="privateAdress">Address postale</span>
+                            </p>
+                            <p><label>Informations niv 2 : </label><span id="niv2info">Monsieur</span></p>
+
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div style="width:100%;background:white;border:solid 1px;text-align:center;padding:15px 0px;">
+                        <span>Historiques des postes : </span> <button type=" button" class="btn btn-secondary">Saisir
+                            une mobilité</button>
+
+
+                    </div>
+                    <div style="width:100%;display:flex;">
+                        <div style="width:50%;height:100px;background:white;border:solid 1px;">
+                            <p>Date de début et date de fin</P>
+                            <p>Date de début et date de fin</P>
+                            <p>Date de début et date de fin</P>
+                        </div>
+                        <div style="width:50%;height:100px;background:white;border:solid 1px;padding-left:0.4em;">
+                            <p>Intitulé du poste</P>
+                            <p>Intitulé du poste</P>
+                            <p>Intitulé du poste</P>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- end -->
                 <div class="card-body card-block"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
 
             </div>
 

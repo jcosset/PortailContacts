@@ -4,3 +4,7 @@
      overflow-y: auto; */
     overflow-wrap: break-word;
 }
+
+.displayerModal {
+    height: auto;
+}
