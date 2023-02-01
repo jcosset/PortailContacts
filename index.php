@@ -181,36 +181,40 @@
                 <div style="display:flex" class="detail">
                     <div style="width:50%;background:white;border:solid 1px;">
                         <div style="text-align:center">
+                            <div style="width:40%; margin:0 auto;"> <img src="images/photo.png" alt="phooto"></div>
+
                             <p id="status">statut</p>
                             <p id="updateDate">Date de la dernière mise à jour</p>
                             <p id="tag">TAG</p>
                         </div>
                         <div style="text-align:center">
+                            <button type=" button" class="btn btn-secondary">Situation dans l'arbre</button>
                             <button type=" button" class="btn btn-secondary">Editer</button>
                         </div>
                     </div>
                     <div style="width:50%;background:white;border:solid 1px;padding-left:0.4em;">
 
                         <div>
-                            <p><label>Civilite : </label><span id="civilite">Monsieur</span></p>
-                            <p><label>Nom : </label><span id="firstname">Monsieur</span></p>
-                            <p><label>Prénom : </label><span id="lastname">Monsieur</span></p>
-                            <p><label>Grade : </label><span id="grade">Monsieur</span></p>
+                            <p><label>Civilite :&nbsp </label><span id="civilite">Monsieur</span></p>
+                            <p><label>Nom :&nbsp </label><span id="firstname">Monsieur</span></p>
+                            <p><label>Prénom :&nbsp </label><span id="lastname">Monsieur</span></p>
+                            <p><label>Grade :&nbsp </label><span id="grade">Monsieur</span></p>
 
                         </div>
                         <div style="margin-top:15px;">
-                            <p><label>Adresse email : </label><span id="emailPro">mail</span></p>
-                            <p><label>Informations niv 1 : </label><span id="niv1info">Monsieur</span></p>
+                            <p><label>Adresse email :&nbsp </label><span id="emailPro">mail</span></p>
+                            <p><label>Informations niv 1 :&nbsp </label><span id="niv1info">Monsieur</span></p>
 
                         </div>
 
                         <div style="margin-top:15px;">
                             <h5 style="text-align:center">Informations confidentielles</h5>
-                            <p><label>Téléphone portable : </label><span id="privateNumber">mail</span></p>
-                            <p><label>Adresse email perso : </label><span id="privateEmail">Monsieur</span></p>
-                            <p><label>Adresse postale perso : </label><span id="privateAdress">Address postale</span>
+                            <p><label>Téléphone portable :&nbsp </label><span id="privateNumber">mail</span></p>
+                            <p><label>Adresse email perso :&nbsp </label><span id="privateEmail">Monsieur</span></p>
+                            <p><label>Adresse postale perso :&nbsp </label><span id="privateAdress">Address
+                                    postale</span>
                             </p>
-                            <p><label>Informations niv 2 : </label><span id="niv2info">Monsieur</span></p>
+                            <p><label>Informations niv 2 :&nbsp </label><span id="niv2info">Monsieur</span></p>
 
                         </div>
                     </div>
@@ -223,7 +227,7 @@
 
                     </div>
                     <div style="width:100%;display:flex;">
-                        <div style="width:50%;height:100px;background:white;border:solid 1px;">
+                        <div style="width:50%;height:100px;background:white;border:solid 1px;padding-left:0.4em;">
                             <p>Date de début et date de fin</P>
                             <p>Date de début et date de fin</P>
                             <p>Date de début et date de fin</P>
