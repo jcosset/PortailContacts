@@ -686,3 +686,4 @@ function showAddPosteListeByIdModal(posteID) {
         }).catch(err => { console.log(err); })
 
 }
+$("input[required]").parent("label").addClass("required");
