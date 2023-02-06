@@ -134,10 +134,10 @@ function attachEventListenerDeleteBtn({ buttonAttributeClass, url, confirmMessag
 })(jQuery);
 
 function modalRowFieldWrapWithHeaderAndFooter(fieldFunction, data) {
-    const { label, hidden } = data
-
+    const { label, hidden, isRequired } = data
+    let required = isRequired == true ? "required" : ""
     let header = '<div class="form-group"><div class="col col-md-3">'
-    let labelField = `<label for="text-input" class="form-control-label">${label}</label></div>`
+    let labelField = `<label for="text-input" class="form-control-label" ${required}>${label}</label></div>`
     let field = fieldFunction(data)
     let inputHeader = '<div class="col-12 col-md-9">'
     let footer = "</div></div>"
@@ -166,7 +166,7 @@ function modalRowDropdownSelectCommun({ label, name, optionsHtml, isRequired }, 
     let multiple = type == "select-multiple" ? "multiple='multiple'" : ""
     return `
    <div class="form-group col-12 col-md-9">
-   <label for="vat" class="form-control-label">${label}</label>
+   <label for="vat" class="form-control-label" ${required}>${label}</label>
    <select class="js-select2 js-select-custom" ${multiple}  name="${name}" ${required}>
 
     ${optionsHtml}
@@ -389,20 +389,20 @@ function showEntiteModal(id) {
 
             modal.append(modalRowDisplayerFactory({ label: "Nom", name: "nom", value: entity.nom, iSdisabled: false, isRequired: true }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Entite Parent", name: "uper_id", value: entity.uper_id, optionsHtml, isRequired: true }, 'select'))
-            modal.append(modalRowDisplayerFactory({ label: "Acronyme", name: "acronyme", value: entity.acronyme, iSdisabled: false, isRequired: true }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Téléphone", name: "telephone", value: entity.tel, iSdisabled: false, isRequired: true }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Site", name: "site", value: entity.site, iSdisabled: false, isRequired: true }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Logo", name: "logo", value: entity.logo, iSdisabled: false, isRequired: true }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Adresse Géographique", name: "adresseGeo", value: entity.rue_geo, iSdisabled: false, isRequired: true }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "complement", name: "complementGeo", value: entity.compl_geo, iSdisabled: false, isRequired: false }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Code Postal", name: "CPGeo", value: entity.cp_geo, iSdisabled: false, isRequired: true }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Ville", name: "villeGeo", value: entity.ville_geo, iSdisabled: false, isRequired: true }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Pays", name: "paysGeo", value: entity.pays_geo, iSdisabled: false, isRequired: true }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Adresse Postale", name: "adressePos", value: entity.rue_pos, iSdisabled: false, isRequired: true }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "complement", name: "complementPos", value: entity.compl_pos, iSdisabled: false, isRequired: false }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Code Postal", name: "CPPos", value: entity.cp_pos, iSdisabled: false, isRequired: true }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Ville", name: "villePos", value: entity.ville_pos, iSdisabled: false, isRequired: true }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Pays", name: "paysPos", value: entity.pays_pos, iSdisabled: false, isRequired: true }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Acronyme", name: "acronyme", value: entity.acronyme, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Téléphone", name: "telephone", value: entity.tel, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Site", name: "site", value: entity.site, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Logo", name: "logo", value: entity.logo, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Adresse Géographique", name: "adresseGeo", value: entity.rue_geo, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "complement", name: "complementGeo", value: entity.compl_geo, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Code Postal", name: "CPGeo", value: entity.cp_geo, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Ville", name: "villeGeo", value: entity.ville_geo, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Pays", name: "paysGeo", value: entity.pays_geo, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Adresse Postale", name: "adressePos", value: entity.rue_pos, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "complement", name: "complementPos", value: entity.compl_pos, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Code Postal", name: "CPPos", value: entity.cp_pos, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Ville", name: "villePos", value: entity.ville_pos, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Pays", name: "paysPos", value: entity.pays_pos, iSdisabled: false }, 'input'))
             modal.parent().parent().find(".modal-footer").append(modalRowDisplayerFactory({}, 'submit'))
             modal.append(`<span id="itemID" name="id"  data-id=${entity.id} ></span>`)
 
@@ -436,12 +436,12 @@ function showPosteModal(id) {
             }
             modal.append(modalRowDisplayerFactory({ label: "Nom", name: "nom", value: poste.Nom, iSdisabled: false, isRequired: true }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Entite", name: "entiteId", optionsHtml, isRequired: true }, 'select'))
-            modal.append(modalRowDisplayerFactory({ label: "Rue", name: "rue", value: poste.Rue, iSdisabled: false, isRequired: true }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Complement", name: "complement", value: poste.Compl, iSdisabled: false, isRequired: false }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "CP", name: "cp", value: poste.CP, iSdisabled: false, isRequired: true }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Ville", name: "ville", value: poste.Ville, iSdisabled: false, isRequired: true }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Pays", name: "pays", value: poste.Pays, iSdisabled: false, isRequired: true }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Email fonctionnel", name: "email", value: poste.Email_fonctionnel, iSdisabled: false, isRequired: true }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Rue", name: "rue", value: poste.Rue, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Complement", name: "complement", value: poste.Compl, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "CP", name: "cp", value: poste.CP, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Ville", name: "ville", value: poste.Ville, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Pays", name: "pays", value: poste.Pays, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Email fonctionnel", name: "email", value: poste.Email_fonctionnel, iSdisabled: false }, 'input'))
 
             modal.parent().parent().find(".modal-footer").append(modalRowDisplayerFactory({}, 'submit'))
             modal.append(`<span id="itemID" name="id"  data-id=${poste.id} ></span>`)
@@ -482,27 +482,27 @@ function showContactModal(id) {
                 optionsHtmlCivilites += `<option value='${civilite}' ${selected}>${civilite}</option>`
 
             }
-            modal.append(modalRowDisplayerFactory({ label: "Photo", name: "photo", value: contact.Nom, iSdisabled: false, isRequired: true }, 'file'))
-            modal.append(modalRowDisplayerFactory({ label: "Civilite", name: "civilite", optionsHtml: optionsHtmlCivilites, isRequired: true }, 'select'))
+            modal.append(modalRowDisplayerFactory({ label: "Photo", name: "photo", value: contact.Nom, iSdisabled: false, isRequired: false }, 'file'))
+            modal.append(modalRowDisplayerFactory({ label: "Civilite", name: "civilite", optionsHtml: optionsHtmlCivilites, isRequired: false }, 'select'))
             modal.append(modalRowDisplayerFactory({ label: "Nom", name: "nom", value: contact.Nom, iSdisabled: false, isRequired: true }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Prénom", name: "prenom", value: contact.Prenom, iSdisabled: false, isRequired: true }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Poste", name: "poste", optionsHtml: optionsHtmlPostes, isRequired: true }, 'select'))
-            modal.append(modalRowDisplayerFactory({ label: "Grade", name: "grade", value: contact.Grade, iSdisabled: false, isRequired: true }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Poste", name: "poste", optionsHtml: optionsHtmlPostes, isRequired: false }, 'select'))
+            modal.append(modalRowDisplayerFactory({ label: "Grade", name: "grade", value: contact.Grade, iSdisabled: false, isRequired: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Email", name: "email", value: contact.Email, iSdisabled: false, isRequired: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Email pro", name: "emailPro", value: contact.email_pro, iSdisabled: false, isRequired: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Téléphone", name: "telephone", value: contact.telephone, iSdisabled: false, isRequired: false }, 'input'))
 
-            modal.append(modalRowDisplayerFactory({ label: "Rue", name: "rue", value: contact.Rue, iSdisabled: false, isRequired: true }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Rue", name: "rue", value: contact.Rue, iSdisabled: false, isRequired: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Complement", name: "complement", value: contact.Compl, iSdisabled: false, isRequired: false }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "CP", name: "cp", value: contact.CP, iSdisabled: false, isRequired: true }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Ville", name: "ville", value: contact.Ville, iSdisabled: false, isRequired: true }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Pays", name: "pays", value: contact.Pays, iSdisabled: false, isRequired: true }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "CP", name: "cp", value: contact.CP, iSdisabled: false, isRequired: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Ville", name: "ville", value: contact.Ville, iSdisabled: false, isRequired: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Pays", name: "pays", value: contact.Pays, iSdisabled: false, isRequired: false }, 'input'))
 
             modal.append(modalRowDisplayerFactory({
                 label: "Adresse ID", name: "addressID", value: contact.addressID, iSdisabled: true, hidden: true
             }, 'input'))
 
-            modal.append(modalRowDisplayerFactory({ label: "Tag", name: "tag", value: contact.TAG, iSdisabled: false, isRequired: true }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Tag", name: "tag", value: contact.TAG, iSdisabled: false, isRequired: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Commentaire", name: "commentaire", value: contact.Commentaire, iSdisabled: false, isRequired: false }, 'textarea'))
             modal.append(modalRowDisplayerFactory({ label: "Commentaire niv 2", name: "commentaireNiv2", value: contact.commentaire_niv_2, iSdisabled: false, isRequired: false }, 'textarea'))
 

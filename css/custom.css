@@ -10,10 +10,15 @@
 }
 
 
-input[required]{
+/* input[required], select[required]{
     background-image: radial-gradient(#F00 15%, transparent 16%), radial-gradient(#F00 15%, transparent 16%);
     background-size: 1em 1em;
     background-position: left top;
     background-repeat: no-repeat;
+} */
+label[required]::after{
+    content:" *";
+    color: red;
 }
+
 
