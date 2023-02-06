@@ -305,22 +305,26 @@
                     </div>
                 </div>
                 <div>
-                    <div style="width:100%;background:white;border:solid 1px;text-align:center;padding:15px 0px;">
-                        <span>Historiques des postes : </span> <button type=" button" class="btn btn-secondary">Saisir
-                            une mobilité</button>
-
+                    <div style="width:100%;display:flex;">
+                        <div style="width:50%;height:30background:white;border:solid 1px;padding-left:0.4em;">
+                            <p>Liste de diffusion :&nbsp</P>
+                        </div>
+                        <div style="width:50%;height:30px;background:white;border:solid 1px;padding-left:0.4em;">
+                            <p>Historique des personnes sur le poste :&nbsp</P>
+                        </div>
 
                     </div>
                     <div style="width:100%;display:flex;">
-                        <div style="width:50%;height:100px;background:white;border:solid 1px;padding-left:0.4em;">
-                            <p>Date de début et date de fin</P>
-                            <p>Date de début et date de fin</P>
-                            <p>Date de début et date de fin</P>
+                        <div style="width:50%;background:white;border:solid 1px;padding-left:0.4em;">
+                            <p><label>[Nom de la liste] :&nbsp</label><span>Email</span></p>
+                            <p><label>[Nom de la liste] :&nbsp</label><span>Papier+Email</span></p>
+                            <p><label>[Nom de la liste] :&nbsp</label><span>Papier</span></p>
+
                         </div>
-                        <div style="width:50%;height:100px;background:white;border:solid 1px;padding-left:0.4em;">
-                            <p>Intitulé du poste</P>
-                            <p>Intitulé du poste</P>
-                            <p>Intitulé du poste</P>
+                        <div style="width:50%;background:white;border:solid 1px;padding-left:0.4em;">
+                            <p>Date début - Date fin : Nom Prénom</P>
+                            <p>Date début - Date fin : Nom Prénom</P>
+                            <p>Date début - Date fin : Nom Prénom</P>
                         </div>
 
                     </div>
