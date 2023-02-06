@@ -72,7 +72,7 @@
 
                   $htmlPoste .= "<li>";
                   $htmlPoste .= "<div class='listree-submenu-headingxxx text-primary  expanded'
-                  ><span data-toggle='modal' data-target='#displayerModal' onclick=getPoste($id) style='cursor:pointer;'>
+                  ><span data-toggle='modal' data-target='#largeModalPoste' onclick=getPoste($id) style='cursor:pointer;'>
                   " . $poste['Nom'] . "</span></div>";
                   $htmlPoste .= "<ul class='listree-submenu-items' style='display:block;' >";
 
@@ -81,7 +81,7 @@
                   $htmlPoste .= '</ul>';
                   $htmlPoste .= "</li>";;
                 } else {
-                  $htmlPoste .= "<li ><span class='text-danger' data-toggle='modal' data-target='#displayerModal'
+                  $htmlPoste .= "<li ><span class='text-danger' data-toggle='modal' data-target='#largeModalPoste'
                    onclick=getPoste($id) style='cursor:pointer;'> " . $poste['Nom'] . "</span></li>";
                 }
               }
@@ -118,7 +118,7 @@
                     } else if (isset($menu['poste'][$itemId])) {
 
                       $html .= "<li>";
-                      $html .= "<div class='listree-submenu-heading' >" . $name . createButtonEdit($itemId, $name, 'poste') . "</div>";
+                      $html .= "<div class='listree-submenu-heading' >" . $name . createButtonEdit($itemId, $name, 'poste') . createButtonEdit($itemId, $name, 'poste') . "</div>";
                       $html .= "<ul class='listree-submenu-items'>";
 
                       $html .= posteArrayToHtml($menu['poste'], $itemId);
@@ -133,7 +133,7 @@
                     $name = $menu['items'][$itemId]['nom'];
 
                     $html .= "<li>";
-                    $html .= "<div class='listree-submenu-heading'>" . "$name"  . createButtonEdit($itemId, $name, 'poste') . "
+                    $html .= "<div class='listree-submenu-heading'>" . "$name"  . createButtonEdit($itemId, $name, 'poste') . createButtonEdit($itemId, $name, 'poste') . "
                        </div>";
 
                     $html .= "<ul class='listree-submenu-items'>";
@@ -253,6 +253,91 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="largeModalPoste" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="largeModalLabel">Poste</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body" style="font-size:small">
+
+                <!-- jdj -->
+                <div style="display:flex" style="font-size:12px;">
+                    <div style="width:50%;background:white;border:solid 1px;">
+                        <div style="text-align:center">
+                            <p id="partner">Nom du partenaire</p>
+                            <div style="width:40%; margin:0 auto;"> <img src="images/photo.png" alt="phooto"></div>
+                            <p id="tag">TAG</p>
+                        </div>
+
+                    </div>
+                    <div style="width:50%;background:white;border:solid 1px;padding-left:0.4em;line-height:15px;
+                    padding-top:0.4em;
+                    ">
+
+                        <div>
+                            <p><label>Nom du poste :&nbsp </label><span id="name"></span></p>
+                            <p><label>Acronyme :&nbsp </label><span id="nickname"></span></p>
+
+                        </div>
+                        <div style="margin-top:15px;">
+                            <p><label>Numéro du poste fixe :&nbsp </label><span id="fixNumber"></span></p>
+                            <p><label>Emplacement :&nbsp </label><span id="localisation"></span></p>
+                            <p><label>Email fonctionnel du poste fixe :&nbsp </label><span id="fonctEmail"></span></p>
+
+                        </div>
+
+                        <div style="margin-top:15px;">
+                            <h5>Secrétariat</h5>
+                            <p style="padding-left:40px"><label>Numéro portable :&nbsp </label><span
+                                    id="privateNumber">mail</span></p>
+                            <p style="padding-left:40px"><label>Email :&nbsp </label><span
+                                    id="secEmail">sec@email.fr</span></p>
+
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div style="width:100%;background:white;border:solid 1px;text-align:center;padding:15px 0px;">
+                        <span>Historiques des postes : </span> <button type=" button" class="btn btn-secondary">Saisir
+                            une mobilité</button>
+
+
+                    </div>
+                    <div style="width:100%;display:flex;">
+                        <div style="width:50%;height:100px;background:white;border:solid 1px;padding-left:0.4em;">
+                            <p>Date de début et date de fin</P>
+                            <p>Date de début et date de fin</P>
+                            <p>Date de début et date de fin</P>
+                        </div>
+                        <div style="width:50%;height:100px;background:white;border:solid 1px;padding-left:0.4em;">
+                            <p>Intitulé du poste</P>
+                            <p>Intitulé du poste</P>
+                            <p>Intitulé du poste</P>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- end -->
+                <!-- <div class="card-body card-block"></div> -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
 <!-- end modal large -->
 
 <div class="modal fade" id="displayerModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"

@@ -65,7 +65,7 @@ error_reporting(E_ALL);
 
                         function createButtonDownload($listeID)
                         {
-                            return '<form action="downloadCSV.php" method="POST" style="">
+                            return '<form action="downloadCSV.php" method="POST" style="display:inline-block;z-index:1000;">
                               <input name="listeID"    hidden value="' . $listeID . '">
                               <button class="item" style="" id="downloadForm" type="submit" data-toggle="tooltip"
                                 data-placement="top" title="download csv">
@@ -97,9 +97,10 @@ error_reporting(E_ALL);
 
                                 $name = $liste['nom'];
                                 $listeID = $liste['id'];
-                                $html .= "<li    > ";
+                                $html .=  "<li> ";
                                 $html .= "<div class='listree-submenu-heading'>" . $name . createButtonAddPoste($listeID, $name, 'poste') . "</div>";
-                                $html .= "<ul class='listree-submenu-items'" . createButtonDownload($listeID);
+                                $html .= "<ul class='listree-submenu-items'";
+                                $html .= "<li>" . createButtonDownload($listeID) . "</li>";
                                 if (isset($arborescence['postes'][$listeID])) {;
                                     foreach ($arborescence['postes'][$listeID] as $poste) {
                                         $posteName =  '<span class="text-primary">' . $poste['nom'] . '</span>-<span ">' . $poste['entitename'] . '</span>';

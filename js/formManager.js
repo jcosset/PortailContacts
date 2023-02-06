@@ -285,7 +285,6 @@ function getContact(id) {
 
             $("#largeModal").find("span#emailPro").text(response.email_pro || "")
             $("#largeModal").find("span#niv1info").text(response.Commentaire || "")
-            $("#largeModal").find("p#tag").text(response.TAG || "")
 
             $("#largeModal").find("span#privateNumber").text(response.telephone || "")
             $("#largeModal").find("span#privateEmail").text(response.Email || "")
@@ -306,6 +305,7 @@ function getPoste(id) {
 
     let modal = $("#displayerModal .card-body")
     let modalFooter = $("#displayerModal .modal-footer")
+    let modalName = "#largeModalPoste"
     modal.empty()
     modalFooter.empty()
     $.ajax({
@@ -315,13 +315,38 @@ function getPoste(id) {
         success: function (response) {
             response = JSON.parse(response)
 
-            modal.append(modalRowDisplayerFactory({ label: "Nom", name: "nom", value: response.Nom }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Rue", name: "rue", value: response.Rue }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Complement", name: "compl", value: response.Compl }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "CP", name: "cp", value: response.CP }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Ville", name: "ville", value: response.Ville }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Pays", name: "pays", value: response.Pays }, 'input'))
+            // modal.append(modalRowDisplayerFactory({ label: "Nom", name: "nom", value: response.Nom }, 'input'))
+            // modal.append(modalRowDisplayerFactory({ label: "Rue", name: "rue", value: response.Rue }, 'input'))
+            // modal.append(modalRowDisplayerFactory({ label: "Complement", name: "compl", value: response.Compl }, 'input'))
+            // modal.append(modalRowDisplayerFactory({ label: "CP", name: "cp", value: response.CP }, 'input'))
+            // modal.append(modalRowDisplayerFactory({ label: "Ville", name: "ville", value: response.Ville }, 'input'))
+            //  modal.append(modalRowDisplayerFactory({ label: "Pays", name: "pays", value: response.Pays }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Email fonctionnel", name: "email", placeholder: "", value: response.Email_fonctionnel }, 'input'))
+
+            let emplacement = response.Rue + "-" + response.Ville + "-" + response.Pays + "-" + response.Compl
+
+
+            $(modalName).find("p#tag").text(response.TAG || "")
+
+            $(modalName).find("span#name").text(response.Nom || "")
+            $(modalName).find("span#nickname").text(response.Acronyme || "")
+
+            $(modalName).find("span#fixNumber").text(response.Tel || "")
+            $(modalName).find("span#localisation").text(emplacement || "")
+            $(modalName).find("span#emailPro").text(response.Email_fonctionnel || "")
+
+            $("#largeModal").find("p#status").text(response.Statut || "")
+            $("#largeModal").find("p#updateDate").text(response.Date_MAJ || "")
+
+
+
+            $("#largeModal").find("span#niv1info").text(response.Commentaire || "")
+
+            $("#largeModal").find("span#privateNumber").text(response.telephone || "")
+            $("#largeModal").find("span#privateEmail").text(response.Email || "")
+            $("#largeModal").find("span#niv2info").text(response.commentaire_niv_2 || "")
+            $("#largeModal").find("p#tag").text(response.TAG || "")
+
 
         },
         error: function () {
@@ -463,7 +488,7 @@ function showContactModal(id) {
             modal.append(modalRowDisplayerFactory({ label: "Prénom", name: "prenom", value: contact.Prenom, iSdisabled: false, isRequired: true }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Poste", name: "poste", optionsHtml: optionsHtmlPostes, isRequired: true }, 'select'))
             modal.append(modalRowDisplayerFactory({ label: "Grade", name: "grade", value: contact.Grade, iSdisabled: false, isRequired: true }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Email", name: "email", value: contact.Email, iSdisabled: false, isRequired: true }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Email", name: "email", value: contact.Email, iSdisabled: false, isRequired: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Email pro", name: "emailPro", value: contact.email_pro, iSdisabled: false, isRequired: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Téléphone", name: "telephone", value: contact.telephone, iSdisabled: false, isRequired: false }, 'input'))
 

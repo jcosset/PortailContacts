@@ -34,3 +34,21 @@ ADD COLUMN addressID int;
 ALTER TABLE contact ADD FOREIGN KEY (addressID) REFERENCES address(id);
 
 CRUD LISTE
+
+# 06/02/2023
+
+Entite adresse mail
+Mail Non obligatoire
+Ajouter des étoiles fields
+Migrer github flag
+
+Finaliser
+
+Entite
+Poste
+Cont
+
+Ajout poste liste de diffusion directement modal modif poste
+
+===========
+Civilite Table
