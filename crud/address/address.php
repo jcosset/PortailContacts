@@ -34,7 +34,7 @@ function getIdAddress($address, $CP, $ville, $pays)
     return $resultRecupIdAddress;
 }
 
-function setAddress($address, $complement, $CP, $ville, $pays, $cedex)
+function setAddress($address, $CP, $ville, $pays, $cedex)
 {
     global $db;
     if (!$complement) {

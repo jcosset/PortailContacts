@@ -27,19 +27,19 @@ function getAllContacts()
     return $resultRecupContacts;
 }
 
-function updateContact($id, $nom, $prnom, $civil, $photo, $poste, $grade, $email, $tag, $comment, $emailPro, $telephone, $commentaireNiv2, $adresseId) 
+function updateContact($id, $nom, $prnom, $civil, $photo, $poste, $grade, $email, $tag, $comment, $emailPro, $telephone, $commentaireNiv2, $adresseId, $complement) 
 {
     global $db;
     $sqlUpdateContact = "UPDATE Contact SET Nom=:nom, Prenom=:prenom, Civilite=:civil, Photo=:photo, Poste_actuel=:poste, Grade=:grade,
     Email=:email, TAG=:tag, Commentaire=:comment, email_pro=:emailPro, telephone=:telephone,
-    commentaire_niv_2=:commentaireNiv2, addressID=:addressID
+    commentaire_niv_2=:commentaireNiv2, addressID=:addressID, compl=:compl
     where id=:id";
     $queryUpdateContact = $db->prepare($sqlUpdateContact);
     $result =  $queryUpdateContact->execute(array(
         ':nom' => $nom, ':prenom' => $prnom, ':civil' => $civil, ':photo' => $photo,
         ':poste' => $poste, ':grade' => $grade, ':email' => $email, ':tag' => $tag, ':comment' => $comment,
         ':emailPro' => $emailPro, ':telephone' => $telephone, ':commentaireNiv2' => $commentaireNiv2,
-        ':id' => $id, ':addressID' => $adresseId
+        ':id' => $id, ':addressID' => $adresseId, ':compl' => $complement
     ));
     return $result;
     
