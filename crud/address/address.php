@@ -37,9 +37,6 @@ function getIdAddress($address, $CP, $ville, $pays)
 function setAddress($address, $CP, $ville, $pays, $cedex)
 {
     global $db;
-    if (!$complement) {
-        $complement = "";
-    }
     if (!$cedex) {
         $cedex = "";
     }
