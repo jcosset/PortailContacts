@@ -40,9 +40,9 @@ function setAddress($address, $CP, $ville, $pays, $cedex)
     if (!$cedex) {
         $cedex = "";
     }
-    $queryInsertAdress = $db->prepare('INSERT INTO address (Rue, Compl, CP, Ville, Pays, cedex)
-        VALUES (:adresse, :complement, :CP, :ville, :pays, :cedex)');
-    $queryInsertAdress->execute(array(':adresse' => $address, ':complement' => $complement, ':CP' => $CP, ':ville' => $ville, ':pays' => $pays, ':cedex' => $cedex));
+    $queryInsertAdress = $db->prepare('INSERT INTO address (Rue, CP, Ville, Pays, cedex)
+        VALUES (:adresse, :CP, :ville, :pays, :cedex)');
+    $queryInsertAdress->execute(array(':adresse' => $address, ':CP' => $CP, ':ville' => $ville, ':pays' => $pays, ':cedex' => $cedex));
     $addressID = $db->lastInsertId();
     return $addressID;
 }
