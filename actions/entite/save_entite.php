@@ -9,6 +9,7 @@ if (isset($_POST['nom']) & isset($_POST['uper_id'])) {
   $nom = strip_tags($_POST['nom']);
   $uper_id = strip_tags($_POST['uper_id']);
   $acronyme = strip_tags($_POST['acronyme']);
+  $email = strip_tags($_POST['email']);
   $telephone = strip_tags($_POST['telephone']);
   $adresse_geo = strip_tags($_POST['adresseGeo']);
   $compl_geo = strip_tags($_POST['complementGeo']);
@@ -29,7 +30,7 @@ $addressGeoID = "";
 if ($addressGeoInBDD) {
   $addressGeoID = $addressGeoInBDD["id"];
 } else {
-  $addressGeoID = setAddress($adresse_geo, $compl_geo, $CP_geo, $ville_geo, $pays_geo, "");
+  $addressGeoID = setAddress($adresse_geo, $CP_geo, $ville_geo, $pays_geo, "");
 }
 
 $addressPosInBDD = getIdAddress($adresse_pos, $CP_pos, $ville_pos, $pays_pos);
@@ -38,10 +39,10 @@ $addressPosID = "";
 if ($addressPosInBDD) {
   $addressPosID = $addressPosInBDD["id"];
 } else {
-  $addressPosID = setAddress($adresse_pos, $compl_pos, $CP_pos, $ville_pos, $pays_pos, "");
+  $addressPosID = setAddress($adresse_pos, $CP_pos, $ville_pos, $pays_pos, "");
 }
 
-$returnSetEntity = setEntity($nom, $uper_id, $acronyme, $telephone, $addressGeoID, $addressPosID, $site, $logo);
+$returnSetEntity = setEntity($nom, $uper_id, $acronyme, $email, $telephone, $addressGeoID, $addressPosID, $site, $logo, $compl_geo, $compl_pos);
 
 if($returnSetEntity){
     echo "success";

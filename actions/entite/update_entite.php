@@ -13,6 +13,7 @@ if (isset($_POST['nom']) & isset($_POST['uper_id']) & isset($_POST['id'])) {
   $nom = strip_tags($_POST['nom']);
   $uper_id = strip_tags($_POST['uper_id']);
   $acronyme = strip_tags($_POST['acronyme']);
+  $email = strip_tags($_POST['email']);
   $telephone = strip_tags($_POST['telephone']);
   $site = strip_tags($_POST['site']);
   $logo = strip_tags($_POST['logo']);
@@ -36,16 +37,16 @@ if (isset($_POST['nom']) & isset($_POST['uper_id']) & isset($_POST['id'])) {
   if ($adresseIdGeo) {
     $adresse_geo = $adresseIdGeo["id"];
   } else {
-    $adreses_geo = setAddress($adresse_geo, $complement_geo, $cp_geo, $ville_geo, $pays_geo, "");
+    $adreses_geo = setAddress($adresse_geo, $cp_geo, $ville_geo, $pays_geo, "");
   }
 
   if ($adresseIdPos) {
     $adresse_pos = $adresseIdPos["id"];
   } else {
-    $adresse_pos = setAddress($adresse_pos, $complement_pos, $cp_pos, $ville_pos, $pays_pos, "");
+    $adresse_pos = setAddress($adresse_pos, $cp_pos, $ville_pos, $pays_pos, "");
   }
 
-  $result = updateEntite($id, $nom, $uper_id, $acronyme, $telephone, $adresse_geo, $adresse_pos, $site, $logo);
+  $result = updateEntite($id, $nom, $uper_id, $acronyme, $email,$telephone, $adresse_geo, $adresse_pos, $site, $logo, $compl_geo, $compl_pos);
 
   if($result){
     deleteOrphanAddress();

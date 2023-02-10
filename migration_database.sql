@@ -29,6 +29,23 @@ Alter table Poste add column email_secretariat varchar(255);
 Alter table Poste add column tel_secretariat varchar(255);
 Alter table Poste add column tel varchar(16);
 ALTER table address MODIFY CP int;
+ALTER table Poste drop column Rue;
+ALTER table Poste drop column CP;
+ALTER table Poste drop column Ville;
+ALTER table Poste drop column Pays;
+Alter table Entite add column compl_geo varchar(255);
+Alter table Entite add column compl_postale varchar(255);
+Alter table Contact add column compl varchar(255);
+Alter table Entite add column email varchar(255);
+ALTER table address drop column Compl;
+ALTER table address drop column cedex;
+ALTER table Entite add column cedex varchar(255) null;
+ALTER table Poste Modify column Compl varchar(100) default "";
+ALTER table Poste Modify column Email_fonctionnel varchar(50) default "";
+ALTER table Contact Modify column Email varchar(50) default "";
+ALTER table Contact Modify column Photo blob null;
+ALTER table Contact Modify column TAG varchar(50) default "";
+ALTER table Contact Modify column Poste_actuel int null;
 
 -- Procédures stockées 19/01/2023
 

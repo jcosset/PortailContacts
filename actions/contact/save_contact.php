@@ -35,19 +35,19 @@ $addressID = "";
 if ($addressinBDD) {
   $addressID = $addressinBDD["id"];
 } else {
-  $addressID = setAddress($adresse, $complement, $CP, $ville, $pays, "");
+  $addressID = setAddress($adresse, $CP, $ville, $pays, "");
 }
 
 $stmt = $db->prepare('INSERT INTO Contact (Civilite, Nom, Prenom, Grade, Email, Poste_actuel, Tag, Commentaire, Photo, Date_MAJ, Statut,
-    email_pro, telephone, commentaire_niv_2, addressID
+    email_pro, telephone, commentaire_niv_2, addressID, compl
     )
      VALUES (:civil, :nom, :prenom,:grade, :email, :poste, :tag, :commentaire, :photo, curdate(),
-      "En attente",:emailPro, :telephone, :commentaireNiv2, :addressID)');
+      "En attente",:emailPro, :telephone, :commentaireNiv2, :addressID, :compl)');
 
 $result =  $stmt->execute(array(
   ':civil' => $civil, ':nom' => $nom, ':prenom' => $prenom, ':grade' => $grade, ':email' => $email,
   ':poste' => $poste, ':tag' => $tag, ':commentaire' => $comment, ':photo' => "#photo", ':emailPro' => $emailPro, ':telephone' => $telephone,
-  ':commentaireNiv2' => $commentaireNiv2, ':addressID' => $addressID
+  ':commentaireNiv2' => $commentaireNiv2, ':addressID' => $addressID, ':compl' => $complement
 ));
 
 if ($result) {

@@ -1,7 +1,7 @@
 <?php include 'inc/header.php';
 include 'inc/db.php';
+include 'crud/poste/poste.php';
 include 'crud/entite/entite.php';
-
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -12,26 +12,6 @@ function debugOnScreen($var)
     echo '<pre>';
     print_r($var);
     echo '</pre>';
-}
-
-function getAllPostesWithEntite()
-{
-    require('inc/db.php');
-
-    $sqlGetAllEntity = "SELECT pos.id,pos.Nom as postename, ent.id as entiteID, Rue, Compl,Ville,CP,
-     Pays, Email_fonctionnel from Poste as pos join Entite as ent on (pos.Entite=ent.id) Order by postename Asc";
-
-    $sqlGetAllEntityPrepare = $db->prepare($sqlGetAllEntity);
-    $sqlGetAllEntityPrepare->execute();
-    $sqlGetAllEntityResults = $sqlGetAllEntityPrepare->fetchAll(PDO::FETCH_ASSOC);
-    return $sqlGetAllEntityResults;
-}
-
-// debugOnScreen(getAllPostesWithEntite());
-$entitesUnsorted = getAllEntites();
-$entites = [];
-foreach ($entitesUnsorted as $entiteUnsorted) {
-    $entites[$entiteUnsorted["id"]] = $entiteUnsorted;
 }
 
 ?>
@@ -88,9 +68,7 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $listepostes = getAllPostesWithEntite();
-
-
+                                <?php $listepostes = getAllPostes();
                                 foreach ($listepostes as $poste) {
 
                                 ?>
@@ -101,11 +79,8 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                             <span class="au-checkmark"></span>
                                         </label>
                                     </td>
-                                    <td><?= $poste['postename'] ?></td>
-                                    <td style="word-break:break-word;">
-                                        <?= $entites[$poste['entiteID']]['nom'] ?>
-                                    </td>
-
+                                    <td><?= $poste['Nom'] ?></td>
+                                    <td><?= $poste['entiteParent0'] ?></td>
 
                                     <td><?php echo $poste['Rue'] . '<br>' . $poste['Compl'] . '<br>' . $poste['CP'] . ' ' . $poste['Ville']; ?>
                                     </td>
@@ -165,7 +140,7 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                     <div class="card-body card-block">
                         <div class="row form-group">
                             <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">Nom</label>
+                                <label for="text-input" class=" form-control-label">Nom*</label>
                             </div>
                             <div class="col-12 col-md-9">
                                 <input type="text" id="nom" name="nom" placeholder="Nom" class="form-control" required>
@@ -176,8 +151,7 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                 <label for="text-input" class=" form-control-label">Acronyme</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="acronyme" name="acronyme" placeholder="Acronyme..."
-                                    class="form-control" required>
+                                <input type="text" id="acronyme" name="acronyme" placeholder="Acronyme..." class="form-control" >
                             </div>
                         </div>
                         <div class="row form-group">
@@ -185,8 +159,7 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                 <label for="text-input" class=" form-control-label">Téléphone</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="telephone" name="telephone" placeholder="+33142424242"
-                                    class="form-control" required>
+                                <input type="text" id="telephone" name="tel" placeholder="+33142424242" class="form-control" >
                             </div>
                         </div>
                         <div class="row form-group">
@@ -212,7 +185,7 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                 <label for="text-input" class=" form-control-label">CP</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="cp" name="cp" placeholder="75000" class="form-control" required>
+                                <input type="text" id="cp" name="cp" placeholder="75000" class="form-control" >
                             </div>
                         </div>
                         <div class="row form-group">
@@ -221,7 +194,7 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                             </div>
                             <div class="col-12 col-md-9">
                                 <input type="text" id="ville" name="ville" placeholder="Paris" class="form-control"
-                                    required>
+                                    >
                             </div>
                         </div>
                         <div class="row form-group">
@@ -230,7 +203,7 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                             </div>
                             <div class="col-12 col-md-9">
                                 <input type="text" id="pays" name="pays" placeholder="France" class="form-control"
-                                    required>
+                                    >
                             </div>
                         </div>
                         <div class="row form-group">
@@ -238,8 +211,8 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                 <label for="email" class=" form-control-label">Email fonctionnel</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="email" name="email" placeholder="email@email.com"
-                                    class="form-control" required>
+                                <input type="text" id="email" name="email_fonc" placeholder="email@email.com"
+                                    class="form-control" >
                             </div>
                         </div>
                         <div class="row form-group">
@@ -247,8 +220,7 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                 <label for="text-input" class=" form-control-label">Email Secrétariat</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="email-secretariat" name="email-secretariat"
-                                    placeholder="email@email.com" class="form-control" required>
+                                <input type="text" id="email_secretariat" name="email_secretariat" placeholder="email@email.com" class="form-control" >
                             </div>
                         </div>
                         <div class="row form-group">
@@ -256,8 +228,7 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                 <label for="text-input" class=" form-control-label">Téléphone Secrétariat</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="trl-secretariat" name="tel-secretariat"
-                                    placeholder="+330142424242" class="form-control" required>
+                                <input type="text" id="tel_secretariat" name="tel_secretariat" placeholder="+330142424242" class="form-control" >
                             </div>
                         </div>
                         <div class="row form-group">
@@ -269,7 +240,7 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                 <select class="js-select2" name="entiteId" required>
 
                                     <?php
-
+                                    $entites = getAllEntites();
                                     foreach ($entites as $entite) {
                                         $entite_nom = $entite["nom"];
                                         $entite_id = $entite["id"];

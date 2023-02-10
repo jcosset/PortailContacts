@@ -167,7 +167,7 @@ error_reporting(E_ALL);
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">Nom</label>
+                                <label for="text-input" class=" form-control-label">Nom*</label>
                             </div>
                             <div class="col-12 col-md-9">
                                 <input type="text" id="nom" name="nom" placeholder="Nom" class="form-control" required>
@@ -175,7 +175,7 @@ error_reporting(E_ALL);
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-3">
-                                <label for="text-input" class="form-control-label">Prénom</label>
+                                <label for="text-input" class="form-control-label">Prénom*</label>
                             </div>
                             <div class="col-12 col-md-9">
                                 <input type="text" id="prenom" name="prenom" placeholder="Prénom" class="form-control"
@@ -197,7 +197,7 @@ error_reporting(E_ALL);
                             </div>
                             <div class="col-12 col-md-9">
                                 <input type="text" id="email" name="email" placeholder="email@email.com"
-                                    class="form-control" required>
+                                    class="form-control" >
                             </div>
                         </div>
                         <div class="row form-group">
@@ -206,7 +206,7 @@ error_reporting(E_ALL);
                             </div>
                             <div class="col-12 col-md-9">
                                 <input type="text" id="emailPro" name="emailPro" placeholder="email@pro.com"
-                                    class="form-control" required>
+                                    class="form-control" >
                             </div>
                         </div>
                         <div class="row form-group">
@@ -215,7 +215,7 @@ error_reporting(E_ALL);
                             </div>
                             <div class="col-12 col-md-9">
                                 <input type="text" id="telephone" name="telephone" placeholder="+33612345678"
-                                    class="form-control" required>
+                                    class="form-control" >
                             </div>
                         </div>
                         <div class="row form-group">
@@ -257,8 +257,7 @@ error_reporting(E_ALL);
                                 <label for="text-input" class=" form-control-label">adresse</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="adresse" name="adresse" placeholder="N° de rue..."
-                                    class="form-control" required>
+                                <input type="text" id="adresse" name="adresse" placeholder="N° de rue..." class="form-control" >
                             </div>
                         </div>
                         <div class="row form-group">
@@ -275,8 +274,7 @@ error_reporting(E_ALL);
                                 <label for="text-input" class=" form-control-label">Code Postal</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="CP" name="CP" placeholder="75000..." class="form-control"
-                                    required>
+                                <input type="text" id="CP" name="CP" placeholder="75000..." class="form-control" >
                             </div>
                         </div>
                         <div class="row form-group">
@@ -284,8 +282,7 @@ error_reporting(E_ALL);
                                 <label for="text-input" class=" form-control-label">Ville</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="ville" name="ville" placeholder="Ville" class="form-control"
-                                    required>
+                                <input type="text" id="ville" name="ville" placeholder="Ville" class="form-control" >
                             </div>
                         </div>
                         <div class="row form-group">
@@ -293,8 +290,7 @@ error_reporting(E_ALL);
                                 <label for="text-input" class=" form-control-label">Pays</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="pays" name="pays" placeholder="Pays" class="form-control"
-                                    required>
+                                <input type="text" id="pays" name="pays" placeholder="Pays" class="form-control" >
                             </div>
                         </div>
                         <div class="row form-group">

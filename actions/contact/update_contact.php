@@ -35,11 +35,11 @@ if (isset($_POST['id'])) {
   if ($adresseId) {
     $adresseId = $adresseId["id"];
   } else {
-    $adresseId = setAddress($rue, $complement, $cp, $ville, $pays, "");
+    $adresseId = setAddress($rue, $cp, $ville, $pays, "");
   }
 
 
-  $result = updateContact($id, $nom, $prnom, $civil, $photo, $poste, $grade, $email, $tag, $comment, $emailPro, $telephone, $commentaireNiv2, $adresseId);
+  $result = updateContact($id, $nom, $prnom, $civil, $photo, $poste, $grade, $email, $tag, $comment, $emailPro, $telephone, $commentaireNiv2, $adresseId, $complement);
 
   if ($result) {
     deleteOrphanAddress();

@@ -2,14 +2,13 @@
 require_once __DIR__ . "/../../config.php";
 require_once __DIR__ . "/../../crud/poste/poste.php";
 require_once SITE_ROOT . "/inc/helpers/debug.php";
+require_once __DIR__ . "/../../crud/poste/poste.php";
 
 if (isset($_REQUEST['id'])) {
     $id = strip_tags($_REQUEST['id']);
-    $getPoste = $db->prepare('Select id, Nom,Rue, Compl, CP, Ville, Pays, Email_fonctionnel, Entite from Poste
-        where id=:id');
-    if ($result = $getPoste->execute(array(':id' => $id))) {
-        $row = $getPoste->fetch(PDO::FETCH_ASSOC);
-        echo json_encode($row);
+    $getPoste = getPosteById($id); 
+    if ($getPoste) {
+        echo json_encode($getPoste);
     } else {
         echo json_encode("erreur");
     }
@@ -21,8 +20,8 @@ if (isset($_REQUEST['all'])) {
     from Poste join Entite as ent0 on (Poste.Entite = ent0.id) join Entite as ent1 on (ent0.Uper_id=ent1.id)";
 
     $sqlFetch = $db->prepare("Select pos.id, ent0.Nom as 'entiteParent0',  ent1.Nom as 'entiteParent1', pos.Nom,Rue, Compl, CP, Ville, Pays, Email_fonctionnel from Poste as pos
-     join
-    Entite as ent0 on (pos.Entite = ent0.id) left join Entite as ent1 on (ent0.Uper_id=ent1.id)
+        join Entite as ent0 on (pos.Entite = ent0.id) 
+        left join Entite as ent1 on (ent0.Uper_id=ent1.id)
     ");
 
     if ($result = $sqlFetch->execute()) {
