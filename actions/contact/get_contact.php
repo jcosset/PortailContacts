@@ -15,9 +15,9 @@ if (isset($_REQUEST['id'])) {
 
     if (isset($_REQUEST['filter']) && $_REQUEST['filter'] == "default") {
 
-        $stmt = 'SELECT con.id,`Civilite`, `Nom`,`Prenom`,`Grade`,`Email`,`Statut`,`Photo`,`Poste_actuel`,`Date_MAJ`,`TAG`,`Commentaire`,`telephone`,`email_pro`,`commentaire_niv_2`,`addressID`, `Rue`, `Compl`, `CP`, `Ville`, `Pays`, `cedex` 
-        FROM `Contact` as con 
-        left Join `address` as addr on addr.id = con.addressID 
+        $stmt = 'SELECT con.id,`Civilite`, `Nom`,`Prenom`,`Grade`,`Email`,`Statut`,`Photo`,`Poste_actuel`,`Date_MAJ`,`TAG`,`Commentaire`,`telephone`,`email_pro`,`commentaire_niv_2`,`addressID`, `Rue`, `Compl`, `CP`, `Ville`, `Pays`
+        FROM `Contact` as con
+        left Join `address` as addr on addr.id = con.addressID
         where con.id =:id';
 
         $getContact = $db->prepare($stmt);

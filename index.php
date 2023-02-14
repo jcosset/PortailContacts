@@ -8,150 +8,156 @@
                     <ul class="listree">
 
                         <?php
-            require('inc/db.php');
+                        require('inc/db.php');
 
-            //Object
-            $menus = array(
-              'items' => array(),
-              'parents' => array(),
-              "poste" => array(),
-              "contact" => array()
-            );
+                        //Object
+                        $menus = array(
+                            'items' => array(),
+                            'parents' => array(),
+                            "poste" => array(),
+                            "contact" => array()
+                        );
 
-            function debugScreen($var)
-            {
-              echo '<pre>';
-              print_r($var);
-              echo '</pre>';
-            }
+                        function debugScreen($var)
+                        {
+                            echo '<pre>';
+                            print_r($var);
+                            echo '</pre>';
+                        }
 
-            $query = "SELECT ID, uper_id, nom FROM Entite ORDER BY nom asc";
-            $queryGetAllEntites = $db->prepare($query);
-            $queryGetAllEntites->execute();
-            //  debugOnScreen($queryGetAllEntites->fetch(PDO::FETCH_ASSOC));
+                        $query = "SELECT ID, uper_id, nom FROM Entite ORDER BY nom asc";
+                        $queryGetAllEntites = $db->prepare($query);
+                        $queryGetAllEntites->execute();
+                        //  debugOnScreen($queryGetAllEntites->fetch(PDO::FETCH_ASSOC));
 
-            while ($items = $queryGetAllEntites->fetch(PDO::FETCH_ASSOC)) {
-              $menus['items'][$items['ID']] = $items;
-              $menus['parents'][$items['uper_id']][] = $items['ID'];
-            }
+                        while ($items = $queryGetAllEntites->fetch(PDO::FETCH_ASSOC)) {
+                            $menus['items'][$items['ID']] = $items;
+                            $menus['parents'][$items['uper_id']][] = $items['ID'];
+                        }
 
-            $query = "SELECT * FROM Poste ORDER BY nom asc";
-            $queryGetAllPoste = $db->prepare($query);
-            $queryGetAllPoste->execute();
-            while ($items = $queryGetAllPoste->fetch(PDO::FETCH_ASSOC)) {
-              $menus['poste'][$items['Entite']][] = $items;
-            }
+                        $query = "SELECT * FROM Poste ORDER BY nom asc";
+                        $queryGetAllPoste = $db->prepare($query);
+                        $queryGetAllPoste->execute();
+                        while ($items = $queryGetAllPoste->fetch(PDO::FETCH_ASSOC)) {
+                            $menus['poste'][$items['Entite']][] = $items;
+                        }
 
-            $query = "SELECT * FROM Contact ORDER BY nom asc";
-            $queryGetAllContact = $db->prepare($query);
-            $queryGetAllContact->execute();
-            while ($items = $queryGetAllContact->fetch(PDO::FETCH_ASSOC)) {
-              $menus['contact'][$items['Poste_actuel']][] = $items;
-            }
+                        $query = "SELECT * FROM Contact ORDER BY nom asc";
+                        $queryGetAllContact = $db->prepare($query);
+                        $queryGetAllContact->execute();
+                        while ($items = $queryGetAllContact->fetch(PDO::FETCH_ASSOC)) {
+                            $menus['contact'][$items['Poste_actuel']][] = $items;
+                        }
 
-            function contactArrayToHtml($menu, $posteId)
-            {
+                        function contactArrayToHtml($menu, $posteId)
+                        {
 
-              $htmlPoste = "";
+                            $htmlPoste = "";
 
-              foreach ($menu[$posteId] as $contact) {
-                $isUpdated = "text-success";
-                $id = $contact['id'];
-                $htmlPoste .= "<li> <button class='$isUpdated' data-toggle='modal' data-target='#largeModal' onclick=getContact($id)> " . $contact['Nom'] . "</button></li>";
-              }
-              return $htmlPoste;
-            }
+                            foreach ($menu[$posteId] as $contact) {
+                                $isUpdated = "text-success";
+                                $id = $contact['id'];
+                                $htmlPoste .= "<li> <button class='$isUpdated' data-toggle='modal' data-target='#largeModal' onclick=getContact($id)> " . $contact['Nom'] . "</button></li>";
+                            }
+                            return $htmlPoste;
+                        }
 
-            function posteArrayToHtml($menu, $itemId)
-            {
-              global $menus;
-              $htmlPoste = "";
-              foreach ($menu[$itemId] as $poste) {
-                $id = $poste['id'];
-                if (isset($menus['contact'][$id])) {
+                        function posteArrayToHtml($menu, $itemId)
+                        {
+                            global $menus;
+                            $htmlPoste = "";
+                            foreach ($menu[$itemId] as $poste) {
+                                $id = $poste['id'];
+                                if (isset($menus['contact'][$id])) {
 
-                  $htmlPoste .= "<li>";
-                  $htmlPoste .= "<div class='listree-submenu-headingxxx text-primary  expanded'
+                                    $htmlPoste .= "<li>";
+                                    $htmlPoste .= "<div class='listree-submenu-headingxxx text-primary  expanded'
                   ><span data-toggle='modal' data-target='#largeModalPoste' onclick=getPoste($id) style='cursor:pointer;'>
                   " . $poste['Nom'] . "</span></div>";
-                  $htmlPoste .= "<ul class='listree-submenu-items' style='display:block;' >";
+                                    $htmlPoste .= "<ul class='listree-submenu-items' style='display:block;' >";
 
-                  $htmlPoste .= contactArrayToHtml($menus['contact'], $id);
+                                    $htmlPoste .= contactArrayToHtml($menus['contact'], $id);
 
-                  $htmlPoste .= '</ul>';
-                  $htmlPoste .= "</li>";;
-                } else {
-                  $htmlPoste .= "<li ><span class='text-danger' data-toggle='modal' data-target='#largeModalPoste'
+                                    $htmlPoste .= '</ul>';
+                                    $htmlPoste .= "</li>";;
+                                } else {
+                                    $htmlPoste .= "<li ><span class='text-danger' data-toggle='modal' data-target='#largeModalPoste'
                    onclick=getPoste($id) style='cursor:pointer;'> " . $poste['Nom'] . "</span></li>";
-                }
-              }
-              return $htmlPoste;
-            }
+                                }
+                            }
+                            return $htmlPoste;
+                        }
 
-            function createButtonEdit($itemId, $name, $type)
-            {
-              return "<button class='item' data-toggle='modal' data-target='#displayerModal'  onclick='createPoste(event)' title='Edit'>
+                        function createButtonEdit($itemId, $name, $type)
+                        {
+                            return "<button class='item' data-toggle='modal' data-target='#displayerModal'  onclick='createPoste(event)' title='Edit'>
               <i class='zmdi zmdi-plus zmdi-hc-lg text-primary'  data-id=$itemId data-name='$name' data-type='$type'></i>
                 </button>";
-            }
+                        }
+                        function createButtonDetailsEntite($itemId, $name, $type)
+                        {
+                            return "<button class='item' data-toggle='modal' data-target='#displayerModal' title='Details entite'>
+              <i class='zmdi zmdi-receipt text-primary'  data-id=$itemId data-name='$name' data-type='$type'></i>
+                </button>";
+                        }
 
-            function createMenu($parent_id, $menu)
-            {
+                        function createMenu($parent_id, $menu)
+                        {
 
-              $html = "";
+                            $html = "";
 
-              if (isset($menu['parents'][$parent_id])) {
+                            if (isset($menu['parents'][$parent_id])) {
 
-                foreach ($menu['parents'][$parent_id] as $itemId) {
+                                foreach ($menu['parents'][$parent_id] as $itemId) {
 
-                  if (isset($menu['poste'][$parent_id])) {
-                    $html .= posteArrayToHtml($menu['poste'], $parent_id);
-                  }
+                                    if (isset($menu['poste'][$parent_id])) {
+                                        $html .= posteArrayToHtml($menu['poste'], $parent_id);
+                                    }
 
-                  if (!isset($menu['parents'][$itemId])) {
+                                    if (!isset($menu['parents'][$itemId])) {
 
-                    $name = $menu['items'][$itemId]['nom'];
+                                        $name = $menu['items'][$itemId]['nom'];
 
-                    if (!isset($menu['poste'][$itemId])) {
+                                        if (!isset($menu['poste'][$itemId])) {
 
-                      $html .= "<li>" . $name . createButtonEdit($itemId, $name, 'poste') . "</li>";
-                    } else if (isset($menu['poste'][$itemId])) {
+                                            $html .= "<li>" . $name . createButtonEdit($itemId, $name, 'poste') . "</li>";
+                                        } else if (isset($menu['poste'][$itemId])) {
 
-                      $html .= "<li>";
-                      $html .= "<div class='listree-submenu-heading' >" . $name . createButtonEdit($itemId, $name, 'poste') . createButtonEdit($itemId, $name, 'poste') . "</div>";
-                      $html .= "<ul class='listree-submenu-items'>";
+                                            $html .= "<li>";
+                                            $html .= "<div class='listree-submenu-heading' >" . $name . createButtonEdit($itemId, $name, 'poste') . "  " . createButtonDetailsEntite($itemId, $name, 'poste') . "</div>";
+                                            $html .= "<ul class='listree-submenu-items'>";
 
-                      $html .= posteArrayToHtml($menu['poste'], $itemId);
+                                            $html .= posteArrayToHtml($menu['poste'], $itemId);
 
-                      $html .= '</ul>';
-                      $html .= "</li>";;
-                    }
-                  }
+                                            $html .= '</ul>';
+                                            $html .= "</li>";;
+                                        }
+                                    }
 
-                  if (isset($menu['parents'][$itemId])) {
+                                    if (isset($menu['parents'][$itemId])) {
 
-                    $name = $menu['items'][$itemId]['nom'];
+                                        $name = $menu['items'][$itemId]['nom'];
 
-                    $html .= "<li>";
-                    $html .= "<div class='listree-submenu-heading'>" . "$name"  . createButtonEdit($itemId, $name, 'poste') . createButtonEdit($itemId, $name, 'poste') . "
+                                        $html .= "<li>";
+                                        $html .= "<div class='listree-submenu-heading'>" . "$name"  . createButtonEdit($itemId, $name, 'poste') . "    " . createButtonDetailsEntite($itemId, $name, 'poste') . "
                        </div>";
 
-                    $html .= "<ul class='listree-submenu-items'>";
+                                        $html .= "<ul class='listree-submenu-items'>";
 
-                    $html .= createMenu($itemId, $menu);
-                    $html .= '</ul>';
+                                        $html .= createMenu($itemId, $menu);
+                                        $html .= '</ul>';
 
-                    $html .= "</li>";
-                  }
-                  //Reset parent_id=-1 to display poste one time in loop
-                  $parent_id = -1;
-                }
-              }
+                                        $html .= "</li>";
+                                    }
+                                    //Reset parent_id=-1 to display poste one time in loop
+                                    $parent_id = -1;
+                                }
+                            }
 
-              return $html;
-            }
-            echo createMenu(0, $menus)
-            ?>
+                            return $html;
+                        }
+                        echo createMenu(0, $menus)
+                        ?>
 
                     </ul>
 
@@ -163,8 +169,7 @@
 </div>
 <!-- END MAIN CONTENT-->
 
-<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
 
@@ -254,8 +259,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="largeModalPoste" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="largeModalPoste" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
 
@@ -296,17 +300,15 @@
 
                         <div style="margin-top:15px;">
                             <h5>Secrétariat</h5>
-                            <p style="padding-left:40px"><label>Numéro portable :&nbsp </label><span
-                                    id="privateNumber">mail</span></p>
-                            <p style="padding-left:40px"><label>Email :&nbsp </label><span
-                                    id="secEmail">sec@email.fr</span></p>
+                            <p style="padding-left:40px"><label>Numéro portable :&nbsp </label><span id="privateNumber">mail</span></p>
+                            <p style="padding-left:40px"><label>Email :&nbsp </label><span id="secEmail">sec@email.fr</span></p>
 
                         </div>
                     </div>
                 </div>
                 <div>
                     <div style="width:100%;display:flex;">
-                        <div style="width:50%;height:30background:white;border:solid 1px;padding-left:0.4em;">
+                        <div style="width:50%;height:30 ;background:white;border:solid 1px;padding-left:0.4em;">
                             <p>Liste de diffusion :&nbsp</P>
                         </div>
                         <div style="width:50%;height:30px;background:white;border:solid 1px;padding-left:0.4em;">
@@ -344,13 +346,12 @@
 
 <!-- end modal large -->
 
-<div class="modal fade" id="displayerModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="displayerModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title" id="largeModalLabel">Poste</h5>
+                <h5 class="modal-title" id="largeModalLabel">Details</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

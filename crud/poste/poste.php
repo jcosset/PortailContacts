@@ -43,11 +43,11 @@ function getEntiteDetailsOfPoste($id)
 function getPosteById($id)
 {
     global $db;
-    $sqlRecupPoste = "SELECT Poste.id, Poste.Nom, Poste.Entite, ent0.Nom as 'entiteParent0', ent1.Nom as 'entiteParent1', Poste.acronyme, Poste.adresse, Poste.email_secretariat, Poste.tel_secretariat, Poste.tel, Poste.Email_fonctionnel, addr.Rue, Poste.Compl, addr.CP, addr.Ville, addr.Pays, addr.cedex
-    from Poste 
-		join Entite as ent0 on (Poste.Entite = ent0.id) 
-		left join Entite as ent1 on (ent0.Uper_id=ent1.id) 
-		left join address as addr on Poste.adresse = addr.id 
+    $sqlRecupPoste = "SELECT Poste.id, Poste.Nom, Poste.Entite ,  Poste.acronyme,
+     Poste.adresse, Poste.email_secretariat, Poste.tel_secretariat, Poste.tel,
+     Poste.Email_fonctionnel, addr.Rue, Poste.Compl, addr.CP, addr.Ville, addr.Pays
+    from Poste
+		left join `address` as addr on (Poste.adresse = addr.id)
 	WHERE Poste.id = :id";
     $queryRecupPoste = $db->prepare($sqlRecupPoste);
     $queryRecupPoste->execute(array(':id' => $id));
@@ -58,14 +58,14 @@ function getPosteById($id)
 function updatePoste($id, $nom, $email_fonc, $entite, $acronyme, $adresse, $email_secretariat, $tel_secretariat, $tel, $compl)
 {
     global $db;
-    $sqlUpdatePoste = "UPDATE Poste SET 
+    $sqlUpdatePoste = "UPDATE Poste SET
         Nom=:nom, Email_fonctionnel=:email_fonc, Entite=:entite, acronyme=:acronyme, adresse=:adresse, email_secretariat=:email_secretariat, tel_secretariat=:tel_secretariat, tel=:tel, compl=:compl
-	WHERE id=:id 
+	WHERE id=:id
 ";
     $queryUpdatePoste = $db->prepare($sqlUpdatePoste);
-    $queryUpdatePoste->execute(array(':id' => $id, ':nom' => $nom,':email_fonc'=> $email_fonc, ':entite' => $entite, ':acronyme' => $acronyme, ':adresse' => $adresse, ':email_secretariat' => $email_secretariat, ':tel_secretariat' => $tel_secretariat, ':tel' => $tel, ':compl' => $compl));
+    $queryUpdatePoste->execute(array(':id' => $id, ':nom' => $nom, ':email_fonc' => $email_fonc, ':entite' => $entite, ':acronyme' => $acronyme, ':adresse' => $adresse, ':email_secretariat' => $email_secretariat, ':tel_secretariat' => $tel_secretariat, ':tel' => $tel, ':compl' => $compl));
     $resultUpdatePoste = $queryUpdatePoste->fetchAll(PDO::FETCH_ASSOC);
-    if (!$resultUpdatePoste ) {
+    if (!$resultUpdatePoste) {
         print_r($db->errorInfo());
     }
     return $resultUpdatePoste;
@@ -78,12 +78,12 @@ function setPoste($nom, $email_fonc, $entite, $acronyme, $adresse, $email_secret
 	    VALUES (:nom, :email_fonc, :entite, :acronyme, :adresse, :email_secretariat, :tel_secretariat, :tel, :compl)
 ";
     $querySetPoste = $db->prepare($sqlSetPoste);
-    $querySetPoste->execute(array(':nom' => $nom,':email_fonc'=> $email_fonc, ':entite' => $entite, ':acronyme' => $acronyme, ':adresse' => $adresse, ':email_secretariat' => $email_secretariat, ':tel_secretariat' => $tel_secretariat, ':tel' => $tel, ':compl' => $compl));
+    $querySetPoste->execute(array(':nom' => $nom, ':email_fonc' => $email_fonc, ':entite' => $entite, ':acronyme' => $acronyme, ':adresse' => $adresse, ':email_secretariat' => $email_secretariat, ':tel_secretariat' => $tel_secretariat, ':tel' => $tel, ':compl' => $compl));
     $resultSetPoste = $db->lastInsertId();
     return $resultSetPoste;
 }
 
-function deletePoste($idPoste) 
+function deletePoste($idPoste)
 {
     global $db;
     $sqlDeletePoste = "DELETE FROM Poste where id = :id";
