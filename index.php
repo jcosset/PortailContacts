@@ -120,7 +120,7 @@
 
                                         if (!isset($menu['poste'][$itemId])) {
 
-                                            $html .= "<li>" . $name . createButtonEdit($itemId, $name, 'poste') . "</li>";
+                                            $html .= "<li>" . $name . createButtonEdit($itemId, $name, 'poste') . "  " . createButtonDetailsEntite($itemId) . "</li>";
                                         } else if (isset($menu['poste'][$itemId])) {
 
                                             $html .= "<li>";
