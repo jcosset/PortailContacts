@@ -94,10 +94,10 @@
               <i class='zmdi zmdi-plus zmdi-hc-lg text-primary'  data-id=$itemId data-name='$name' data-type='$type'></i>
                 </button>";
                         }
-                        function createButtonDetailsEntite($itemId, $name, $type)
+                        function createButtonDetailsEntite($entiteId)
                         {
-                            return "<button class='item' data-toggle='modal' data-target='#displayerModal' title='Details entite'>
-              <i class='zmdi zmdi-receipt text-primary'  data-id=$itemId data-name='$name' data-type='$type'></i>
+                            return "<button class='item' data-toggle='modal' data-target='#largeModalEntite'  onclick='getEntite($entiteId)' >
+              <i class='zmdi zmdi-receipt text-primary'  ></i>
                 </button>";
                         }
 
@@ -124,7 +124,7 @@
                                         } else if (isset($menu['poste'][$itemId])) {
 
                                             $html .= "<li>";
-                                            $html .= "<div class='listree-submenu-heading' >" . $name . createButtonEdit($itemId, $name, 'poste') . "  " . createButtonDetailsEntite($itemId, $name, 'poste') . "</div>";
+                                            $html .= "<div class='listree-submenu-heading' >" . $name . createButtonEdit($itemId, $name, 'poste') . "  " . createButtonDetailsEntite($itemId) . "</div>";
                                             $html .= "<ul class='listree-submenu-items'>";
 
                                             $html .= posteArrayToHtml($menu['poste'], $itemId);
@@ -139,7 +139,7 @@
                                         $name = $menu['items'][$itemId]['nom'];
 
                                         $html .= "<li>";
-                                        $html .= "<div class='listree-submenu-heading'>" . "$name"  . createButtonEdit($itemId, $name, 'poste') . "    " . createButtonDetailsEntite($itemId, $name, 'poste') . "
+                                        $html .= "<div class='listree-submenu-heading'>" . "$name"  . createButtonEdit($itemId, $name, 'poste') . "    " . createButtonDetailsEntite($itemId) . "
                        </div>";
 
                                         $html .= "<ul class='listree-submenu-items'>";
@@ -331,6 +331,68 @@
 
                     </div>
                 </div>
+                <!-- end -->
+                <!-- <div class="card-body card-block"></div> -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="largeModalEntite" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="largeModalLabel">Entite</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body" style="font-size:small">
+
+                <!-- jdj -->
+                <div style="display:flex" style="font-size:12px;">
+                    <div style="width:50%;background:white;border:solid 1px;">
+                        <div style="text-align:center">
+                            <div style="width:40%; margin:0 auto;"> <img src="images/photo.png" alt="phooto"></div>
+                            <p id="partner">Nom du partenaire</p>
+
+                            <p id="tag">TAG</p>
+                        </div>
+
+                    </div>
+                    <div style="width:50%;background:white;border:solid 1px;padding-left:0.4em;line-height:15px;
+                    padding-top:0.4em;
+                    ">
+
+                        <div>
+                            <p><label>Nom du poste :&nbsp </label><span id="name"></span></p>
+                            <p><label>Acronyme :&nbsp </label><span id="nickname"></span></p>
+
+                        </div>
+                        <div style="margin-top:15px;">
+                            <p><label>Numéro du poste fixe :&nbsp </label><span id="fixNumber"></span></p>
+                            <p><label>Emplacement :&nbsp </label><span id="localisation"></span></p>
+                            <p><label>Email fonctionnel du poste fixe :&nbsp </label><span id="fonctEmail"></span></p>
+
+                        </div>
+
+                        <div style="margin-top:15px;">
+                            <h5>Secrétariat</h5>
+                            <p style="padding-left:40px"><label>Numéro portable :&nbsp </label><span id="privateNumber">mail</span></p>
+                            <p style="padding-left:40px"><label>Email :&nbsp </label><span id="secEmail">sec@email.fr</span></p>
+
+                        </div>
+                    </div>
+                </div>
+
                 <!-- end -->
                 <!-- <div class="card-body card-block"></div> -->
             </div>

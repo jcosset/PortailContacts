@@ -20,14 +20,16 @@ function getAllEntites()
 
 function getEntityById($idEntity)
 {
+    // , addrPos.cedex as cedex_pos
+    // addrGeo.cedex as cedex_geo,
     global $db;
     $sqlGetAllEntity = "SELECT en.id, nom, uper_id, Niveau, acronyme,email, tel, adresse_geo, adresse_postale,
     site, logo, addrGeo.Rue as rue_geo, en.compl_geo as compl_geo, addrGeo.CP as cp_geo, addrGeo.Ville as ville_geo,
-     addrGeo.Pays as pays_geo, addrGeo.cedex as cedex_geo, addrPos.Rue as rue_pos, en.compl_postale as compl_pos,
-     addrPos.CP as cp_pos, addrPos.Ville as ville_pos, addrPos.Pays as pays_pos, addrPos.cedex as cedex_pos
+     addrGeo.Pays as pays_geo, addrPos.Rue as rue_pos, en.compl_postale as compl_pos,
+     addrPos.CP as cp_pos, addrPos.Ville as ville_pos, addrPos.Pays as pays_pos
                         from Entite as en
-                        left join address as addrGeo on addrGeo.id = en.adresse_geo
-                        left join address as addrPos on addrPos.id = en.adresse_postale
+                        left join `address` as addrGeo on addrGeo.id = en.adresse_geo
+                        left join `address` as addrPos on addrPos.id = en.adresse_postale
                         where en.id = :id";
     $sqlGetAllEntityPrepare = $db->prepare($sqlGetAllEntity);
     $sqlGetAllEntityPrepare->execute(array(':id' => $idEntity));

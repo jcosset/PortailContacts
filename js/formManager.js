@@ -249,6 +249,51 @@ function createPoste(agrs) {
 
 }
 
+
+function getEntite(id) {
+    let modal = $("#largeModal .card-body")
+    let mod = $("#largeModal")
+    modal.empty()
+
+    let modalName = "#largeModalPoste"
+    $.ajax({
+        type: "GET",
+        url: "actions.php?type=get&id=" + id,
+        cache: false,
+        success: function (response) {
+            response = JSON.parse(response)
+            console.log(response)
+
+            // modal.append(modalRowDisplayerFactory({ label: "Photo", name: "photo", placeholder: "", value: response.Photo }, 'input'))
+            //modal.append(modalRowDisplayerFactory({ label: "Civilite", name: "civilite", value: capitalize(response.Civilite) }, 'input'))
+            //modal.append(modalRowDisplayerFactory({ label: "Nom", name: "nom", placeholder: "", value: response.Nom }, 'input'))
+            // modal.append(modalRowDisplayerFactory({ label: "Prenom", name: "prenom", placeholder: "", value: response.Prenom }, 'input'))
+            // modal.append(modalRowDisplayerFactory({ label: "Grade", name: "grade", placeholder: "", value: response.Grade }, 'input'))
+            // modal.append(modalRowDisplayerFactory({ label: "Email perso", name: "email", placeholder: "", value: response.Email }, 'input'))
+            // modal.append(modalRowDisplayerFactory({ label: "Email pro", name: "emailPro", placeholder: "", value: response.email_pro }, 'input'))
+            // modal.append(modalRowDisplayerFactory({ label: "Téléphone", name: "telephone", placeholder: "", value: response.telephone }, 'input'))
+            //modal.append(modalRowDisplayerFactory({ label: "Statut", name: "statut", placeholder: "", value: response.Statut }, 'input'))
+            //modal.append(modalRowDisplayerFactory({ label: "Date de mise à jour", name: "datemaj", placeholder: "", value: response.Date_MAJ }, 'input'))
+            // modal.append(modalRowDisplayerFactory({ label: "Commentaire", name: "comment", placeholder: "", value: response.Commentaire }, 'textarea'))
+            //   modal.append(modalRowDisplayerFactory({ label: "Commentaire niv 2", name: "commentNiv2", placeholder: "", value: response.commentaire_niv_2 }, 'textarea'))
+
+            $(modalName).find("p#tag").text(response.TAG || "")
+
+            $(modalName).find("span#name").text(response.Nom || "")
+            $(modalName).find("span#nickname").text(response.Acronyme || "")
+
+            $(modalName).find("span#fixNumber").text(response.Tel || "")
+            // $(modalName).find("span#localisation").text(emplacement || "")
+            $(modalName).find("span#emailPro").text(response.Email_fonctionnel || "")
+
+
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+}
+
 function getContact(id) {
     let modal = $("#largeModal .card-body")
     let mod = $("#largeModal")
