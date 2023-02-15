@@ -57,7 +57,7 @@
                             foreach ($menu[$posteId] as $contact) {
                                 $isUpdated = "text-success";
                                 $id = $contact['id'];
-                                $htmlPoste .= "<li> <button class='$isUpdated' data-toggle='modal' data-target='#largeModal' onclick=getContact($id)> " . $contact['Nom'] . "</button></li>";
+                                $htmlPoste .= "<li> <button class='$isUpdated' data-toggle='modal' data-target='#largeModal' onclick='getContact($id)'> " . $contact['Nom'] . "</button></li>";
                             }
                             return $htmlPoste;
                         }
@@ -169,7 +169,8 @@
 </div>
 <!-- END MAIN CONTENT-->
 
-<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
 
@@ -190,7 +191,7 @@
 
                             <p id="status">statut</p>
                             <p id="updateDate">Date de la dernière mise à jour</p>
-                            <p id="tag">TAG</p>
+                            <p id="tag"></p>
                         </div>
                         <div style="text-align:center">
                             <button type=" button" class="btn btn-secondary">Situation dans l'arbre</button>
@@ -202,26 +203,26 @@
                     ">
 
                         <div>
-                            <p><label>Civilite :&nbsp </label><span id="civilite">Monsieur</span></p>
-                            <p><label>Nom :&nbsp </label><span id="firstname">Monsieur</span></p>
-                            <p><label>Prénom :&nbsp </label><span id="lastname">Monsieur</span></p>
-                            <p><label>Grade :&nbsp </label><span id="grade">Monsieur</span></p>
+                            <p><label>Civilite :&nbsp </label><span id="civilite"></span></p>
+                            <p><label>Nom :&nbsp </label><span id="firstname"></span></p>
+                            <p><label>Prénom :&nbsp </label><span id="lastname"></span></p>
+                            <p><label>Grade :&nbsp </label><span id="grade"></span></p>
 
                         </div>
                         <div style="margin-top:15px;">
-                            <p><label>Adresse email :&nbsp </label><span id="emailPro">mail</span></p>
-                            <p><label>Informations niv 1 :&nbsp </label><span id="niv1info">Monsieur</span></p>
+                            <p><label>Adresse email :&nbsp </label><span id="emailPro"></span></p>
+                            <p><label>Informations niv 1 :&nbsp </label><span id="niv1info"></span></p>
 
                         </div>
 
                         <div style="margin-top:15px;">
                             <h5 style="text-align:center">Informations confidentielles</h5>
-                            <p><label>Téléphone portable :&nbsp </label><span id="privateNumber">mail</span></p>
-                            <p><label>Adresse email perso :&nbsp </label><span id="privateEmail">Monsieur</span></p>
-                            <p><label>Adresse postale perso :&nbsp </label><span id="privateAdress">Address
+                            <p><label>Téléphone portable :&nbsp </label><span id="privateNumber"></span></p>
+                            <p><label>Adresse email perso :&nbsp </label><span id="privateEmail"></span></p>
+                            <p><label>Adresse postale perso :&nbsp </label><span id="privateAdress">
                                     postale</span>
                             </p>
-                            <p><label>Informations niv 2 :&nbsp </label><span id="niv2info">Monsieur</span></p>
+                            <p><label>Informations niv 2 :&nbsp </label><span id="niv2info"></span></p>
 
                         </div>
                     </div>
@@ -259,7 +260,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="largeModalPoste" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+<div class="modal fade" id="largeModalPoste" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
 
@@ -300,8 +302,10 @@
 
                         <div style="margin-top:15px;">
                             <h5>Secrétariat</h5>
-                            <p style="padding-left:40px"><label>Numéro portable :&nbsp </label><span id="privateNumber">mail</span></p>
-                            <p style="padding-left:40px"><label>Email :&nbsp </label><span id="secEmail">sec@email.fr</span></p>
+                            <p style="padding-left:40px"><label>Numéro portable :&nbsp </label><span
+                                    id="privateNumber">mail</span></p>
+                            <p style="padding-left:40px"><label>Email :&nbsp </label><span
+                                    id="secEmail">sec@email.fr</span></p>
 
                         </div>
                     </div>
@@ -344,7 +348,8 @@
 </div>
 
 
-<div class="modal fade" id="largeModalEntite" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+<div class="modal fade" id="largeModalEntite" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
 
@@ -362,8 +367,7 @@
                     <div style="width:50%;background:white;border:solid 1px;">
                         <div style="text-align:center">
                             <div style="width:40%; margin:0 auto;"> <img src="images/photo.png" alt="phooto"></div>
-                            <p id="partner">Nom du partenaire</p>
-
+                            <p id="state">Positionnement</p>
                             <p id="tag">TAG</p>
                         </div>
 
@@ -373,23 +377,17 @@
                     ">
 
                         <div>
-                            <p><label>Nom du poste :&nbsp </label><span id="name"></span></p>
+                            <p><label>Nom du partenaire :&nbsp </label><span id="name"></span></p>
                             <p><label>Acronyme :&nbsp </label><span id="nickname"></span></p>
+                            <p><label>Adresse postale :&nbsp </label><span id="localisationPos"></span></p>
+                            <p><label>Adresse géographique :&nbsp </label><span id="localisationGeo"></span></p>
+                            <p><label>Email fonctionnel :&nbsp </label><span id="foncEmail"></span></p>
+                            <p><label>Standard :&nbsp </label><span id="standard"></span></p>
+                            <p><label>Site internet :&nbsp </label><span id="website"></span></p>
+
 
                         </div>
-                        <div style="margin-top:15px;">
-                            <p><label>Numéro du poste fixe :&nbsp </label><span id="fixNumber"></span></p>
-                            <p><label>Emplacement :&nbsp </label><span id="localisation"></span></p>
-                            <p><label>Email fonctionnel du poste fixe :&nbsp </label><span id="fonctEmail"></span></p>
 
-                        </div>
-
-                        <div style="margin-top:15px;">
-                            <h5>Secrétariat</h5>
-                            <p style="padding-left:40px"><label>Numéro portable :&nbsp </label><span id="privateNumber">mail</span></p>
-                            <p style="padding-left:40px"><label>Email :&nbsp </label><span id="secEmail">sec@email.fr</span></p>
-
-                        </div>
                     </div>
                 </div>
 
@@ -408,7 +406,8 @@
 
 <!-- end modal large -->
 
-<div class="modal fade" id="displayerModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+<div class="modal fade" id="displayerModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
 

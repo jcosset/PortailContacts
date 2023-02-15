@@ -251,11 +251,7 @@ function createPoste(agrs) {
 
 
 function getEntite(id) {
-    let modal = $("#largeModal .card-body")
-    let mod = $("#largeModal")
-    modal.empty()
-
-    let modalName = "#largeModalPoste"
+    let modalName = "#largeModalEntite"
     $.ajax({
         type: "GET",
         url: "actions.php?type=get&id=" + id,
@@ -279,12 +275,18 @@ function getEntite(id) {
 
             $(modalName).find("p#tag").text(response.TAG || "")
 
-            $(modalName).find("span#name").text(response.Nom || "")
-            $(modalName).find("span#nickname").text(response.Acronyme || "")
+            $(modalName).find("span#name").text(response.nom || "")
+            $(modalName).find("span#nickname").text(response.acronyme || "")
+            let emplacementPostal = response.rue_pos + "-" + response.ville_pos + "-" + response.pays_pos + "-" + response.compl_pos
+            let emplacementGeo = response.rue_geo + "-" + response.ville_geo + "-" + response.pays_geo + "-" + response.compl_geo
 
-            $(modalName).find("span#fixNumber").text(response.Tel || "")
+
+            $(modalName).find("span#localisationPos").text(emplacementPostal || "")
             // $(modalName).find("span#localisation").text(emplacement || "")
-            $(modalName).find("span#emailPro").text(response.Email_fonctionnel || "")
+            $(modalName).find("span#localisationGeo").text(emplacementGeo || "")
+            $(modalName).find("span#fonctEmail").text(response.email || "")
+            $(modalName).find("span#standard").text(response.tel || "")
+            $(modalName).find("span#website").text(response.site || "")
 
 
         },
@@ -295,9 +297,7 @@ function getEntite(id) {
 }
 
 function getContact(id) {
-    let modal = $("#largeModal .card-body")
-    let mod = $("#largeModal")
-    modal.empty()
+    let modalName = "#largeModal"
     $.ajax({
         type: "GET",
         url: "actions_contact.php?type=get&id=" + id,
@@ -319,21 +319,21 @@ function getContact(id) {
             // modal.append(modalRowDisplayerFactory({ label: "Commentaire", name: "comment", placeholder: "", value: response.Commentaire }, 'textarea'))
             //   modal.append(modalRowDisplayerFactory({ label: "Commentaire niv 2", name: "commentNiv2", placeholder: "", value: response.commentaire_niv_2 }, 'textarea'))
 
-            $("#largeModal").find("span#civilite").text(response.Civilite || "")
-            $("#largeModal").find("span#firstname").text(response.Nom || "")
-            $("#largeModal").find("span#lastname").text(response.Prenom || "")
-            $("#largeModal").find("span#grade").text(response.Grade || "")
+            $(modalName).find("span#civilite").text(response.Civilite || "")
+            $(modalName).find("span#firstname").text(response.Nom || "")
+            $(modalName).find("span#lastname").text(response.Prenom || "")
+            $(modalName).find("span#grade").text(response.Grade || "")
 
-            $("#largeModal").find("p#status").text(response.Statut || "")
-            $("#largeModal").find("p#updateDate").text(response.Date_MAJ || "")
-            $("#largeModal").find("p#tag").text(response.TAG || "")
+            $(modalName).find("p#status").text(response.Statut || "")
+            $(modalName).find("p#updateDate").text(response.Date_MAJ || "")
+            $(modalName).find("p#tag").text(response.TAG || "")
 
-            $("#largeModal").find("span#emailPro").text(response.email_pro || "")
-            $("#largeModal").find("span#niv1info").text(response.Commentaire || "")
+            $(modalName).find("span#emailPro").text(response.email_pro || "")
+            $(modalName).find("span#niv1info").text(response.Commentaire || "")
 
-            $("#largeModal").find("span#privateNumber").text(response.telephone || "")
-            $("#largeModal").find("span#privateEmail").text(response.Email || "")
-            $("#largeModal").find("span#niv2info").text(response.commentaire_niv_2 || "")
+            $(modalName).find("span#privateNumber").text(response.telephone || "")
+            $(modalName).find("span#privateEmail").text(response.Email || "")
+            $(modalName).find("span#niv2info").text(response.commentaire_niv_2 || "")
             $("#largeModal").find("p#tag").text(response.TAG || "")
 
         },
