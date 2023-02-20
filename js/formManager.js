@@ -18,7 +18,7 @@ function defaultPostAjax({ url, data }) {
         url,
         data,
         success: function (response) {
-            window.location.reload();
+            //window.location.reload();
         },
         error: function () {
             alert("Error");
@@ -450,9 +450,10 @@ function showEntiteModal(id) {
             modal.append(modalRowDisplayerFactory({ label: "Nom", name: "nom", value: entity.nom, iSdisabled: false, isRequired: true }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Entite Parent", name: "uper_id", value: entity.uper_id, optionsHtml, isRequired: true }, 'select'))
             modal.append(modalRowDisplayerFactory({ label: "Acronyme", name: "acronyme", value: entity.acronyme, iSdisabled: false }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Téléphone", name: "telephone", value: entity.tel, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Standard", name: "telephone", value: entity.tel, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Email fonctionnel", name: "email", value: entity.email, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Site", name: "site", value: entity.site, iSdisabled: false }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Logo", name: "logo", value: entity.logo, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Logo", name: "log", value: entity.logo, iSdisabled: false, isRequired: false }, 'file'))
             modal.append(modalRowDisplayerFactory({ label: "Adresse Géographique", name: "adresseGeo", value: entity.rue_geo, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "complement", name: "complementGeo", value: entity.compl_geo, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Code Postal", name: "CPGeo", value: entity.cp_geo, iSdisabled: false }, 'input'))
@@ -552,11 +553,11 @@ function showContactModal(id) {
             modal.append(modalRowDisplayerFactory({ label: "Prénom", name: "prenom", value: contact.Prenom, iSdisabled: false, isRequired: true }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Poste", name: "poste", optionsHtml: optionsHtmlPostes }, 'select'))
             modal.append(modalRowDisplayerFactory({ label: "Grade", name: "grade", value: contact.Grade, iSdisabled: false }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Email", name: "email", value: contact.Email, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Email Perso", name: "email", value: contact.Email, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Email pro", name: "emailPro", value: contact.email_pro, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Téléphone", name: "telephone", value: contact.telephone, iSdisabled: false }, 'input'))
 
-            modal.append(modalRowDisplayerFactory({ label: "Rue", name: "rue", value: contact.Rue, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Adresse personnelle", name: "rue", value: contact.Rue, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Complement", name: "complement", value: contact.Compl, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "CP", name: "cp", value: contact.CP, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Ville", name: "ville", value: contact.Ville, iSdisabled: false }, 'input'))

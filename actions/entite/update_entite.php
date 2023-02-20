@@ -1,9 +1,9 @@
 <?php
 
-require_once __DIR__."/../../config.php";
-require_once __DIR__."/../../crud/address/address.php";
-require_once __DIR__."/../../crud/entite/entite.php";
-require_once SITE_ROOT."/inc/helpers/debug.php";
+require_once __DIR__ . "/../../config.php";
+require_once __DIR__ . "/../../crud/address/address.php";
+require_once __DIR__ . "/../../crud/entite/entite.php";
+require_once SITE_ROOT . "/inc/helpers/debug.php";
 error_reporting(E_ALL);
 ini_set('display_errors', TRUE);
 ini_set('display_startup_errors', TRUE);
@@ -29,29 +29,28 @@ if (isset($_POST['nom']) & isset($_POST['uper_id']) & isset($_POST['id'])) {
   $pays_pos = strip_tags($_POST['paysPos']);
 
 
-  debugScreen($id);
-
   $adresseIdGeo = getIdAddress($adresse_geo, $cp_geo, $ville_geo, $pays_geo);
   $adresseIdPos = getIdAddress($adresse_pos, $cp_pos, $ville_pos, $pays_pos);
 
-  if ($adresseIdGeo) {
+  if ($adresseIdGeo  && $adresse_geo !== "0") {
     $adresse_geo = $adresseIdGeo["id"];
   } else {
-    $adreses_geo = setAddress($adresse_geo, $cp_geo, $ville_geo, $pays_geo, "");
+
+    $adresse_geo = setAddress($adresse_geo, $cp_geo, $ville_geo, $pays_geo, "");
   }
 
-  if ($adresseIdPos) {
+  if ($adresseIdPos &&  $adresse_pos !== "0") {
     $adresse_pos = $adresseIdPos["id"];
   } else {
     $adresse_pos = setAddress($adresse_pos, $cp_pos, $ville_pos, $pays_pos, "");
   }
 
-  $result = updateEntite($id, $nom, $uper_id, $acronyme, $email,$telephone, $adresse_geo, $adresse_pos, $site, $logo, $compl_geo, $compl_pos);
+  $result = updateEntite($id, $nom, $uper_id, $acronyme, $email, $telephone, $adresse_geo, $adresse_pos, $site, $logo, $compl_geo, $compl_pos);
 
-  if($result){
+  if ($result) {
     deleteOrphanAddress();
     echo "success";
-  }else{
+  } else {
     echo "error";
   }
 }

@@ -1,9 +1,9 @@
 <?php
 
-require_once __DIR__."/../../config.php";
-require_once __DIR__."/../../crud/address/address.php";
-require_once __DIR__."/../../crud/entite/entite.php";
-require_once SITE_ROOT."/inc/helpers/debug.php";
+require_once __DIR__ . "/../../config.php";
+require_once __DIR__ . "/../../crud/address/address.php";
+require_once __DIR__ . "/../../crud/entite/entite.php";
+require_once SITE_ROOT . "/inc/helpers/debug.php";
 
 if (isset($_POST['nom']) & isset($_POST['uper_id'])) {
   $nom = strip_tags($_POST['nom']);
@@ -24,29 +24,35 @@ if (isset($_POST['nom']) & isset($_POST['uper_id'])) {
   $site = strip_tags($_POST['site']);
   $logo = strip_tags($_POST['logo']);
 
-$addressGeoInBDD = getIdAddress($adresse_geo, $CP_geo, $ville_geo, $pays_geo);
-$addressGeoID = "";
+  $addressGeoInBDD = getIdAddress($adresse_geo, $CP_geo, $ville_geo, $pays_geo);
+  $addressGeoID = "";
 
-if ($addressGeoInBDD) {
-  $addressGeoID = $addressGeoInBDD["id"];
-} else {
-  $addressGeoID = setAddress($adresse_geo, $CP_geo, $ville_geo, $pays_geo, "");
-}
+  if ($addressGeoInBDD) {
+    $addressGeoID = $addressGeoInBDD["id"];
+  } else {
+    $addressGeoID = setAddress($adresse_geo, $CP_geo, $ville_geo, $pays_geo, "");
+  }
 
-$addressPosInBDD = getIdAddress($adresse_pos, $CP_pos, $ville_pos, $pays_pos);
-$addressPosID = "";
+  $addressPosInBDD = getIdAddress($adresse_pos, $CP_pos, $ville_pos, $pays_pos);
+  $addressPosID = "";
 
-if ($addressPosInBDD) {
-  $addressPosID = $addressPosInBDD["id"];
-} else {
-  $addressPosID = setAddress($adresse_pos, $CP_pos, $ville_pos, $pays_pos, "");
-}
+  if ($addressPosInBDD) {
+    $addressPosID = $addressPosInBDD["id"];
+  } else {
+    $addressPosID = setAddress($adresse_pos, $CP_pos, $ville_pos, $pays_pos, "");
+  }
 
-$returnSetEntity = setEntity($nom, $uper_id, $acronyme, $email, $telephone, $addressGeoID, $addressPosID, $site, $logo, $compl_geo, $compl_pos);
+  debugScreen("geo id");
+  debugScreen($addressGeoID);
+  debugScreen("pos in bdd");
+  debugScreen($addressPosInBDD);
+  debugScreen("getIda pos");
+  debugScreen(getIdAddress($adresse_pos, $CP_pos, $ville_pos, $pays_pos));
+  $returnSetEntity = setEntity($nom, $uper_id, $acronyme, $email, $telephone, $addressGeoID, $addressPosID, $site, $logo, $compl_geo, $compl_pos);
 
-if($returnSetEntity){
+  if ($returnSetEntity) {
     echo "success";
-  }else{
+  } else {
     echo "error";
   }
 }

@@ -31,6 +31,11 @@ function getIdAddress($address, $CP, $ville, $pays)
     $queryRecupIdAddress = $db->prepare('SELECT id from address where Rue=:adresse and CP=:CP and Ville=:ville and Pays=:pays;');
     $queryRecupIdAddress->execute(array(':adresse' => $address, ':CP' => $CP, ':ville' => $ville, ':pays' => $pays));
     $resultRecupIdAddress = $queryRecupIdAddress->fetch(PDO::FETCH_ASSOC);
+    debugScreen("id add fetch");
+    debugScreen($resultRecupIdAddress);
+    if (!$resultRecupIdAddress || trim($resultRecupIdAddress["id"]) == "") {
+        return false;
+    }
     return $resultRecupIdAddress;
 }
 
@@ -40,9 +45,9 @@ function setAddress($address, $CP, $ville, $pays, $cedex)
     if (!$cedex) {
         $cedex = "";
     }
-    $queryInsertAdress = $db->prepare('INSERT INTO address (Rue, CP, Ville, Pays, cedex)
-        VALUES (:adresse, :CP, :ville, :pays, :cedex)');
-    $queryInsertAdress->execute(array(':adresse' => $address, ':CP' => $CP, ':ville' => $ville, ':pays' => $pays, ':cedex' => $cedex));
+    $queryInsertAdress = $db->prepare('INSERT INTO address (Rue, CP, Ville, Pays)
+        VALUES (:adresse, :CP, :ville, :pays)');
+    $queryInsertAdress->execute(array(':adresse' => $address, ':CP' => $CP, ':ville' => $ville, ':pays' => $pays));
     $addressID = $db->lastInsertId();
     return $addressID;
 }
@@ -50,13 +55,13 @@ function setAddress($address, $CP, $ville, $pays, $cedex)
 function deleteOrphanAddress()
 {
     global $db;
-    $queryRecupIdAddresses = $db->prepare('DELETE FROM address 
+    $queryRecupIdAddresses = $db->prepare('DELETE FROM address
                                             WHERE id IN
-                                                (SELECT * FROM (SELECT addr.id FROM address as addr 
-                                                left join Contact as con on addr.id = con.addressId 
-                                                left join Entite as en1 on addr.id = en1.adresse_geo 
-                                                left join Entite as en2 on addr.id = en2.adresse_postale 
-                                                left join Poste as pos on addr.id = pos.adresse 
+                                                (SELECT * FROM (SELECT addr.id FROM address as addr
+                                                left join Contact as con on addr.id = con.addressId
+                                                left join Entite as en1 on addr.id = en1.adresse_geo
+                                                left join Entite as en2 on addr.id = en2.adresse_postale
+                                                left join Poste as pos on addr.id = pos.adresse
                                                 where con.addressId is null and en1.adresse_geo is null and en2.adresse_postale is null and pos.adresse is null)tblTMP)');
     $queryRecupIdAddresses->execute();
 }
