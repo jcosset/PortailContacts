@@ -197,7 +197,7 @@ error_reporting(E_ALL);
                             </div>
                             <div class="col-12 col-md-9">
                                 <input type="text" id="email" name="email" placeholder="email@email.com"
-                                    class="form-control" >
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -206,7 +206,7 @@ error_reporting(E_ALL);
                             </div>
                             <div class="col-12 col-md-9">
                                 <input type="text" id="emailPro" name="emailPro" placeholder="email@pro.com"
-                                    class="form-control" >
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -215,7 +215,7 @@ error_reporting(E_ALL);
                             </div>
                             <div class="col-12 col-md-9">
                                 <input type="text" id="telephone" name="telephone" placeholder="+33612345678"
-                                    class="form-control" >
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -254,10 +254,11 @@ error_reporting(E_ALL);
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">adresse</label>
+                                <label for="text-input" class=" form-control-label">adresse Personnelle</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="adresse" name="adresse" placeholder="N° de rue..." class="form-control" >
+                                <input type="text" id="adresse" name="adresse" placeholder="N° de rue..."
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -274,7 +275,7 @@ error_reporting(E_ALL);
                                 <label for="text-input" class=" form-control-label">Code Postal</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="CP" name="CP" placeholder="75000..." class="form-control" >
+                                <input type="text" id="CP" name="CP" placeholder="75000..." class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -282,7 +283,7 @@ error_reporting(E_ALL);
                                 <label for="text-input" class=" form-control-label">Ville</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="ville" name="ville" placeholder="Ville" class="form-control" >
+                                <input type="text" id="ville" name="ville" placeholder="Ville" class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -290,7 +291,7 @@ error_reporting(E_ALL);
                                 <label for="text-input" class=" form-control-label">Pays</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="pays" name="pays" placeholder="Pays" class="form-control" >
+                                <input type="text" id="pays" name="pays" placeholder="Pays" class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">

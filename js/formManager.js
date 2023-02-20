@@ -4,6 +4,14 @@ function capitalize(s) {
     return s[0].toUpperCase() + s.slice(1);
 }
 
+const nullToEmpty = (response) => {
+    for (let [key, val] of Object.entries(response)) {
+        if (val == null || val == "null") {
+            response[key] = ""
+        }
+    }
+}
+
 function defaultPostAjax({ url, data }) {
     $.ajax({
         type: "POST",
@@ -136,7 +144,7 @@ function attachEventListenerDeleteBtn({ buttonAttributeClass, url, confirmMessag
 function modalRowFieldWrapWithHeaderAndFooter(fieldFunction, data) {
     const { label, hidden, isRequired } = data
     let required = isRequired == true ? "required" : ""
-    let header = '<div class="form-group"><div class="col col-md-3">'
+    let header = '<div class="row form-group"><div class="col col-md-3">'
     let labelField = `<label for="text-input" class="form-control-label" ${required}>${label}</label></div>`
     let field = fieldFunction(data)
     let inputHeader = '<div class="col-12 col-md-9">'
@@ -165,13 +173,15 @@ function modalRowDropdownSelectCommun({ label, name, optionsHtml, isRequired }, 
     let required = isRequired == true ? "required" : ""
     let multiple = type == "select-multiple" ? "multiple='multiple'" : ""
     return `
-   <div class="form-group col-12 col-md-9">
-   <label for="vat" class="form-control-label" ${required}>${label}</label>
+   <div class="row form-group"><div class="col col-md-3">
+   <label for="vat" class="form-control-label" ${required}>${label}</label></div>
+   <div class="col-12 col-md-9">
    <select class="js-select2 js-select-custom" ${multiple}  name="${name}" ${required}>
 
     ${optionsHtml}
   </select>
   <div class="dropDownSelect2"></div>
+  </div>
   </div>
   `
 }
@@ -236,7 +246,7 @@ function createPoste(agrs) {
 
     modal.append(modalRowDisplayerFactory({ label: "Partenaire", name: "partenaire", iSdisabled: true, value: partenaireName }, 'input'))
     modal.append(modalRowDisplayerFactory({ label: "Partenaire ID", name: "entiteId", value: parteneaireId, hidden: true }, 'input'))
-    modal.append(modalRowDisplayerFactory({ label: "Nom", name: "nom", placeholder: "Nom", isRequired: true, iSdisabled: false }, 'input'))
+    modal.append(modalRowDisplayerFactory({ label: "Nom du poste", name: "nom", placeholder: "Nom du poste", isRequired: true, iSdisabled: false }, 'input'))
     modal.append(modalRowDisplayerFactory({ label: "Rue", name: "rue", placeholder: "rue", iSdisabled: false }, 'input'))
     modal.append(modalRowDisplayerFactory({ label: "Complement", name: "complement", placeholder: "complement", iSdisabled: false }, 'input'))
     modal.append(modalRowDisplayerFactory({ label: "CP", name: "cp", placeholder: "code postale", iSdisabled: false }, 'input'))
@@ -250,6 +260,7 @@ function createPoste(agrs) {
 }
 
 
+
 function getEntite(id) {
     let modalName = "#largeModalEntite"
     $.ajax({
@@ -259,7 +270,7 @@ function getEntite(id) {
         success: function (response) {
             response = JSON.parse(response)
             console.log(response)
-
+            nullToEmpty(response)
             // modal.append(modalRowDisplayerFactory({ label: "Photo", name: "photo", placeholder: "", value: response.Photo }, 'input'))
             //modal.append(modalRowDisplayerFactory({ label: "Civilite", name: "civilite", value: capitalize(response.Civilite) }, 'input'))
             //modal.append(modalRowDisplayerFactory({ label: "Nom", name: "nom", placeholder: "", value: response.Nom }, 'input'))
@@ -277,8 +288,8 @@ function getEntite(id) {
 
             $(modalName).find("span#name").text(response.nom || "")
             $(modalName).find("span#nickname").text(response.acronyme || "")
-            let emplacementPostal = response.rue_pos + "-" + response.ville_pos + "-" + response.pays_pos + "-" + response.compl_pos
-            let emplacementGeo = response.rue_geo + "-" + response.ville_geo + "-" + response.pays_geo + "-" + response.compl_geo
+            let emplacementPostal = response.rue_pos + " " + response.ville_pos + " " + response.pays_pos + " " + response.compl_pos
+            let emplacementGeo = response.rue_geo + " " + response.ville_geo + " " + response.pays_geo + " " + response.compl_geo
 
 
             $(modalName).find("span#localisationPos").text(emplacementPostal || "")
@@ -359,7 +370,7 @@ function getPoste(id) {
         cache: false,
         success: function (response) {
             response = JSON.parse(response)
-
+            nullToEmpty(response)
             modal.append(modalRowDisplayerFactory({ label: "Nom", name: "nom", value: response.Nom }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Acronyme", name: "acronyme", placeholder: "", value: response.acronyme }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Rue", name: "rue", value: response.Rue }, 'input'))
@@ -372,7 +383,7 @@ function getPoste(id) {
             modal.append(modalRowDisplayerFactory({ label: "Email secrétariat", name: "email_secretariat", placeholder: "", value: response.email_secretariat }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Téléphone secrétariat", name: "tel_secretariat", placeholder: "", value: response.tel_secretariat }, 'input'))
 
-            let emplacement = response.Rue + "-" + response.Ville + "-" + response.Pays + "-" + response.Compl
+            let emplacement = response.Rue + " " + response.CP + " " + response.Ville + " " + response.Pays + " " + response.Compl
 
 
             $(modalName).find("p#tag").text(response.TAG || "")

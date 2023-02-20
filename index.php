@@ -57,7 +57,9 @@
                             foreach ($menu[$posteId] as $contact) {
                                 $isUpdated = "text-success";
                                 $id = $contact['id'];
-                                $htmlPoste .= "<li> <button class='$isUpdated' data-toggle='modal' data-target='#largeModal' onclick='getContact($id)'> " . $contact['Nom'] . "</button></li>";
+                                $htmlPoste .= "<li> <button class='$isUpdated' data-toggle='modal'
+                                 data-target='#largeModal'
+                                  onclick='getContact($id)'> " . $contact['Nom'] . " " . $contact['Prenom'] . ", " . $contact['Grade'] . "</button></li>";
                             }
                             return $htmlPoste;
                         }
@@ -412,7 +414,7 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title" id="largeModalLabel">Details</h5>
+                <h5 class="modal-title" id="largeModalLabel">Ajouter un poste</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
