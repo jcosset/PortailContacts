@@ -27,24 +27,25 @@ function getAddressById($idAddress)
 
 function getIdAddress($address, $CP, $ville, $pays)
 {
+    if (trim($address) == "" && trim($CP) == "" &&  trim($ville) == "") {
+        return false;
+    }
     global $db;
     $queryRecupIdAddress = $db->prepare('SELECT id from address where Rue=:adresse and CP=:CP and Ville=:ville and Pays=:pays;');
     $queryRecupIdAddress->execute(array(':adresse' => $address, ':CP' => $CP, ':ville' => $ville, ':pays' => $pays));
     $resultRecupIdAddress = $queryRecupIdAddress->fetch(PDO::FETCH_ASSOC);
-    debugScreen("id add fetch");
-    debugScreen($resultRecupIdAddress);
     if (!$resultRecupIdAddress || trim($resultRecupIdAddress["id"]) == "") {
         return false;
     }
     return $resultRecupIdAddress;
 }
 
-function setAddress($address, $CP, $ville, $pays, $cedex)
+function setAddress($address, $CP, $ville, $pays)
 {
-    global $db;
-    if (!$cedex) {
-        $cedex = "";
+    if (trim($address) == "" && trim($CP) == "" &&  trim($ville) == "") {
+        return null;
     }
+    global $db;
     $queryInsertAdress = $db->prepare('INSERT INTO address (Rue, CP, Ville, Pays)
         VALUES (:adresse, :CP, :ville, :pays)');
     $queryInsertAdress->execute(array(':adresse' => $address, ':CP' => $CP, ':ville' => $ville, ':pays' => $pays));

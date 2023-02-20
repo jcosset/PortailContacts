@@ -16,7 +16,7 @@ if (isset($_POST['nom']) & isset($_POST['uper_id']) & isset($_POST['id'])) {
   $email = strip_tags($_POST['email']);
   $telephone = strip_tags($_POST['telephone']);
   $site = strip_tags($_POST['site']);
-  $logo = strip_tags($_POST['logo']);
+  $logo = "#logo";
   $adresse_geo = strip_tags($_POST['adresseGeo']);
   $compl_geo = strip_tags($_POST['complementGeo']);
   $cp_geo = strip_tags($_POST['CPGeo']);
@@ -29,6 +29,14 @@ if (isset($_POST['nom']) & isset($_POST['uper_id']) & isset($_POST['id'])) {
   $pays_pos = strip_tags($_POST['paysPos']);
 
 
+  if (isset($_FILES['file'])) {
+    $tmpName = $_FILES['file']['tmp_name'];
+    $logo = $_FILES['file']['name'];
+    $size = $_FILES['file']['size'];
+    $error = $_FILES['file']['error'];
+  }
+
+
   $adresseIdGeo = getIdAddress($adresse_geo, $cp_geo, $ville_geo, $pays_geo);
   $adresseIdPos = getIdAddress($adresse_pos, $cp_pos, $ville_pos, $pays_pos);
 
@@ -36,13 +44,13 @@ if (isset($_POST['nom']) & isset($_POST['uper_id']) & isset($_POST['id'])) {
     $adresse_geo = $adresseIdGeo["id"];
   } else {
 
-    $adresse_geo = setAddress($adresse_geo, $cp_geo, $ville_geo, $pays_geo, "");
+    $adresse_geo = setAddress($adresse_geo, $cp_geo, $ville_geo, $pays_geo);
   }
 
   if ($adresseIdPos &&  $adresse_pos !== "0") {
     $adresse_pos = $adresseIdPos["id"];
   } else {
-    $adresse_pos = setAddress($adresse_pos, $cp_pos, $ville_pos, $pays_pos, "");
+    $adresse_pos = setAddress($adresse_pos, $cp_pos, $ville_pos, $pays_pos);
   }
 
   $result = updateEntite($id, $nom, $uper_id, $acronyme, $email, $telephone, $adresse_geo, $adresse_pos, $site, $logo, $compl_geo, $compl_pos);
