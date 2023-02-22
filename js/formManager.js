@@ -247,12 +247,11 @@ function createPoste(agrs) {
     modal.append(modalRowDisplayerFactory({ label: "Partenaire", name: "partenaire", iSdisabled: true, value: partenaireName }, 'input'))
     modal.append(modalRowDisplayerFactory({ label: "Partenaire ID", name: "entiteId", value: parteneaireId, hidden: true }, 'input'))
     modal.append(modalRowDisplayerFactory({ label: "Nom du poste", name: "nom", placeholder: "Nom du poste", isRequired: true, iSdisabled: false }, 'input'))
-    modal.append(modalRowDisplayerFactory({ label: "Rue", name: "rue", placeholder: "rue", iSdisabled: false }, 'input'))
-    modal.append(modalRowDisplayerFactory({ label: "Complement", name: "complement", placeholder: "complement", iSdisabled: false }, 'input'))
-    modal.append(modalRowDisplayerFactory({ label: "CP", name: "cp", placeholder: "code postale", iSdisabled: false }, 'input'))
-    modal.append(modalRowDisplayerFactory({ label: "Ville", name: "ville", placeholder: "ville", iSdisabled: false }, 'input'))
-    modal.append(modalRowDisplayerFactory({ label: "Pays", name: "pays", placeholder: "pays", iSdisabled: false }, 'input'))
-    modal.append(modalRowDisplayerFactory({ label: "Email fonctionnel", name: "email", placeholder: "email@email.fr", iSdisabled: false }, 'input'))
+    modal.append(modalRowDisplayerFactory({ label: "Acronyme", name: "acronyme", iSdisabled: false }, 'input'))
+    modal.append(modalRowDisplayerFactory({ label: "Email sécrétariat", name: "email_secretariat", iSdisabled: false }, 'input'))
+    modal.append(modalRowDisplayerFactory({ label: "Numéro téléphone sécrétariat", name: "tel_secretariat", iSdisabled: false }, 'input'))
+    modal.append(modalRowDisplayerFactory({ label: "Numéro fixe du poste", name: "tel", iSdisabled: false }, 'input'))
+    modal.append(modalRowDisplayerFactory({ label: "Email fonctionnel", name: "email_fonc", iSdisabled: false }, 'input'))
     modal.parent().parent().find(".modal-footer").append(modalRowDisplayerFactory({}, 'submit'))
 
     updatePostModalSubmitFactory({ formAttributeId: "form#addPostOrContact", url: "actions_" + typeForm + ".php?type=create" }, "save")
@@ -389,23 +388,23 @@ function getPoste(id) {
             $(modalName).find("p#tag").text(response.TAG || "")
 
             $(modalName).find("span#name").text(response.Nom || "")
-            $(modalName).find("span#nickname").text(response.Acronyme || "")
+            $(modalName).find("span#nickname").text(response.acronyme || "")
 
-            $(modalName).find("span#fixNumber").text(response.Tel || "")
+            $(modalName).find("span#fixNumber").text(response.tel || "")
             $(modalName).find("span#localisation").text(emplacement || "")
             $(modalName).find("span#emailPro").text(response.Email_fonctionnel || "")
 
-            $("#largeModal").find("p#status").text(response.Statut || "")
-            $("#largeModal").find("p#updateDate").text(response.Date_MAJ || "")
+            $(modalName).find("p#status").text(response.Statut || "")
+            $(modalName).find("p#updateDate").text(response.Date_MAJ || "")
 
 
 
-            $("#largeModal").find("span#niv1info").text(response.Commentaire || "")
+            $(modalName).find("span#niv1info").text(response.Commentaire || "")
 
-            $("#largeModal").find("span#privateNumber").text(response.telephone || "")
-            $("#largeModal").find("span#privateEmail").text(response.Email || "")
-            $("#largeModal").find("span#niv2info").text(response.commentaire_niv_2 || "")
-            $("#largeModal").find("p#tag").text(response.TAG || "")
+            $(modalName).find("span#secTel").text(response.tel_secretariat || "")
+            $(modalName).find("span#secEmail").text(response.email_secretariat || "")
+            $(modalName).find("span#niv2info").text(response.commentaire_niv_2 || "")
+            $(modalName).find("p#tag").text(response.TAG || "")
 
 
         },

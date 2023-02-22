@@ -71,18 +71,32 @@ function updatePoste($id, $nom, $email_fonc, $entite, $acronyme, $adresse, $emai
     return $resultUpdatePoste;
 }
 
-function setPoste($nom, $email_fonc, $entite, $acronyme, $adresse, $email_secretariat, $tel_secretariat, $tel, $compl)
+function setPoste($nom, $email_fonc, $entite, $acronyme, $email_secretariat, $tel_secretariat, $tel)
 {
-    global $db;
-    $sqlSetPoste = "INSERT INTO Poste (Nom, Email_fonctionnel, Entite, acronyme, adresse, email_secretariat, tel_secretariat, tel, Compl)
-	    VALUES (:nom, :email_fonc, :entite, :acronyme, :adresse, :email_secretariat, :tel_secretariat, :tel, :compl)
-";
-    $querySetPoste = $db->prepare($sqlSetPoste);
-    $querySetPoste->execute(array(':nom' => $nom, ':email_fonc' => $email_fonc, ':entite' => $entite, ':acronyme' => $acronyme, ':adresse' => $adresse, ':email_secretariat' => $email_secretariat, ':tel_secretariat' => $tel_secretariat, ':tel' => $tel, ':compl' => $compl));
-    $resultSetPoste = $db->lastInsertId();
-    return $resultSetPoste;
-}
 
+    global $db;
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $sqlSetPoste = "INSERT INTO Poste (Nom, Email_fonctionnel,
+     Entite, acronyme, email_secretariat, tel_secretariat, tel)
+	    VALUES (:nom, :email_fonc, :entite, :acronyme, :email_secretariat,
+         :tel_secretariat, :tel)
+";
+    try {
+        $querySetPoste = $db->prepare($sqlSetPoste);
+        $querySetPoste->execute(array(
+            ':nom' => $nom, ':email_fonc' => $email_fonc,
+            ':entite' => $entite, ':acronyme' => $acronyme,
+            ':email_secretariat' => $email_secretariat,
+            ':tel_secretariat' => $tel_secretariat,
+            ':tel' => $tel
+        ));
+        $resultSetPoste = $db->lastInsertId();
+        return $resultSetPoste;
+    } catch (Exception $e) {
+        echo 'Exception -> ';
+        var_dump($e->getMessage());
+    }
+}
 function deletePoste($idPoste)
 {
     global $db;

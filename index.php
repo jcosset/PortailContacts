@@ -171,8 +171,7 @@
 </div>
 <!-- END MAIN CONTENT-->
 
-<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
 
@@ -262,8 +261,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="largeModalPoste" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="largeModalPoste" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
 
@@ -304,10 +302,8 @@
 
                         <div style="margin-top:15px;">
                             <h5>Secrétariat</h5>
-                            <p style="padding-left:40px"><label>Numéro portable :&nbsp </label><span
-                                    id="privateNumber">mail</span></p>
-                            <p style="padding-left:40px"><label>Email :&nbsp </label><span
-                                    id="secEmail">sec@email.fr</span></p>
+                            <p style="padding-left:40px"><label>Numéro portable :&nbsp </label><span id="secTel">mail</span></p>
+                            <p style="padding-left:40px"><label>Email :&nbsp </label><span id="secEmail">sec@email.fr</span></p>
 
                         </div>
                     </div>
@@ -350,8 +346,7 @@
 </div>
 
 
-<div class="modal fade" id="largeModalEntite" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="largeModalEntite" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
 
@@ -408,8 +403,7 @@
 
 <!-- end modal large -->
 
-<div class="modal fade" id="displayerModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="displayerModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
 
