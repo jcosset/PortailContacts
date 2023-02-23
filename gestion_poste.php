@@ -157,7 +157,7 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                     <div class="card-body card-block">
                         <div class="row form-group">
                             <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">Nom</label>
+                                <label for="text-input" class=" form-control-label">Nom*</label>
                             </div>
                             <div class="col-12 col-md-9">
                                 <input type="text" id="nom" name="nom" placeholder="Nom" class="form-control" required>
@@ -168,7 +168,7 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                 <label for="text-input" class=" form-control-label">Acronyme</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="acronyme" name="acronyme" placeholder="Acronyme..." class="form-control" required>
+                                <input type="text" id="acronyme" name="acronyme" placeholder="Acronyme..." class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -176,7 +176,7 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                 <label for="text-input" class=" form-control-label">Téléphone</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="telephone" name="telephone" placeholder="+33142424242" class="form-control" required>
+                                <input type="text" id="telephone" name="telephone" placeholder="+33142424242" class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -184,7 +184,7 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                 <label for="email" class=" form-control-label">Email fonctionnel</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="email" name="email" placeholder="email@email.com" class="form-control" required>
+                                <input type="text" id="email" name="email" placeholder="email@email.com" class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -192,7 +192,7 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                 <label for="text-input" class=" form-control-label">Email Secrétariat</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="email-secretariat" name="email-secretariat" placeholder="email@email.com" class="form-control" required>
+                                <input type="text" id="email-secretariat" name="email-secretariat" placeholder="email@email.com" class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -200,7 +200,7 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                 <label for="text-input" class=" form-control-label">Téléphone Secrétariat</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="trl-secretariat" name="tel-secretariat" placeholder="+330142424242" class="form-control" required>
+                                <input type="text" id="trl-secretariat" name="tel-secretariat" placeholder="+330142424242" class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
