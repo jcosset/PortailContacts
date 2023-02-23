@@ -181,46 +181,6 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">Rue</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <input type="text" id="rue" name="rue" placeholder="44 rue de Paris" class="form-control">
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">complement</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <input type="text" id="complement" name="complement" placeholder="Bureau 55B" class="form-control">
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">CP</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <input type="text" id="cp" name="cp" placeholder="75000" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">Ville</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <input type="text" id="ville" name="ville" placeholder="Paris" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">Pays</label>
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <input type="text" id="pays" name="pays" placeholder="France" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col col-md-3">
                                 <label for="email" class=" form-control-label">Email fonctionnel</label>
                             </div>
                             <div class="col-12 col-md-9">
