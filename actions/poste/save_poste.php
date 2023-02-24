@@ -13,9 +13,10 @@ $acronyme = strip_tags($_POST['acronyme']);
 $email_secretariat = strip_tags($_POST['email_secretariat']);
 $tel_secretariat = strip_tags($_POST['tel_secretariat']);
 $tel = strip_tags($_POST['tel']);
+$emplacement = strip_tags($_POST['emplacement']);
 
 
-$resultSetPoste = setPoste($nom, $email_fonc, $entiteId, $acronyme, $email_secretariat, $tel_secretariat, $tel);
+$resultSetPoste = setPoste($nom, $email_fonc, $entiteId, $acronyme, $email_secretariat, $tel_secretariat, $tel, $emplacement);
 if ($resultSetPoste != 0) {
     echo "SAVE";
 } else {

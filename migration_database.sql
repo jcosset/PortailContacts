@@ -46,6 +46,7 @@ ALTER table Contact Modify column Email varchar(50) default "";
 ALTER table Contact Modify column Photo blob null;
 ALTER table Contact Modify column TAG varchar(50) default "";
 ALTER table Contact Modify column Poste_actuel int null;
+Alter table Poste add column emplacement text null; 
 
 -- Procédures stockées 19/01/2023
 

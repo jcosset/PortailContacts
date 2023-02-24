@@ -45,7 +45,7 @@ function getPosteById($id)
     global $db;
     $sqlRecupPoste = "SELECT Poste.id, Poste.Nom, Poste.Entite ,  Poste.acronyme,
      Poste.adresse, Poste.email_secretariat, Poste.tel_secretariat, Poste.tel,
-     Poste.Email_fonctionnel, addr.Rue, Poste.Compl, addr.CP, addr.Ville, addr.Pays
+     Poste.Email_fonctionnel, addr.Rue, Poste.emplacement, addr.CP, addr.Ville, addr.Pays
     from Poste
 		left join `address` as addr on (Poste.adresse = addr.id)
 	WHERE Poste.id = :id";
@@ -55,15 +55,15 @@ function getPosteById($id)
     return $resultRecupPoste;
 }
 
-function updatePoste($id, $nom, $email_fonc, $entite, $acronyme, $adresse, $email_secretariat, $tel_secretariat, $tel, $compl)
+function updatePoste($id, $nom, $email_fonc, $entite, $acronyme, $adresse, $email_secretariat, $tel_secretariat, $tel, $emplacement)
 {
     global $db;
     $sqlUpdatePoste = "UPDATE Poste SET
-        Nom=:nom, Email_fonctionnel=:email_fonc, Entite=:entite, acronyme=:acronyme, adresse=:adresse, email_secretariat=:email_secretariat, tel_secretariat=:tel_secretariat, tel=:tel, compl=:compl
+        Nom=:nom, Email_fonctionnel=:email_fonc, Entite=:entite, acronyme=:acronyme, adresse=:adresse, email_secretariat=:email_secretariat, tel_secretariat=:tel_secretariat, tel=:tel, emplacement=:emplacement
 	WHERE id=:id
 ";
     $queryUpdatePoste = $db->prepare($sqlUpdatePoste);
-    $queryUpdatePoste->execute(array(':id' => $id, ':nom' => $nom, ':email_fonc' => $email_fonc, ':entite' => $entite, ':acronyme' => $acronyme, ':adresse' => $adresse, ':email_secretariat' => $email_secretariat, ':tel_secretariat' => $tel_secretariat, ':tel' => $tel, ':compl' => $compl));
+    $queryUpdatePoste->execute(array(':id' => $id, ':nom' => $nom, ':email_fonc' => $email_fonc, ':entite' => $entite, ':acronyme' => $acronyme, ':adresse' => $adresse, ':email_secretariat' => $email_secretariat, ':tel_secretariat' => $tel_secretariat, ':tel' => $tel, ':emplacement' => $emplacement));
     $resultUpdatePoste = $queryUpdatePoste->fetchAll(PDO::FETCH_ASSOC);
     if (!$resultUpdatePoste) {
         print_r($db->errorInfo());
@@ -71,15 +71,15 @@ function updatePoste($id, $nom, $email_fonc, $entite, $acronyme, $adresse, $emai
     return $resultUpdatePoste;
 }
 
-function setPoste($nom, $email_fonc, $entite, $acronyme, $email_secretariat, $tel_secretariat, $tel)
+function setPoste($nom, $email_fonc, $entite, $acronyme, $email_secretariat, $tel_secretariat, $tel, $emplacement)
 {
 
     global $db;
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $sqlSetPoste = "INSERT INTO Poste (Nom, Email_fonctionnel,
-     Entite, acronyme, email_secretariat, tel_secretariat, tel)
+     Entite, acronyme, email_secretariat, tel_secretariat, tel, emplacement)
 	    VALUES (:nom, :email_fonc, :entite, :acronyme, :email_secretariat,
-         :tel_secretariat, :tel)
+         :tel_secretariat, :tel, :emplacement)
 ";
     try {
         $querySetPoste = $db->prepare($sqlSetPoste);
@@ -88,7 +88,7 @@ function setPoste($nom, $email_fonc, $entite, $acronyme, $email_secretariat, $te
             ':entite' => $entite, ':acronyme' => $acronyme,
             ':email_secretariat' => $email_secretariat,
             ':tel_secretariat' => $tel_secretariat,
-            ':tel' => $tel
+            ':tel' => $tel, ':emplacement' => $emplacement
         ));
         $resultSetPoste = $db->lastInsertId();
         return $resultSetPoste;

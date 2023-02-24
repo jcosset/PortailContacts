@@ -173,7 +173,16 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">Téléphone</label>
+                                <label for="textarea-input" class=" form-control-label">Emplacement</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <textarea name="emplacement" id="emplacement" rows="9" placeholder="..."
+                                    class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">Numéro Fixe</label>
                             </div>
                             <div class="col-12 col-md-9">
                                 <input type="text" id="telephone" name="telephone" placeholder="+33142424242" class="form-control">
@@ -186,8 +195,11 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                             <div class="col-12 col-md-9">
                                 <input type="text" id="email" name="email" placeholder="email@email.com" class="form-control">
                             </div>
-                        </div>
-                        <div class="row form-group">
+			</div>
+
+			<h3>Secrétariat</h3>
+
+			<div class="row form-group">
                             <div class="col col-md-3">
                                 <label for="text-input" class=" form-control-label">Email Secrétariat</label>
                             </div>
@@ -197,7 +209,7 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">Téléphone Secrétariat</label>
+                                <label for="text-input" class=" form-control-label">Numéro Secrétariat</label>
                             </div>
                             <div class="col-12 col-md-9">
                                 <input type="text" id="trl-secretariat" name="tel-secretariat" placeholder="+330142424242" class="form-control">
