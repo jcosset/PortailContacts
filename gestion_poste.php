@@ -81,8 +81,6 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                     </th>
                                     <th>Nom</th>
                                     <th>Entité</th>
-                                    <th>Adresse</th>
-                                    <th>Pays</th>
                                     <th>Email</th>
                                     <th></th>
                                 </tr>
@@ -106,10 +104,6 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                             <?= $entites[$poste['entiteID']]['nom'] ?>
                                         </td>
 
-
-                                        <td><?php echo $poste['Rue'] . '<br>' . $poste['Compl'] . '<br>' . $poste['CP'] . ' ' . $poste['Ville']; ?>
-                                        </td>
-                                        <td><?php echo $poste['Pays']; ?></td>
                                         <td>
                                             <span class="block-email"><?php echo $poste['Email_fonctionnel']; ?></span>
                                         </td>
