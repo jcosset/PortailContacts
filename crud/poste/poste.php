@@ -45,9 +45,8 @@ function getPosteById($id)
     global $db;
     $sqlRecupPoste = "SELECT Poste.id, Poste.Nom, Poste.Entite ,  Poste.acronyme,
      Poste.adresse, Poste.email_secretariat, Poste.tel_secretariat, Poste.tel,
-     Poste.Email_fonctionnel, addr.Rue, Poste.emplacement, addr.CP, addr.Ville, addr.Pays
+     Poste.Email_fonctionnel, emplacement
     from Poste
-		left join `address` as addr on (Poste.adresse = addr.id)
 	WHERE Poste.id = :id";
     $queryRecupPoste = $db->prepare($sqlRecupPoste);
     $queryRecupPoste->execute(array(':id' => $id));

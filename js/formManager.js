@@ -248,6 +248,7 @@ function createPoste(agrs) {
     modal.append(modalRowDisplayerFactory({ label: "Partenaire ID", name: "entiteId", value: parteneaireId, hidden: true }, 'input'))
     modal.append(modalRowDisplayerFactory({ label: "Nom du poste", name: "nom", placeholder: "Nom du poste", isRequired: true, iSdisabled: false }, 'input'))
     modal.append(modalRowDisplayerFactory({ label: "Acronyme", name: "acronyme", iSdisabled: false }, 'input'))
+    modal.append(modalRowDisplayerFactory({ label: "Emplacement", name: "emplacement", iSdisabled: false }, 'input'))
     modal.append(modalRowDisplayerFactory({ label: "Email sécrétariat", name: "email_secretariat", iSdisabled: false }, 'input'))
     modal.append(modalRowDisplayerFactory({ label: "Numéro téléphone sécrétariat", name: "tel_secretariat", iSdisabled: false }, 'input'))
     modal.append(modalRowDisplayerFactory({ label: "Numéro fixe du poste", name: "tel", iSdisabled: false }, 'input'))
@@ -287,8 +288,8 @@ function getEntite(id) {
 
             $(modalName).find("span#name").text(response.nom || "")
             $(modalName).find("span#nickname").text(response.acronyme || "")
-            let emplacementPostal = response.rue_pos + " " + response.ville_pos + " " + response.pays_pos + " " + response.compl_pos
-            let emplacementGeo = response.rue_geo + " " + response.ville_geo + " " + response.pays_geo + " " + response.compl_geo
+            let emplacementPostal = response.rue_pos + " " + response.ville_pos + " " + response.cp_pos + " " + response.pays_pos + " " + response.compl_pos
+            let emplacementGeo = response.rue_geo + " " + response.ville_geo + " " + response.cp_geo + " " + response.pays_geo + " " + response.compl_geo
 
 
             $(modalName).find("span#localisationPos").text(emplacementPostal || "")
@@ -334,9 +335,9 @@ function getContact(id) {
             $(modalName).find("span#lastname").text(response.Prenom || "")
             $(modalName).find("span#grade").text(response.Grade || "")
 
-            $(modalName).find("p#status").text(response.Statut || "")
-            $(modalName).find("p#updateDate").text(response.Date_MAJ || "")
-            $(modalName).find("p#tag").text(response.TAG || "")
+            $(modalName).find("span#status").text(response.Statut || "")
+            $(modalName).find("span#updateDate").text(response.Date_MAJ || "")
+            $(modalName).find("span#tag").text(response.TAG || "")
 
             $(modalName).find("span#emailPro").text(response.email_pro || "")
             $(modalName).find("span#niv1info").text(response.Commentaire || "")
@@ -372,13 +373,11 @@ function getPoste(id) {
             nullToEmpty(response)
             modal.append(modalRowDisplayerFactory({ label: "Nom", name: "nom", value: response.Nom }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Acronyme", name: "acronyme", placeholder: "", value: response.acronyme }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Emplacement", name: "emplacement", value: response.emplacement}, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Emplacement", name: "emplacement", value: response.emplacement }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Email fonctionnel", name: "email_fonc", placeholder: "", value: response.Email_fonctionnel }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Numéro fixe", name: "tel", placeholder: "", value: response.tel }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Email secrétariat", name: "email_secretariat", placeholder: "", value: response.email_secretariat }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Numéro secrétariat", name: "tel_secretariat", placeholder: "", value: response.tel_secretariat }, 'input'))
-
-            let emplacement = response.Rue + " " + response.CP + " " + response.Ville + " " + response.Pays + " " + response.Compl
 
 
             $(modalName).find("p#tag").text(response.TAG || "")
@@ -387,8 +386,8 @@ function getPoste(id) {
             $(modalName).find("span#nickname").text(response.acronyme || "")
 
             $(modalName).find("span#fixNumber").text(response.tel || "")
-            $(modalName).find("span#localisation").text(emplacement || "")
-            $(modalName).find("span#emailPro").text(response.Email_fonctionnel || "")
+            $(modalName).find("span#localisation").text(response.emplacement || "")
+            $(modalName).find("span#fonctEmail").text(response.Email_fonctionnel || "")
 
             $(modalName).find("p#status").text(response.Statut || "")
             $(modalName).find("p#updateDate").text(response.Date_MAJ || "")
@@ -450,12 +449,12 @@ function showEntiteModal(id) {
             modal.append(modalRowDisplayerFactory({ label: "Site", name: "site", value: entity.site, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Logo", name: "log", value: entity.logo, iSdisabled: false, isRequired: false }, 'file'))
             modal.append(modalRowDisplayerFactory({ label: "Adresse Géographique", name: "adresseGeo", value: entity.rue_geo, iSdisabled: false }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "complement", name: "complementGeo", value: entity.compl_geo, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Complément", name: "complementGeo", value: entity.compl_geo, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Code Postal", name: "CPGeo", value: entity.cp_geo, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Ville", name: "villeGeo", value: entity.ville_geo, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Pays", name: "paysGeo", value: entity.pays_geo, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Adresse Postale", name: "adressePos", value: entity.rue_pos, iSdisabled: false }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "complement", name: "complementPos", value: entity.compl_pos, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Complément", name: "complementPos", value: entity.compl_pos, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Code Postal", name: "CPPos", value: entity.cp_pos, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Ville", name: "villePos", value: entity.ville_pos, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Pays", name: "paysPos", value: entity.pays_pos, iSdisabled: false }, 'input'))
@@ -538,21 +537,24 @@ function showContactModal(id) {
                 optionsHtmlCivilites += `<option value='${civilite}' ${selected}>${civilite}</option>`
 
             }
+
+            statuts = ["A mettre à jour", "En attente ", "A jour", "Archivé"]
+            optionsHtmlStatuts = ""
+            for (statut of statuts) {
+                let selected = contact.Statut.toLowerCase() == statut.toLowerCase() ? "selected" : ""
+                optionsHtmlStatuts += `<option value='${statut}' ${selected}>${statut}</option>`
+
+            }
+
+
             modal.append(modalRowDisplayerFactory({ label: "Photo", name: "photo", value: contact.Nom, iSdisabled: false, isRequired: false }, 'file'))
             modal.append(modalRowDisplayerFactory({ label: "Civilite", name: "civilite", optionsHtml: optionsHtmlCivilites, isRequired: false }, 'select'))
             modal.append(modalRowDisplayerFactory({ label: "Nom", name: "nom", value: contact.Nom, iSdisabled: false, isRequired: true }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Prénom", name: "prenom", value: contact.Prenom, iSdisabled: false, isRequired: true }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Poste", name: "poste", optionsHtml: optionsHtmlPostes }, 'select'))
             modal.append(modalRowDisplayerFactory({ label: "Grade", name: "grade", value: contact.Grade, iSdisabled: false }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Email Perso", name: "email", value: contact.Email, iSdisabled: false }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Email pro", name: "emailPro", value: contact.email_pro, iSdisabled: false }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Téléphone", name: "telephone", value: contact.telephone, iSdisabled: false }, 'input'))
 
-            modal.append(modalRowDisplayerFactory({ label: "Adresse personnelle", name: "rue", value: contact.Rue, iSdisabled: false }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Complement", name: "complement", value: contact.Compl, iSdisabled: false }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "CP", name: "cp", value: contact.CP, iSdisabled: false }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Ville", name: "ville", value: contact.Ville, iSdisabled: false }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Pays", name: "pays", value: contact.Pays, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Email pro", name: "emailPro", value: contact.email_pro, iSdisabled: false }, 'input'))
 
             modal.append(modalRowDisplayerFactory({
                 label: "Adresse ID", name: "addressID", value: contact.addressID, iSdisabled: true, hidden: true
@@ -560,8 +562,16 @@ function showContactModal(id) {
 
             modal.append(modalRowDisplayerFactory({ label: "Tag", name: "tag", value: contact.TAG, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Commentaire", name: "commentaire", value: contact.Commentaire, iSdisabled: false }, 'textarea'))
-            modal.append(modalRowDisplayerFactory({ label: "Commentaire niv 2", name: "commentaireNiv2", value: contact.commentaire_niv_2, iSdisabled: false }, 'textarea'))
+            modal.append(modalRowDisplayerFactory({ label: "Téléphone portable", name: "telephone", value: contact.telephone, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Email personnelle", name: "email", value: contact.Email, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Adresse personnelle", name: "rue", value: contact.Rue, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Complément", name: "complement", value: contact.Compl, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "CP", name: "cp", value: contact.CP, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Ville", name: "ville", value: contact.Ville, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Pays", name: "pays", value: contact.Pays, iSdisabled: false }, 'input'))
 
+            modal.append(modalRowDisplayerFactory({ label: "Commentaire niv 2", name: "commentaireNiv2", value: contact.commentaire_niv_2, iSdisabled: false }, 'textarea'))
+            modal.append(modalRowDisplayerFactory({ label: "Statut", name: "statut", optionsHtml: optionsHtmlStatuts }, 'select'))
             modal.parent().parent().find(".modal-footer").append(modalRowDisplayerFactory({}, 'submit'))
             modal.append(`<span id="itemID" name="id"  data-id=${contact.id} ></span>`)
 

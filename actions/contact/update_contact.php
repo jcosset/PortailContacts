@@ -1,9 +1,9 @@
 <?php
 
-require_once __DIR__."/../../config.php";
-require_once __DIR__."/../../crud/address/address.php";
-require_once __DIR__."/../../crud/contact/contact.php";
-require_once SITE_ROOT."/inc/helpers/debug.php";
+require_once __DIR__ . "/../../config.php";
+require_once __DIR__ . "/../../crud/address/address.php";
+require_once __DIR__ . "/../../crud/contact/contact.php";
+require_once SITE_ROOT . "/inc/helpers/debug.php";
 
 debugScreen($_POST);
 if (isset($_POST['id'])) {
@@ -28,8 +28,9 @@ if (isset($_POST['id'])) {
   $cp = strip_tags($_POST['cp']);
   $ville = strip_tags($_POST['ville']);
   $pays = strip_tags($_POST['pays']);
+  $statut = strip_tags($_POST['statut']);
 
-  
+
   $adresseId = getIdAddress($rue, $cp, $ville, $pays);
 
   if ($adresseId) {
@@ -39,7 +40,7 @@ if (isset($_POST['id'])) {
   }
 
 
-  $result = updateContact($id, $nom, $prnom, $civil, $photo, $poste, $grade, $email, $tag, $comment, $emailPro, $telephone, $commentaireNiv2, $adresseId, $complement);
+  $result = updateContact($id, $nom, $prnom, $civil, $photo, $poste, $grade, $email, $tag, $comment, $emailPro, $telephone, $commentaireNiv2, $adresseId, $complement,   $statut);
 
   if ($result) {
     deleteOrphanAddress();

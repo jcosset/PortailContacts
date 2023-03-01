@@ -92,13 +92,13 @@
 
                         function createButtonEdit($itemId, $name, $type)
                         {
-                            return "<button class='item' data-toggle='modal' data-target='#displayerModal'  onclick='createPoste(event)' title='Edit'>
+                            return "<button class='item' data-toggle='modal' data-target='#displayerModal'  onclick='createPoste(event)' title='Ajouter un poste'>
               <i class='zmdi zmdi-plus zmdi-hc-lg text-primary'  data-id=$itemId data-name='$name' data-type='$type'></i>
                 </button>";
                         }
                         function createButtonDetailsEntite($entiteId)
                         {
-                            return "<button class='item' data-toggle='modal' data-target='#largeModalEntite'  onclick='getEntite($entiteId)' >
+                            return "<button class='item' data-toggle='modal' data-target='#largeModalEntite'  onclick='getEntite($entiteId)' title='Afficher les informations' >
               <i class='zmdi zmdi-receipt text-primary'  ></i>
                 </button>";
                         }
@@ -122,11 +122,11 @@
 
                                         if (!isset($menu['poste'][$itemId])) {
 
-                                            $html .= "<li>" . $name . createButtonEdit($itemId, $name, 'poste') . "  " . createButtonDetailsEntite($itemId) . "</li>";
+                                            $html .= "<li>" . $name  . "  " . createButtonDetailsEntite($itemId) . "&nbsp;&nbsp;&nbsp;" . createButtonEdit($itemId, $name, 'poste') . "</li>";
                                         } else if (isset($menu['poste'][$itemId])) {
 
                                             $html .= "<li>";
-                                            $html .= "<div class='listree-submenu-heading' >" . $name . createButtonEdit($itemId, $name, 'poste') . "  " . createButtonDetailsEntite($itemId) . "</div>";
+                                            $html .= "<div class='listree-submenu-heading' >" . $name . "  " . createButtonDetailsEntite($itemId) . "&nbsp;&nbsp;&nbsp;" . createButtonEdit($itemId, $name, 'poste') . "</div>";
                                             $html .= "<ul class='listree-submenu-items'>";
 
                                             $html .= posteArrayToHtml($menu['poste'], $itemId);
@@ -141,7 +141,7 @@
                                         $name = $menu['items'][$itemId]['nom'];
 
                                         $html .= "<li>";
-                                        $html .= "<div class='listree-submenu-heading'>" . "$name"  . createButtonEdit($itemId, $name, 'poste') . "    " . createButtonDetailsEntite($itemId) . "
+                                        $html .= "<div class='listree-submenu-heading'>" . "$name" . "  " . createButtonDetailsEntite($itemId) . "&nbsp;&nbsp;&nbsp;" . createButtonEdit($itemId, $name, 'poste') . "
                        </div>";
 
                                         $html .= "<ul class='listree-submenu-items'>";
@@ -171,7 +171,8 @@
 </div>
 <!-- END MAIN CONTENT-->
 
-<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
 
@@ -190,9 +191,9 @@
                         <div style="text-align:center">
                             <div style="width:40%; margin:0 auto;"> <img src="images/photo.png" alt="phooto"></div>
 
-                            <p id="status">statut</p>
-                            <p id="updateDate">Date de la dernière mise à jour</p>
-                            <p id="tag"></p>
+                            <p><label>Statut :&nbsp </label><span id="status"></span></p>
+                            <p><label>Date de mise à jour :&nbsp </label><span id="updateDate"></span></p>
+                            <p><label>TAG :&nbsp </label><span id="tag"></span></p>
                         </div>
                         <div style="text-align:center">
                             <button type=" button" class="btn btn-secondary">Situation dans l'arbre</button>
@@ -261,7 +262,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="largeModalPoste" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+<div class="modal fade" id="largeModalPoste" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
 
@@ -302,8 +304,10 @@
 
                         <div style="margin-top:15px;">
                             <h5>Secrétariat</h5>
-                            <p style="padding-left:40px"><label>Numéro portable :&nbsp </label><span id="secTel">mail</span></p>
-                            <p style="padding-left:40px"><label>Email :&nbsp </label><span id="secEmail">sec@email.fr</span></p>
+                            <p style="padding-left:40px"><label>Numéro portable :&nbsp </label><span
+                                    id="secTel">mail</span></p>
+                            <p style="padding-left:40px"><label>Email :&nbsp </label><span
+                                    id="secEmail">sec@email.fr</span></p>
 
                         </div>
                     </div>
@@ -346,7 +350,8 @@
 </div>
 
 
-<div class="modal fade" id="largeModalEntite" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+<div class="modal fade" id="largeModalEntite" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
 
@@ -403,7 +408,8 @@
 
 <!-- end modal large -->
 
-<div class="modal fade" id="displayerModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+<div class="modal fade" id="displayerModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
 

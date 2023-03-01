@@ -18,9 +18,9 @@ function getAllPostesWithEntite()
 {
     require('inc/db.php');
 
-    $sqlGetAllEntity = "SELECT pos.id,pos.Nom as postename, ent.id as entiteID, Rue, pos.Compl,Ville,CP,
-     Pays, Email_fonctionnel from Poste as pos join Entite as ent on (pos.Entite=ent.id)
-     left join `address` on (pos.adresse = address.id) Order by postename Asc";
+    $sqlGetAllEntity = "SELECT pos.id,pos.Nom as postename, ent.id as entiteID,
+    Email_fonctionnel from Poste as pos join Entite as ent on (pos.Entite=ent.id)
+    Order by postename Asc";
 
     $sqlGetAllEntityPrepare = $db->prepare($sqlGetAllEntity);
     $sqlGetAllEntityPrepare->execute();
@@ -81,8 +81,6 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                     </th>
                                     <th>Nom</th>
                                     <th>Entité</th>
-                                    <th>Adresse</th>
-                                    <th>Pays</th>
                                     <th>Email</th>
                                     <th></th>
                                 </tr>
@@ -105,11 +103,6 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                         <td style="word-break:break-word;">
                                             <?= $entites[$poste['entiteID']]['nom'] ?>
                                         </td>
-
-
-                                        <td><?php echo $poste['Rue'] . '<br>' . $poste['Compl'] . '<br>' . $poste['CP'] . ' ' . $poste['Ville']; ?>
-                                        </td>
-                                        <td><?php echo $poste['Pays']; ?></td>
                                         <td>
                                             <span class="block-email"><?php echo $poste['Email_fonctionnel']; ?></span>
                                         </td>
@@ -176,8 +169,7 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                 <label for="textarea-input" class=" form-control-label">Emplacement</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <textarea name="emplacement" id="emplacement" rows="9" placeholder="..."
-                                    class="form-control"></textarea>
+                                <textarea name="emplacement" id="emplacement" rows="9" placeholder="..." class="form-control"></textarea>
                             </div>
                         </div>
                         <div class="row form-group">
@@ -195,11 +187,11 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                             <div class="col-12 col-md-9">
                                 <input type="text" id="email" name="email" placeholder="email@email.com" class="form-control">
                             </div>
-			</div>
+                        </div>
 
-			<h3>Secrétariat</h3>
+                        <h3>Secrétariat</h3>
 
-			<div class="row form-group">
+                        <div class="row form-group">
                             <div class="col col-md-3">
                                 <label for="text-input" class=" form-control-label">Email Secrétariat</label>
                             </div>
