@@ -55,7 +55,7 @@ error_reporting(E_ALL);
                                     <th>Poste</th>
                                     <th>Grade</th>
                                     <th>Email pro</th>
-                                    <th>Téléphone</th>
+                                    <th>Téléphone portable</th>
                                     <th>Email perso</th>
                                     <th>Statut</th>
 
@@ -262,7 +262,7 @@ error_reporting(E_ALL);
 
                         <div class="row form-group">
                             <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">adresse personnelle</label>
+                                <label for="text-input" class=" form-control-label">Adresse personnelle</label>
                             </div>
                             <div class="col-12 col-md-9">
                                 <input type="text" id="adresse" name="adresse" placeholder="N° de rue..." class="form-control">
@@ -270,7 +270,7 @@ error_reporting(E_ALL);
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">complement</label>
+                                <label for="text-input" class=" form-control-label">Complement</label>
                             </div>
                             <div class="col-12 col-md-9">
                                 <input type="text" id="complement" name="complement" placeholder="Bâtiment, interphone..." class="form-control">

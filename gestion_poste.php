@@ -56,7 +56,8 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                             </div>
                         </div> -->
                         <div class="table-data__tool-right">
-                            <button type="button" class="btn btn-success mb-1" data-toggle="modal" data-target="#largeModal">
+                            <button type="button" class="btn btn-success mb-1" data-toggle="modal"
+                                data-target="#largeModal">
                                 + Ajouter un poste
                             </button>
                             <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
@@ -92,38 +93,46 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                 foreach ($listepostes as $poste) {
 
                                 ?>
-                                    <tr class="tr-shadow">
-                                        <td>
-                                            <label class="au-checkbox">
-                                                <input type="checkbox">
-                                                <span class="au-checkmark"></span>
-                                            </label>
-                                        </td>
-                                        <td><?= $poste['postename'] ?></td>
-                                        <td style="word-break:break-word;">
-                                            <?= $entites[$poste['entiteID']]['nom'] ?>
-                                        </td>
-                                        <td>
-                                            <span class="block-email"><?php echo $poste['Email_fonctionnel']; ?></span>
-                                        </td>
-                                        <td>
-                                            <div class="table-data-feature">
-                                                <button class="item" data-toggle="modal" data-placement="top" data-target='#displayerModal' onClick="showAddPosteListeByIdModal(<?= ($poste['id']); ?>)" title="Ajout liste diffusion">
-                                                    <i class="zmdi zmdi-format-indent-increase"></i>
-                                                </button>
-                                                <button class="item" data-toggle='modal' data-target='#displayerModal' onClick="showPosteModal(<?= ($poste['id']); ?>)" data-placement="top" title="Edit">
-                                                    <i class="zmdi zmdi-edit"></i>
-                                                </button>
-                                                <button class="item deletePoste" value=<?= $poste['id']; ?> data-toggle="tooltip" data-placement="top" title="Delete">
-                                                    <i class="zmdi zmdi-delete"></i>
-                                                </button>
-                                                <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-                                                    <i class="zmdi zmdi-more"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="spacer"></tr>
+                                <tr class="tr-shadow">
+                                    <td>
+                                        <label class="au-checkbox">
+                                            <input type="checkbox">
+                                            <span class="au-checkmark"></span>
+                                        </label>
+                                    </td>
+                                    <td><?= $poste['postename'] ?></td>
+                                    <td style="word-break:break-word;">
+                                        <?= $entites[$poste['entiteID']]['nom'] ?>
+                                    </td>
+
+                                    <td>
+                                        <span class="block-email"><?php echo $poste['Email_fonctionnel']; ?></span>
+                                    </td>
+                                    <td>
+                                        <div class="table-data-feature">
+                                            <button class="item" data-toggle="modal" data-placement="top"
+                                                data-target='#displayerModal'
+                                                onClick="showAddPosteListeByIdModal(<?= ($poste['id']); ?>)"
+                                                title="Ajout liste diffusion">
+                                                <i class="zmdi zmdi-format-indent-increase"></i>
+                                            </button>
+                                            <button class="item" data-toggle='modal' data-target='#displayerModal'
+                                                onClick="showPosteModal(<?= ($poste['id']); ?>)" data-placement="top"
+                                                title="Edit">
+                                                <i class="zmdi zmdi-edit"></i>
+                                            </button>
+                                            <button class="item deletePoste" value=<?= $poste['id']; ?>
+                                                data-toggle="tooltip" data-placement="top" title="Delete">
+                                                <i class="zmdi zmdi-delete"></i>
+                                            </button>
+                                            <button class="item" data-toggle="tooltip" data-placement="top"
+                                                title="More">
+                                                <i class="zmdi zmdi-more"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="spacer"></tr>
                                 <?php } ?>
                             </tbody>
                         </table>
@@ -136,7 +145,8 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
 </div>
 <!-- END MAIN CONTENT-->
 <!-- modal large -->
-<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <form class="needs-validation" id="savePoste" name="savePoste" method="POST">
@@ -161,7 +171,8 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                 <label for="text-input" class=" form-control-label">Acronyme</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="acronyme" name="acronyme" placeholder="Acronyme..." class="form-control">
+                                <input type="text" id="acronyme" name="acronyme" placeholder="Acronyme..."
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -169,7 +180,8 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                 <label for="textarea-input" class=" form-control-label">Emplacement</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <textarea name="emplacement" id="emplacement" rows="9" placeholder="..." class="form-control"></textarea>
+                                <textarea name="emplacement" id="emplacement" rows="9" placeholder="..."
+                                    class="form-control"></textarea>
                             </div>
                         </div>
                         <div class="row form-group">
@@ -177,7 +189,8 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                 <label for="text-input" class=" form-control-label">Numéro Fixe</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="telephone" name="telephone" placeholder="+33142424242" class="form-control">
+                                <input type="text" id="telephone" name="telephone" placeholder="+33142424242"
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -185,7 +198,8 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                 <label for="email" class=" form-control-label">Email fonctionnel</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="email" name="email" placeholder="email@email.com" class="form-control">
+                                <input type="text" id="email" name="email" placeholder="email@email.com"
+                                    class="form-control">
                             </div>
                         </div>
 
@@ -196,7 +210,8 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                 <label for="text-input" class=" form-control-label">Email Secrétariat</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="email-secretariat" name="email-secretariat" placeholder="email@email.com" class="form-control">
+                                <input type="text" id="email-secretariat" name="email-secretariat"
+                                    placeholder="email@email.com" class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -204,7 +219,8 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                 <label for="text-input" class=" form-control-label">Numéro Secrétariat</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="trl-secretariat" name="tel-secretariat" placeholder="+330142424242" class="form-control">
+                                <input type="text" id="trl-secretariat" name="tel-secretariat"
+                                    placeholder="+330142424242" class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -241,7 +257,8 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
     </div>
 </div>
 <!-- end modal large -->
-<div class="modal fade" id="displayerModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+<div class="modal fade" id="displayerModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
 
