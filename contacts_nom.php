@@ -7,6 +7,14 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+function getAllGrade()
+{
+    require('inc/db.php');
+    $stmt = "SELECT grade FROM grade";
+    $stmtPrepare = $db->prepare($stmt);
+    $stmtPrepare->execute();
+    return $stmtPrepare->fetchAll(PDO::FETCH_ASSOC);
+}
 ?>
 <!-- MAIN CONTENT-->
 <div class="main-content">
@@ -136,7 +144,7 @@ error_reporting(E_ALL);
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form class="needs-validation" id="saveContact" method="POST">
+            <form class="needs-validation" id="saveContact" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="card-body card-block">
 
@@ -179,7 +187,22 @@ error_reporting(E_ALL);
                                 <label for="text-input" class=" form-control-label">Grade</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="grave" name="grade" placeholder="Adjudant, Major, ..." class="form-control">
+                                <select class="js-select2" name="poste">
+                                    <?php
+
+                                    $grades = getAllGrade();
+                                    debugScreen($grades);
+                                    foreach ($grades as $grade) {
+
+                                        $gradeName = $grade["grade"];
+
+                                        echo "<option value='$gradeName'>$gradeName</option>";
+                                    }
+
+                                    ?>
+
+                                </select>
+                                <div class="dropDownSelect2"></div>
                             </div>
                         </div>
 
