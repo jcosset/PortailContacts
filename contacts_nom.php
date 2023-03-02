@@ -187,7 +187,7 @@ function getAllGrade()
                                 <label for="text-input" class=" form-control-label">Grade</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <select class="js-select2" name="poste">
+                                <select class="js-select2" name="grade">
                                     <?php
 
                                     $grades = getAllGrade();
