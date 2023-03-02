@@ -24,8 +24,8 @@ $ville = strip_tags($_POST['ville']);
 $pays = strip_tags($_POST['pays']);
 
 if (isset($_FILES['file'])) {
-  $hashNameFile = hash('md5', $nom.$prenom)
-  $resUpload = uploadFile($_FILES['file'], $hashNameFile)
+  $hashNameFile = hash('md5', $nom.$prenom);
+  $resUpload = uploadFile($_FILES['file'], $hashNameFile);
   if(!empty(resUpload)){
 $addressinBDD = getIdAddress($adresse, $CP, $ville, $pays);
 $addressID = "";
