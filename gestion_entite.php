@@ -270,8 +270,8 @@ error_reporting(E_ALL);
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary" id="submit">Confirm</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-primary" id="submit">Confirmer</button>
                     </div>
             </form>
         </div>
