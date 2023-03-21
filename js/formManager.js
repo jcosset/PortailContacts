@@ -288,8 +288,8 @@ function getEntite(id) {
 
             $(modalName).find("span#name").text(response.nom || "")
             $(modalName).find("span#nickname").text(response.acronyme || "")
-            let emplacementPostal = response.rue_pos + " " + response.ville_pos + " " + response.cp_pos + " " + response.pays_pos + " " + response.compl_pos
-            let emplacementGeo = response.rue_geo + " " + response.ville_geo + " " + response.cp_geo + " " + response.pays_geo + " " + response.compl_geo
+            let emplacementPostal = response.rue_pos + " " + response.cp_pos + " " +  response.ville_pos + " " + response.pays_pos + " " + response.compl_pos
+            let emplacementGeo = response.rue_geo + " " + response.cp_geo + " " +  response.ville_geo + " " +response.pays_geo + " " + response.compl_geo
 
 
             $(modalName).find("span#localisationPos").text(emplacementPostal || "")
