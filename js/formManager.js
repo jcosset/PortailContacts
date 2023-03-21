@@ -336,7 +336,8 @@ function getContact(id) {
             $(modalName).find("span#grade").text(response.Grade || "")
 
             $(modalName).find("span#status").text(response.Statut || "")
-            $(modalName).find("span#updateDate").text(response.Date_MAJ || "")
+            
+            $(modalName).find("span#updateDate").text(formateDate(response.Date_MAJ) || "")
             $(modalName).find("span#tag").text(response.TAG || "")
 
             $(modalName).find("span#emailPro").text(response.email_pro || "")
@@ -352,6 +353,14 @@ function getContact(id) {
             alert("Error");
         }
     });
+}
+
+function formateDate(dateInput) {
+    if(dateInput == null)
+        return false;
+    let date = new Date(dateInput);
+    return formatedDate = date.getDate() + "-" + (date.getMonth() + 1).toString().padStart(2, "0") + "-" + date.getFullYear();
+    console.log(formatedDate);
 }
 
 function getPoste(id) {
@@ -390,7 +399,7 @@ function getPoste(id) {
             $(modalName).find("span#fonctEmail").text(response.Email_fonctionnel || "")
 
             $(modalName).find("p#status").text(response.Statut || "")
-            $(modalName).find("p#updateDate").text(response.Date_MAJ || "")
+            $(modalName).find("p#updateDate").text(formateDate(response.Date_MAJ) || "")
 
 
 
