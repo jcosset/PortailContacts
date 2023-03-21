@@ -57,11 +57,6 @@
                                     <input class="au-input au-input--full" type="password" name="password" placeholder="Password">
                                 </div>
                                 <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit" name="submit">Connexion</button>
-                                <div class="social-login-content">
-                                    <div class="social-button">
-                                        <button class="au-btn au-btn--block au-btn--blue m-b-20">Se connecter avec Google</button>
-                                    </div>
-                                </div>
                             </form>
                         </div>
                     </div>
@@ -90,13 +85,14 @@
                         $result = mysqli_query($con, $query) or die(mysql_error());
                         $rows = mysqli_num_rows($result);
                         if ($rows == 1) {
-                             session_start();
-                            $_SESSION['username'] = $username;
                             ini_set('session.gc_maxlifetime', 3600);
-
                             // each client should remember their session id for EXACTLY 1 hour
                             session_set_cookie_params(3600);
                             header("Location: index.php");
+                            session_start();
+                            $_SESSION['username'] = $username;
+
+                            
                         } else {
                             $message = "Le nom d'utilisateur ou le mot de passe est incorrect.";
                         }
