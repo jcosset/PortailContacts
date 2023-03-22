@@ -195,7 +195,7 @@ function modalRowDropdownSelectMultiple(data) {
 
 
 function modalRowButton({ label, name, defaultChoice, optionsHtml }) {
-    return `<button type="submit" class="btn btn-primary" id="submit">Confirm</button>`
+    return `<button type="submit" class="btn btn-primary" id="submit">Confirmer</button>`
 }
 
 function modalRowFile({ label, name }) {
