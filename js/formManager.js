@@ -30,12 +30,12 @@ function saveFormModalSubmit({ formAttributeId, url }) {
 
     $(document).on("submit", formAttributeId, function (event) {
 
-        console.log($(formAttributeId).serialize())
         event.preventDefault();
         if ($(formAttributeId)[0].checkValidity() === false) {
             event.stopPropagation();
         } else {
             let data = $(formAttributeId).serialize()
+            console.log(data);
             defaultPostAjax({ url, data })
         }
         $(formAttributeId).addClass('was-validated');
@@ -51,8 +51,8 @@ function updateFormModalSubmit({ formAttributeId, url }) {
             event.stopPropagation();
         } else {
             let data = $(formAttributeId).serialize()
-            console.log(data)
             let id = $("#itemID").data("id")
+            console.log(data);
             if (id) data = data + "&id=" + id,
                 defaultPostAjax({ url, data })
         }
@@ -85,7 +85,6 @@ function updatePostModalSubmitFactory({ formAttributeId, url }, action = "save")
     if (action == "save") {
         saveFormModalSubmit({ formAttributeId, url })
     } else if (action == "update") {
-        console.log(formAttributeId, url)
         updateFormModalSubmit({ formAttributeId, url })
     }
 }
@@ -98,7 +97,6 @@ function attachEventListenerDeleteBtn({ buttonAttributeClass, url, confirmMessag
 
         if (conditionWasConfirm) {
             let id = $(this).val()
-            console.log(id)
             $.ajax({
                 type: "POST",
                 url: url + "&id=" + id,
@@ -238,7 +236,6 @@ function createPoste(agrs) {
     let parteneaireId = agrs.target.getAttribute("data-id")
     let partenaireName = agrs.target.getAttribute("data-name")
     let typeForm = agrs.target.getAttribute("data-type")
-    console.log(typeForm)
     let modal = $("#displayerModal .card-body")
     modal.empty()
     let modalFooter = $("#displayerModal .modal-footer")
@@ -249,6 +246,8 @@ function createPoste(agrs) {
     modal.append(modalRowDisplayerFactory({ label: "Nom du poste", name: "nom", placeholder: "Nom du poste", isRequired: true, iSdisabled: false }, 'input'))
     modal.append(modalRowDisplayerFactory({ label: "Acronyme", name: "acronyme", iSdisabled: false }, 'input'))
     modal.append(modalRowDisplayerFactory({ label: "Emplacement", name: "emplacement", iSdisabled: false }, 'input'))
+    modal.append(modalRowDisplayerFactory({ label: "Nom sécrétariat", name: "nom_secretariat", iSdisabled: false }, 'input'))
+    modal.append(modalRowDisplayerFactory({ label: "Prénom sécrétariat", name: "prenom_secretariat", iSdisabled: false }, 'input'))
     modal.append(modalRowDisplayerFactory({ label: "Email sécrétariat", name: "email_secretariat", iSdisabled: false }, 'input'))
     modal.append(modalRowDisplayerFactory({ label: "Numéro téléphone sécrétariat", name: "tel_secretariat", iSdisabled: false }, 'input'))
     modal.append(modalRowDisplayerFactory({ label: "Numéro fixe du poste", name: "tel", iSdisabled: false }, 'input'))
@@ -269,7 +268,6 @@ function getEntite(id) {
         cache: false,
         success: function (response) {
             response = JSON.parse(response)
-            console.log(response)
             nullToEmpty(response)
             // modal.append(modalRowDisplayerFactory({ label: "Photo", name: "photo", placeholder: "", value: response.Photo }, 'input'))
             //modal.append(modalRowDisplayerFactory({ label: "Civilite", name: "civilite", value: capitalize(response.Civilite) }, 'input'))
@@ -288,8 +286,8 @@ function getEntite(id) {
 
             $(modalName).find("span#name").text(response.nom || "")
             $(modalName).find("span#nickname").text(response.acronyme || "")
-            let emplacementPostal = response.rue_pos + " " + response.cp_pos + " " +  response.ville_pos + " " + response.pays_pos + " " + response.compl_pos
-            let emplacementGeo = response.rue_geo + " " + response.cp_geo + " " +  response.ville_geo + " " +response.pays_geo + " " + response.compl_geo
+            let emplacementPostal = response.rue_pos + " " + response.cp_pos + " " + response.ville_pos + " " + response.pays_pos + " " + response.compl_pos
+            let emplacementGeo = response.rue_geo + " " + response.cp_geo + " " + response.ville_geo + " " + response.pays_geo + " " + response.compl_geo
 
 
             $(modalName).find("span#localisationPos").text(emplacementPostal || "")
@@ -315,7 +313,6 @@ function getContact(id) {
         cache: false,
         success: function (response) {
             response = JSON.parse(response)
-            console.log(response)
 
             // modal.append(modalRowDisplayerFactory({ label: "Photo", name: "photo", placeholder: "", value: response.Photo }, 'input'))
             //modal.append(modalRowDisplayerFactory({ label: "Civilite", name: "civilite", value: capitalize(response.Civilite) }, 'input'))
@@ -336,7 +333,7 @@ function getContact(id) {
             $(modalName).find("span#grade").text(response.Grade || "")
 
             $(modalName).find("span#status").text(response.Statut || "")
-            
+
             $(modalName).find("span#updateDate").text(formateDate(response.Date_MAJ) || "")
             $(modalName).find("span#tag").text(response.TAG || "")
 
@@ -356,11 +353,10 @@ function getContact(id) {
 }
 
 function formateDate(dateInput) {
-    if(dateInput == null)
+    if (dateInput == null)
         return false;
     let date = new Date(dateInput);
-    return formatedDate = date.getDate() + "-" + (date.getMonth() + 1).toString().padStart(2, "0") + "-" + date.getFullYear();
-    console.log(formatedDate);
+    return date.getDate() + "-" + (date.getMonth() + 1).toString().padStart(2, "0") + "-" + date.getFullYear();
 }
 
 function getPoste(id) {
@@ -385,6 +381,8 @@ function getPoste(id) {
             modal.append(modalRowDisplayerFactory({ label: "Emplacement", name: "emplacement", value: response.emplacement }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Email fonctionnel", name: "email_fonc", placeholder: "", value: response.Email_fonctionnel }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Numéro fixe", name: "tel", placeholder: "", value: response.tel }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Nom secrétariat", name: "nom_secretariat", placeholder: "", value: response.email_secretariat }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Prénom secrétariat", name: "prenom_secretariat", placeholder: "", value: response.email_secretariat }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Email secrétariat", name: "email_secretariat", placeholder: "", value: response.email_secretariat }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Numéro secrétariat", name: "tel_secretariat", placeholder: "", value: response.tel_secretariat }, 'input'))
 
@@ -425,7 +423,6 @@ const ajaxGetPromise = (url) => {
             url,
             cache: false,
             success: function (response) {
-                console.log(response)
                 resolve(JSON.parse(response))
             },
             error: function () {
@@ -492,7 +489,7 @@ function showPosteModal(id) {
     Promise.all([ajaxGetPromise("actions.php?type=get&all"), ajaxGetPromise("actions_poste.php?type=get&id=" + id)])
         .then(([entites, poste]) => {
 
-            optionsHtml = ""
+            var optionsHtml = ""
             for (entite of entites) {
                 let selected = poste.Entite == entite.id ? "selected" : ""
                 optionsHtml += `<option value='${entite.id}' ${selected}>${entite.nom}</option>`
@@ -504,6 +501,8 @@ function showPosteModal(id) {
             modal.append(modalRowDisplayerFactory({ label: "Emplacement", name: "emplacement", value: poste.emplacement, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Email fonctionnel", name: "email_fonc", value: poste.Email_fonctionnel, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Numéro fixe", name: "tel", value: poste.tel, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Nom Secrétariat", name: "nom_secretariat", value: poste.nom_secretariat, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Prenom Secrétariat", name: "prenom_secretariat", value: poste.prenom_secretariat, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Email Secrétariat", name: "email_secretariat", value: poste.email_secretariat, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Numéro Secrétariat", name: "tel_secretariat", value: poste.tel_secretariat, iSdisabled: false }, 'input'))
 
@@ -532,23 +531,23 @@ function showContactModal(id) {
     Promise.all([ajaxGetPromise("actions_poste.php?type=get&all_filtered"), ajaxGetPromise("actions_contact.php?type=get&id=" + id + "&filter=default")])
         .then(([postes, contact]) => {
 
-            optionsHtmlPostes = ""
+            var optionsHtmlPostes = ""
             for (poste of postes) {
                 let selected = contact.Poste_actuel == poste.id ? "selected" : ""
                 optionsHtmlPostes += `<option value='${poste.id}' ${selected}>${poste.entitename}\\${poste.Nom}</option>`
 
             }
 
-            civilites = ["Madame", "Monsieur", "Autre"]
-            optionsHtmlCivilites = ""
+            var civilites = ["Madame", "Monsieur", "Autre"]
+            var optionsHtmlCivilites = ""
             for (civilite of civilites) {
                 let selected = contact.Civilite.toLowerCase() == civilite.toLowerCase() ? "selected" : ""
                 optionsHtmlCivilites += `<option value='${civilite}' ${selected}>${civilite}</option>`
 
             }
 
-            statuts = ["A mettre à jour", "En attente ", "A jour", "Archivé"]
-            optionsHtmlStatuts = ""
+            var statuts = ["A mettre à jour", "En attente ", "A jour", "Archivé"]
+            var optionsHtmlStatuts = ""
             for (statut of statuts) {
                 let selected = contact.Statut.toLowerCase() == statut.toLowerCase() ? "selected" : ""
                 optionsHtmlStatuts += `<option value='${statut}' ${selected}>${statut}</option>`
@@ -616,8 +615,8 @@ function showCreatePosteListeDiffusionModal(listeID) {
             let modesNames = modesDiffusion.modes.split(",")
             let modesIds = modesDiffusion.ids.split(",")
 
-            optionsHtmlModes = ""
-            optionsHtmlPostes = ""
+            var optionsHtmlModes = ""
+            var optionsHtmlPostes = ""
             modesNames.forEach(async (modeName, i) => {
 
                 optionsHtmlModes += `<option value='${modesIds[i]}' >${modeName}</option>`
@@ -672,7 +671,7 @@ function showUpdateListeDiffusionModal(listeID) {
             //     optionsHtmlModes += `<option value='${modesIds[i]}' >${modeName}</option>`
             // })
 
-            optionsHtmlPostes = ""
+            var optionsHtmlPostes = ""
             postes.forEach(async (poste) => {
 
                 optionsHtmlPostes += `<option value='${poste.id}' >${poste.entitename}\\${poste.nom}</option>`
@@ -700,7 +699,6 @@ function showUpdateListeDiffusionModal(listeID) {
 
 function showAddPosteListeByIdModal(posteID) {
 
-    console.log("click showAddPosteListeByd")
     // $("#displayerModal form#updatePoste").off("submit")
     let modal = $("#displayerModal .card-body")
     let modalFooter = $("#displayerModal .modal-footer")
@@ -715,8 +713,8 @@ function showAddPosteListeByIdModal(posteID) {
     Promise.all([ajaxGetPromise("actions_liste.php?type=get&all")])
         .then(([listes]) => {
 
-            optionsHtmlModesDefaultSelected = ""
-            optionsHtmlListes = ""
+            var optionsHtmlModesDefaultSelected = ""
+            var optionsHtmlListes = ""
             listes.forEach(async (liste) => {
                 optionsHtmlListes += `<option value='${liste.id}' >${liste.nom}</option>`
             })
@@ -740,7 +738,7 @@ function showAddPosteListeByIdModal(posteID) {
                 let listeSelected = listes.find(l => l.id === val)
                 let modesNames = listeSelected.modes.split(",")
                 let modesIds = listeSelected.ids.split(",")
-                optionsHtmlModesListeSelected = ""
+                var optionsHtmlModesListeSelected = ""
                 modesNames.forEach(async (modeName, i) => {
                     optionsHtmlModesListeSelected += `<option value='${modesIds[i]}' >${modeName}</option>`
                 })

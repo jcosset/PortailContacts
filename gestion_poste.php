@@ -198,19 +198,36 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                 <label for="email" class=" form-control-label">Email fonctionnel</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="email" name="email" placeholder="email@email.com"
+                                <input type="text" id="email" name="email_fonc" placeholder="email@email.com"
                                     class="form-control">
                             </div>
                         </div>
 
                         <h3>Secrétariat</h3>
-
+                        <br>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">Nom Secrétariat</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="nom-secretariat" name="nom_secretariat" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">Prénom Secrétariat</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="prenom-secretariat" name="prenom_secretariat"
+                                    class="form-control">
+                            </div>
+                        </div>
                         <div class="row form-group">
                             <div class="col col-md-3">
                                 <label for="text-input" class=" form-control-label">Email Secrétariat</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="email-secretariat" name="email-secretariat"
+                                <input type="text" id="email-secretariat" name="email_secretariat"
                                     placeholder="email@email.com" class="form-control">
                             </div>
                         </div>
@@ -219,7 +236,7 @@ foreach ($entitesUnsorted as $entiteUnsorted) {
                                 <label for="text-input" class=" form-control-label">Numéro Secrétariat</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="trl-secretariat" name="tel-secretariat"
+                                <input type="text" id="trl-secretariat" name="tel_secretariat"
                                     placeholder="+330142424242" class="form-control">
                             </div>
                         </div>

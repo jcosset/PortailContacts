@@ -14,8 +14,7 @@ function getContactFromPoste($id)
     $sqlRecupPosteContact = "SELECT Poste.Nom as poste , Entite.Nom as entite FROM Poste LEFT JOIN Entite ON Poste.Entite = Entite.id  WHERE Poste.id = '$id'";
     $queryRecupPosteContact = $db->prepare($sqlRecupPosteContact);
     $queryRecupPosteContact->execute();
-    $resultRecupPosteContact = $queryRecupPosteContact->fetchAll(PDO::FETCH_ASSOC);
-    return $resultRecupPosteContact;
+    return $queryRecupPosteContact->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function getAllPostes()
@@ -26,8 +25,7 @@ function getAllPostes()
     $sqlRecupPosteContact = "CALL recursive_poste()";
     $queryRecupPosteContact = $db->prepare($sqlRecupPosteContact);
     $queryRecupPosteContact->execute();
-    $resultRecupPosteContact = $queryRecupPosteContact->fetchAll(PDO::FETCH_ASSOC);
-    return $resultRecupPosteContact;
+    return $queryRecupPosteContact->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function getEntiteDetailsOfPoste($id)
@@ -36,33 +34,31 @@ function getEntiteDetailsOfPoste($id)
     $sqlgetEntiteDetailsOfPoste = "CALL recursive_poste_with_id(:id)";
     $querygetEntiteDetailsOfPoste = $db->prepare($sqlgetEntiteDetailsOfPoste);
     $querygetEntiteDetailsOfPoste->execute(array(':id' => $id));
-    $resultgetEntiteDetailsOfPoste = $querygetEntiteDetailsOfPoste->fetchAll(PDO::FETCH_ASSOC);
-    return $resultgetEntiteDetailsOfPoste;
+    return $querygetEntiteDetailsOfPoste->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function getPosteById($id)
 {
     global $db;
     $sqlRecupPoste = "SELECT Poste.id, Poste.Nom, Poste.Entite ,  Poste.acronyme,
-     Poste.adresse, Poste.email_secretariat, Poste.tel_secretariat, Poste.tel,
+     Poste.adresse, Poste.prenom_secretariat, Poste.nom_secretariat, Poste.email_secretariat, Poste.tel_secretariat, Poste.tel,
      Poste.Email_fonctionnel, emplacement
     from Poste
 	WHERE Poste.id = :id";
     $queryRecupPoste = $db->prepare($sqlRecupPoste);
     $queryRecupPoste->execute(array(':id' => $id));
-    $resultRecupPoste = $queryRecupPoste->fetch(PDO::FETCH_ASSOC);
-    return $resultRecupPoste;
+    return $queryRecupPoste->fetch(PDO::FETCH_ASSOC);
 }
 
-function updatePoste($id, $nom, $email_fonc, $entite, $acronyme, $adresse, $email_secretariat, $tel_secretariat, $tel, $emplacement)
+function updatePoste($id, $nom, $email_fonc, $entite, $acronyme, $nom_secretariat, $prenom_secretariat, $email_secretariat, $tel_secretariat, $tel, $emplacement, $adresse = null)
 {
     global $db;
     $sqlUpdatePoste = "UPDATE Poste SET
-        Nom=:nom, Email_fonctionnel=:email_fonc, Entite=:entite, acronyme=:acronyme, adresse=:adresse, email_secretariat=:email_secretariat, tel_secretariat=:tel_secretariat, tel=:tel, emplacement=:emplacement
+        Nom=:nom, Email_fonctionnel=:email_fonc, Entite=:entite, acronyme=:acronyme, adresse=:adresse, nom_secretariat=:nom_secretariat, prenom_secretariat=:prenom_secretariat,email_secretariat=:email_secretariat, tel_secretariat=:tel_secretariat, tel=:tel, emplacement=:emplacement
 	WHERE id=:id
 ";
     $queryUpdatePoste = $db->prepare($sqlUpdatePoste);
-    $queryUpdatePoste->execute(array(':id' => $id, ':nom' => $nom, ':email_fonc' => $email_fonc, ':entite' => $entite, ':acronyme' => $acronyme, ':adresse' => $adresse, ':email_secretariat' => $email_secretariat, ':tel_secretariat' => $tel_secretariat, ':tel' => $tel, ':emplacement' => $emplacement));
+    $queryUpdatePoste->execute(array(':id' => $id, ':nom' => $nom, ':email_fonc' => $email_fonc, ':entite' => $entite, ':acronyme' => $acronyme, ':adresse' => $adresse, ':nom_secretariat' => $nom_secretariat, ':prenom_secretariat' => $prenom_secretariat, ':email_secretariat' => $email_secretariat, ':tel_secretariat' => $tel_secretariat, ':tel' => $tel, ':emplacement' => $emplacement));
     $resultUpdatePoste = $queryUpdatePoste->fetchAll(PDO::FETCH_ASSOC);
     if (!$resultUpdatePoste) {
         print_r($db->errorInfo());
@@ -70,27 +66,20 @@ function updatePoste($id, $nom, $email_fonc, $entite, $acronyme, $adresse, $emai
     return $resultUpdatePoste;
 }
 
-function setPoste($nom, $email_fonc, $entite, $acronyme, $email_secretariat, $tel_secretariat, $tel, $emplacement)
+function setPoste($nom, $email_fonc, $entite, $acronyme, $nom_secretariat, $prenom_secretariat, $email_secretariat, $tel_secretariat, $tel, $emplacement)
 {
 
     global $db;
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $sqlSetPoste = "INSERT INTO Poste (Nom, Email_fonctionnel,
-     Entite, acronyme, email_secretariat, tel_secretariat, tel, emplacement)
-	    VALUES (:nom, :email_fonc, :entite, :acronyme, :email_secretariat,
-         :tel_secretariat, :tel, :emplacement)
+     Entite, acronyme, nom_secretariat, prenom_secretariat, email_secretariat, tel_secretariat, tel, emplacement)
+	    VALUES (:nom, :email_fonc, :entite, :acronyme, :nom_secretariat, :prenom_secretariat, :email_secretariat, :tel_secretariat, :tel, :emplacement)
 ";
     try {
         $querySetPoste = $db->prepare($sqlSetPoste);
-        $querySetPoste->execute(array(
-            ':nom' => $nom, ':email_fonc' => $email_fonc,
-            ':entite' => $entite, ':acronyme' => $acronyme,
-            ':email_secretariat' => $email_secretariat,
-            ':tel_secretariat' => $tel_secretariat,
-            ':tel' => $tel, ':emplacement' => $emplacement
-        ));
-        $resultSetPoste = $db->lastInsertId();
-        return $resultSetPoste;
+        $querySetPoste->execute(array(':nom' => $nom, ':email_fonc' => $email_fonc, ':entite' => $entite, ':acronyme' => $acronyme, ':nom_secretariat' => $nom_secretariat, ':prenom_secretariat' => $prenom_secretariat, ':email_secretariat' => $email_secretariat, ':tel_secretariat' => $tel_secretariat, ':tel' => $tel, ':emplacement' => $emplacement));
+        
+        return $db->lastInsertId();
     } catch (Exception $e) {
         echo 'Exception -> ';
         var_dump($e->getMessage());
