@@ -7,6 +7,8 @@
                 <div class="col-md-6">
                     <h3 class="mb-3">Release Note</h3>
                     <div class="jumbotron">
+                        <h4>Update 24/03/2023</h4>
+                        -Test <br><br>
                         <h4>Update 22/11/2022</h4>
                         - Affichage des détails poste/contact au clique sur l'arborescence<br>
                         - Ajout de la création/suppression d'un poste<br>
