@@ -2,19 +2,12 @@
 include 'inc/db.php';
 include 'crud/contact/contact.php';
 include 'crud/poste/poste.php';
+include 'Traits/Grade/grade.php';
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-function getAllGrade()
-{
-    require('inc/db.php');
-    $stmt = "SELECT grade FROM grade";
-    $stmtPrepare = $db->prepare($stmt);
-    $stmtPrepare->execute();
-    return $stmtPrepare->fetchAll(PDO::FETCH_ASSOC);
-}
 ?>
 <!-- MAIN CONTENT-->
 <div class="main-content">
@@ -35,7 +28,8 @@ function getAllGrade()
                             </div>
                         </div>
                         <div class="table-data__tool-right">
-                            <button type="button" class="btn btn-success mb-1" data-toggle="modal" data-target="#largeModal">
+                            <button type="button" class="btn btn-success mb-1" data-toggle="modal"
+                                data-target="#largeModal">
                                 + Ajouter un contact
                             </button>
                             <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
@@ -74,16 +68,16 @@ function getAllGrade()
                                 <?php $listecontacts = getAllContacts();
                                 foreach ($listecontacts as $contact) {
                                 ?>
-                                    <tr class="tr-shadow">
-                                        <td>
-                                            <label class="au-checkbox">
-                                                <input type="checkbox">
-                                                <span class="au-checkmark"></span>
-                                            </label>
-                                        </td>
-                                        <td><?php echo $contact['Nom']; ?></td>
-                                        <td><?php echo $contact['Prenom']; ?></td>
-                                        <td><?php
+                                <tr class="tr-shadow">
+                                    <td>
+                                        <label class="au-checkbox">
+                                            <input type="checkbox">
+                                            <span class="au-checkmark"></span>
+                                        </label>
+                                    </td>
+                                    <td><?php echo $contact['Nom']; ?></td>
+                                    <td><?php echo $contact['Prenom']; ?></td>
+                                    <td><?php
                                             if (getEntiteDetailsOfPoste($contact['Poste_actuel'])) {
                                                 $poste = getEntiteDetailsOfPoste($contact['Poste_actuel']);
                                                 echo $poste[0]['Nom'] . ' - ' . $poste[0]['entitename'];
@@ -92,37 +86,42 @@ function getAllGrade()
                                             }
                                             ?>
 
-                                        </td>
-                                        <td><?php echo $contact['Grade']; ?></td>
-                                        <td>
-                                            <span class="block-email"><?php echo $contact['email_pro']; ?></span>
-                                        </td>
-                                        <td>
-                                            <?php echo $contact['telephone']; ?>
-                                        </td>
-                                        <td>
-                                            <span class="block-email"><?php echo $contact['Email']; ?></span>
-                                        </td>
-                                        <td><?php echo $contact['Statut']; ?></td>
+                                    </td>
+                                    <td><?php echo $contact['Grade']; ?></td>
+                                    <td>
+                                        <span class="block-email"><?php echo $contact['email_pro']; ?></span>
+                                    </td>
+                                    <td>
+                                        <?php echo $contact['telephone']; ?>
+                                    </td>
+                                    <td>
+                                        <span class="block-email"><?php echo $contact['Email']; ?></span>
+                                    </td>
+                                    <td><?php echo $contact['Statut']; ?></td>
 
-                                        <td>
-                                            <div class="table-data-feature">
-                                                <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-                                                    <i class="zmdi zmdi-mail-send"></i>
-                                                </button>
-                                                <button class="item" data-toggle='modal' data-target='#displayerModal' onClick="showContactModal(<?= ($contact['id']); ?>)" data-placement="top" title="Edit">
-                                                    <i class="zmdi zmdi-edit"></i>
-                                                </button>
-                                                <button class="item deleteContact" value=<?= $contact['id']; ?> data-toggle="tooltip" data-placement="top" title="Delete">
-                                                    <i class="zmdi zmdi-delete"></i>
-                                                </button>
-                                                <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-                                                    <i class="zmdi zmdi-more"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="spacer"></tr>
+                                    <td>
+                                        <div class="table-data-feature">
+                                            <button class="item" data-toggle="tooltip" data-placement="top"
+                                                title="Send">
+                                                <i class="zmdi zmdi-mail-send"></i>
+                                            </button>
+                                            <button class="item" data-toggle='modal' data-target='#displayerModal'
+                                                onClick="showContactModal(<?= ($contact['id']); ?>)"
+                                                data-placement="top" title="Edit">
+                                                <i class="zmdi zmdi-edit"></i>
+                                            </button>
+                                            <button class="item deleteContact" value=<?= $contact['id']; ?>
+                                                data-toggle="tooltip" data-placement="top" title="Delete">
+                                                <i class="zmdi zmdi-delete"></i>
+                                            </button>
+                                            <button class="item" data-toggle="tooltip" data-placement="top"
+                                                title="More">
+                                                <i class="zmdi zmdi-more"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="spacer"></tr>
                                 <?php } ?>
                             </tbody>
                         </table>
@@ -135,7 +134,8 @@ function getAllGrade()
 </div>
 <!-- END MAIN CONTENT-->
 <!-- modal large -->
-<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -179,7 +179,8 @@ function getAllGrade()
                                 <label for="text-input" class="form-control-label">Prénom*</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="prenom" name="prenom" placeholder="Prénom" class="form-control" required>
+                                <input type="text" id="prenom" name="prenom" placeholder="Prénom" class="form-control"
+                                    required>
                             </div>
                         </div>
                         <div class="row form-group">
@@ -211,7 +212,8 @@ function getAllGrade()
                                 <label for="text-input" class=" form-control-label">Email pro</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="emailPro" name="emailPro" placeholder="email@pro.com" class="form-control">
+                                <input type="text" id="emailPro" name="emailPro" placeholder="email@pro.com"
+                                    class="form-control">
                             </div>
                         </div>
 
@@ -263,7 +265,8 @@ function getAllGrade()
                                 <label for="textarea-input" class=" form-control-label">Commentaire</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <textarea name="commentaire" id="commentaire" rows="9" placeholder="..." class="form-control"></textarea>
+                                <textarea name="commentaire" id="commentaire" rows="9" placeholder="..."
+                                    class="form-control"></textarea>
                             </div>
                         </div>
                         <div class="row form-group">
@@ -271,7 +274,8 @@ function getAllGrade()
                                 <label for="text-input" class=" form-control-label">Téléphone portable</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="telephone" name="telephone" placeholder="+33612345678" class="form-control">
+                                <input type="text" id="telephone" name="telephone" placeholder="+33612345678"
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -279,7 +283,8 @@ function getAllGrade()
                                 <label for="text-input" class=" form-control-label">Email personnelle</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="email" name="email" placeholder="email@email.com" class="form-control">
+                                <input type="text" id="email" name="email" placeholder="email@email.com"
+                                    class="form-control">
                             </div>
                         </div>
 
@@ -288,7 +293,8 @@ function getAllGrade()
                                 <label for="text-input" class=" form-control-label">Adresse personnelle</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="adresse" name="adresse" placeholder="N° de rue..." class="form-control">
+                                <input type="text" id="adresse" name="adresse" placeholder="N° de rue..."
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -296,7 +302,8 @@ function getAllGrade()
                                 <label for="text-input" class=" form-control-label">Complement</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="complement" name="complement" placeholder="Bâtiment, interphone..." class="form-control">
+                                <input type="text" id="complement" name="complement"
+                                    placeholder="Bâtiment, interphone..." class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -328,7 +335,8 @@ function getAllGrade()
                                 <label for="textarea-input" class=" form-control-label">Commentaire niv 2</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <textarea name="commentaireNiv2" id="commentaireNiv2" rows="9" placeholder="..." class="form-control"></textarea>
+                                <textarea name="commentaireNiv2" id="commentaireNiv2" rows="9" placeholder="..."
+                                    class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
@@ -342,7 +350,8 @@ function getAllGrade()
     </div>
 </div>
 <!-- end modal large -->
-<div class="modal fade" id="displayerModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+<div class="modal fade" id="displayerModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
 
