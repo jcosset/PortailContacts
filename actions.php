@@ -14,6 +14,9 @@ switch ($_GET['type']) {
     case 'update':
         require "actions/entite/update_entite.php";
         break;
+    case 'upload':
+        require "actions/entite/upload_logo.php";
+        break;
 
     default:
         echo "error";

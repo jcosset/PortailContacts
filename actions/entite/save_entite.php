@@ -22,15 +22,7 @@ if (isset($_POST['nom']) & isset($_POST['uper_id'])) {
   $ville_pos = strip_tags($_POST['villePos']);
   $pays_pos = strip_tags($_POST['paysPos']);
   $site = strip_tags($_POST['site']);
-  $logo = "#logo";
-
-
-  if (isset($_FILES['file'])) {
-    $tmpName = $_FILES['file']['tmp_name'];
-    $logo = $_FILES['file']['name'];
-    $size = $_FILES['file']['size'];
-    $error = $_FILES['file']['error'];
-  }
+  $logo = strip_tags($_POST['hidden-logo']);
 
   $addressGeoInBDD = getIdAddress($adresse_geo, $CP_geo, $ville_geo, $pays_geo);
   $addressGeoID = "";

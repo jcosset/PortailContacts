@@ -381,6 +381,7 @@ function getPoste(id) {
             modal.append(modalRowDisplayerFactory({ label: "Emplacement", name: "emplacement", value: response.emplacement }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Email fonctionnel", name: "email_fonc", placeholder: "", value: response.Email_fonctionnel }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Numéro fixe", name: "tel", placeholder: "", value: response.tel }, 'input'))
+            modal.append('<h3>Secrétariat</h3><br>');
             modal.append(modalRowDisplayerFactory({ label: "Nom secrétariat", name: "nom_secretariat", placeholder: "", value: response.email_secretariat }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Prénom secrétariat", name: "prenom_secretariat", placeholder: "", value: response.email_secretariat }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Email secrétariat", name: "email_secretariat", placeholder: "", value: response.email_secretariat }, 'input'))
@@ -431,6 +432,28 @@ const ajaxGetPromise = (url) => {
         });
     })
 }
+
+const handleImageUpload = event => {
+    const files = event.target.files
+    const formData = new FormData()
+    formData.append('logo', event.target.files[0])
+
+    fetch('actions.php?type=upload', {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => response.json())
+        .then(data => {
+            $('#hidden-logo').val(data.path);
+        })
+        .catch(error => {
+            console.error(error)
+        })
+}
+
+document.querySelector('#logo-form').addEventListener('change', event => {
+    handleImageUpload(event)
+})
 
 function showEntiteModal(id) {
     let modal = $("#displayerModal .card-body")
@@ -501,6 +524,7 @@ function showPosteModal(id) {
             modal.append(modalRowDisplayerFactory({ label: "Emplacement", name: "emplacement", value: poste.emplacement, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Email fonctionnel", name: "email_fonc", value: poste.Email_fonctionnel, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Numéro fixe", name: "tel", value: poste.tel, iSdisabled: false }, 'input'))
+            modal.append('<h3>Secrétariat</h3><br>');
             modal.append(modalRowDisplayerFactory({ label: "Nom Secrétariat", name: "nom_secretariat", value: poste.nom_secretariat, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Prenom Secrétariat", name: "prenom_secretariat", value: poste.prenom_secretariat, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Email Secrétariat", name: "email_secretariat", value: poste.email_secretariat, iSdisabled: false }, 'input'))
@@ -528,13 +552,20 @@ function showContactModal(id) {
     modal.empty()
     modalFooter.empty()
 
-    Promise.all([ajaxGetPromise("actions_poste.php?type=get&all_filtered"), ajaxGetPromise("actions_contact.php?type=get&id=" + id + "&filter=default")])
-        .then(([postes, contact]) => {
+    Promise.all([ajaxGetPromise("actions_poste.php?type=get&all_filtered"), ajaxGetPromise("actions_contact.php?type=get&id=" + id + "&filter=default"), ajaxGetPromise("actions_grade.php?type=get&all")])
+        .then(([postes, contact, grades]) => {
 
             var optionsHtmlPostes = ""
             for (poste of postes) {
                 let selected = contact.Poste_actuel == poste.id ? "selected" : ""
                 optionsHtmlPostes += `<option value='${poste.id}' ${selected}>${poste.entitename}\\${poste.Nom}</option>`
+
+            }
+
+            var optionsHtmlGrades = ""
+            for (grade of grades) {
+                let selected = contact.Grade == grade.id ? "selected" : ""
+                optionsHtmlGrades += `<option value='${grade.id}' ${selected}> ${grade.grade}</option>`
 
             }
 
@@ -560,7 +591,7 @@ function showContactModal(id) {
             modal.append(modalRowDisplayerFactory({ label: "Nom", name: "nom", value: contact.Nom, iSdisabled: false, isRequired: true }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Prénom", name: "prenom", value: contact.Prenom, iSdisabled: false, isRequired: true }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Poste", name: "poste", optionsHtml: optionsHtmlPostes }, 'select'))
-            modal.append(modalRowDisplayerFactory({ label: "Grade", name: "grade", value: contact.Grade, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Grade", name: "grade", optionsHtml: optionsHtmlGrades }, 'select'))
 
             modal.append(modalRowDisplayerFactory({ label: "Email pro", name: "emailPro", value: contact.email_pro, iSdisabled: false }, 'input'))
 

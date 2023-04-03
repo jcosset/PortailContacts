@@ -19,7 +19,8 @@ error_reporting(E_ALL);
                 <div class="col-lg-12">
                     <h2 class="title-1 m-b-25">Gestion - Entités</h2>
                     <div class="card-body">
-                        <button type="button" class="btn btn-success mb-1" data-toggle="modal" data-target="#largeModal">
+                        <button type="button" class="btn btn-success mb-1" data-toggle="modal"
+                            data-target="#largeModal">
                             Ajouter une entité
                         </button>
                     </div>
@@ -54,35 +55,39 @@ error_reporting(E_ALL);
                                     }
 
                                 ?>
-                                    <tr class="tr-shadow">
-                                        <td>
-                                            <label class="au-checkbox">
-                                                <input type="checkbox">
-                                                <span class="au-checkmark"></span>
-                                            </label>
-                                        </td>
-                                        <td><?= $entite['nom']; ?></td>
-                                        <td><?= $entite['id']; ?></td>
+                                <tr class="tr-shadow">
+                                    <td>
+                                        <label class="au-checkbox">
+                                            <input type="checkbox">
+                                            <span class="au-checkmark"></span>
+                                        </label>
+                                    </td>
+                                    <td><?= $entite['nom']; ?></td>
+                                    <td><?= $entite['id']; ?></td>
 
-                                        <td>
-                                            <div class="table-data-feature">
-                                                <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-                                                    <i class="zmdi zmdi-mail-send"></i>
-                                                </button>
-                                                <button class="item" data-toggle='modal' data-target='#displayerModal' onClick="showEntiteModal(<?= ($entite['id']); ?>)" title="Modifier">
-                                                    <i class="zmdi zmdi-edit"></i>
-                                                </button>
+                                    <td>
+                                        <div class="table-data-feature">
+                                            <button class="item" data-toggle="tooltip" data-placement="top"
+                                                title="Send">
+                                                <i class="zmdi zmdi-mail-send"></i>
+                                            </button>
+                                            <button class="item" data-toggle='modal' data-target='#displayerModal'
+                                                onClick="showEntiteModal(<?= ($entite['id']); ?>)" title="Modifier">
+                                                <i class="zmdi zmdi-edit"></i>
+                                            </button>
 
-                                                <button class="item deleteEntite" value=<?= $entite['id']; ?> data-toggle="tooltip" data-placement="top" title="Delete">
-                                                    <i class="zmdi zmdi-delete"></i>
-                                                </button>
-                                                <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-                                                    <i class="zmdi zmdi-more"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="spacer"></tr>
+                                            <button class="item deleteEntite" value=<?= $entite['id']; ?>
+                                                data-toggle="tooltip" data-placement="top" title="Delete">
+                                                <i class="zmdi zmdi-delete"></i>
+                                            </button>
+                                            <button class="item" data-toggle="tooltip" data-placement="top"
+                                                title="More">
+                                                <i class="zmdi zmdi-more"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="spacer"></tr>
                                 <?php } ?>
                             </tbody>
                         </table>
@@ -95,7 +100,8 @@ error_reporting(E_ALL);
 </div>
 <!-- END MAIN CONTENT-->
 
-<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -144,7 +150,8 @@ error_reporting(E_ALL);
                                 <label for="text-input" class=" form-control-label">Acronyme</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="acronyme" name="acronyme" placeholder="Acronyme" class="form-control">
+                                <input type="text" id="acronyme" name="acronyme" placeholder="Acronyme"
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -161,7 +168,8 @@ error_reporting(E_ALL);
                                 <label for="text-input" class=" form-control-label">Standard</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="telephone" name="telephone" placeholder="+33142424242" class="form-control">
+                                <input type="text" id="telephone" name="telephone" placeholder="+33142424242"
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -169,7 +177,8 @@ error_reporting(E_ALL);
                                 <label for="text-input" class=" form-control-label">Site</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="site" name="site" placeholder="http://www.exemple.com" class="form-control">
+                                <input type="text" id="site" name="site" placeholder="http://www.exemple.com"
+                                    class="form-control">
                             </div>
                         </div>
 
@@ -178,7 +187,8 @@ error_reporting(E_ALL);
                                 <label for="file-input" class=" form-control-label">Logo</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="file" id="logo" name="logo" class="form-control-file">
+                                <input type="file" id="logo-form" name="logo-form" class="form-control-file">
+                                <input type="text" id="hidden-logo" name="hidden-logo" class="display-none">
                             </div>
                         </div>
                         <!-- Adresse Geo -->
@@ -188,7 +198,8 @@ error_reporting(E_ALL);
                                 <label for="text-input" class=" form-control-label">Adresse</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="adresseGeo" name="adresseGeo" placeholder="N° de rue..." class="form-control">
+                                <input type="text" id="adresseGeo" name="adresseGeo" placeholder="N° de rue..."
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -196,7 +207,8 @@ error_reporting(E_ALL);
                                 <label for="text-input" class=" form-control-label">Complément</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="complementGeo" name="complementGeo" placeholder="Bâtiment, interphone..." class="form-control">
+                                <input type="text" id="complementGeo" name="complementGeo"
+                                    placeholder="Bâtiment, interphone..." class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -212,7 +224,8 @@ error_reporting(E_ALL);
                                 <label for="text-input" class=" form-control-label">Ville</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="villeGeo" name="villeGeo" placeholder="Ville" class="form-control">
+                                <input type="text" id="villeGeo" name="villeGeo" placeholder="Ville"
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -232,7 +245,8 @@ error_reporting(E_ALL);
                                 <label for="text-input" class=" form-control-label">Adresse</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="adressePos" name="adressePos" placeholder="N° de rue..." class="form-control">
+                                <input type="text" id="adressePos" name="adressePos" placeholder="N° de rue..."
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -240,7 +254,8 @@ error_reporting(E_ALL);
                                 <label for="text-input" class=" form-control-label">Complément</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="complementPos" name="complementPos" placeholder="Bâtiment, interphone..." class="form-control">
+                                <input type="text" id="complementPos" name="complementPos"
+                                    placeholder="Bâtiment, interphone..." class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -256,7 +271,8 @@ error_reporting(E_ALL);
                                 <label for="text-input" class=" form-control-label">Ville</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input type="text" id="villePos" name="villePos" placeholder="Ville" class="form-control">
+                                <input type="text" id="villePos" name="villePos" placeholder="Ville"
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -281,7 +297,8 @@ error_reporting(E_ALL);
 
 <!-- end modal large -->
 
-<div class="modal fade" id="displayerModal" tabindex="-1" role="dialog" aria-labelledby="displayerModalLabel" aria-hidden="true">
+<div class="modal fade" id="displayerModal" tabindex="-1" role="dialog" aria-labelledby="displayerModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
 

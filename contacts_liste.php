@@ -76,10 +76,13 @@ include 'crud/poste/poste.php';
                                             foreach ($listeContact as $contactsid) {
                                                 //Récupération des infos du contact
                                                 $infoContact = getContact($contactsid['id']);
-                                                echo '<b>' . strtoupper($infoContact[0]['Nom']) . ' ' . $infoContact[0]['Prenom'] . '</b> - ' . $infoContact[0]['Grade'];
-                                                //Récupération du poste du contact
-                                                $poste = getContactFromPoste($infoContact[0]['Poste_actuel']);
-                                                echo ' - <i>' . $poste[0]['poste'] . ' - ' . $poste[0]['entite'] . '</i><br>';;
+                                                if (!empty($infoContact)) {
+
+                                                    echo '<b>' . strtoupper($infoContact[0]['Nom']) . ' ' . $infoContact[0]['Prenom'] . '</b> - ' . $infoContact[0]['Grade'];
+                                                    //Récupération du poste du contact
+                                                    $poste = getContactFromPoste($infoContact[0]['Poste_actuel']);
+                                                    echo ' - <i>' . $poste[0]['poste'] . ' - ' . $poste[0]['entite'] . '</i><br>';
+                                                }
                                             }
                                             ?></td>
                                     <td>
