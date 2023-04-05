@@ -35,7 +35,6 @@ function saveFormModalSubmit({ formAttributeId, url }) {
             event.stopPropagation();
         } else {
             let data = $(formAttributeId).serialize()
-            console.log(data);
             defaultPostAjax({ url, data })
         }
         $(formAttributeId).addClass('was-validated');
@@ -451,9 +450,11 @@ const handleImageUpload = event => {
         })
 }
 
-document.querySelector('#logo-form').addEventListener('change', event => {
-    handleImageUpload(event)
-})
+if (document.querySelector('#logo-form')) {
+    document.querySelector('#logo-form').addEventListener('change', event => {
+        handleImageUpload(event)
+    })
+}
 
 function showEntiteModal(id) {
     let modal = $("#displayerModal .card-body")
@@ -741,42 +742,23 @@ function showAddPosteListeByIdModal(posteID) {
     modalFooter.empty()
     modal.parent().parent().find(".modal-footer").append(modalRowDisplayerFactory({}, 'submit'))
 
-    Promise.all([ajaxGetPromise("actions_liste.php?type=get&all")])
-        .then(([listes]) => {
+    Promise.all([ajaxGetPromise("actions_liste.php?type=get&allLists"), ajaxGetPromise("actions_liste.php?type=get&allMethods"), ajaxGetPromise("actions_liste.php?type=get&getPostMethodsFromId=" + posteID)])
+        .then(([listes, modes, postes]) => {
 
-            var optionsHtmlModesDefaultSelected = ""
-            var optionsHtmlListes = ""
+            var optionsHtmlModesDefaultSelected = "<option value='0' >Aucun</option>"
+            modes.forEach(async (mode) => {
+                optionsHtmlModesDefaultSelected += `<option value='${mode.id}' >${mode.mode}</option>`
+            })
+
+            modal.append(modalRowDisplayerFactory({ label: "ID Poste", name: "poste", value: posteID, hidden: true }, 'input'))
             listes.forEach(async (liste) => {
-                optionsHtmlListes += `<option value='${liste.id}' >${liste.nom}</option>`
-            })
-
-            let modesNames = listes[0].modes.split(",")
-            let modesIds = listes[0].ids.split(",")
-            modesNames.forEach(async (modeName, i) => {
-
-                optionsHtmlModesDefaultSelected += `<option value='${modesIds[i]}' >${modeName}</option>`
-            })
-
-            modal.append(modalRowDisplayerFactory({ label: "Liste diffusion", name: "listeID", optionsHtml: optionsHtmlListes, isRequired: true }, 'select'))
-            modal.append(modalRowDisplayerFactory({ label: "Mode de diffusion", name: "mode", optionsHtml: optionsHtmlModesDefaultSelected, isRequired: true }, 'select'))
-            modal.append(modalRowDisplayerFactory({ label: "ID Poste", name: "poste", value: posteID, iSdisabled: true, isRequired: true }, 'input'))
-
-            $("select[name='listeID']").change(function () {
-
-                $("select[name='mode']").empty()
-
-                let val = $(this).val();
-                let listeSelected = listes.find(l => l.id === val)
-                let modesNames = listeSelected.modes.split(",")
-                let modesIds = listeSelected.ids.split(",")
-                var optionsHtmlModesListeSelected = ""
-                modesNames.forEach(async (modeName, i) => {
-                    optionsHtmlModesListeSelected += `<option value='${modesIds[i]}' >${modeName}</option>`
+                modal.append(modalRowDisplayerFactory({ label: liste.nom, name: liste.id, optionsHtml: optionsHtmlModesDefaultSelected }, 'select'))
+                postes.forEach(async (poste) => {
+                    if (poste.listeID == liste.id) {
+                        $("select[name='" + liste.id + "']").val(poste.modeID);
+                    }
                 })
-
-
-                $("select[name='mode']").html(optionsHtmlModesListeSelected)
-            });
+            })
 
             $(".js-select-custom").each(function () {
                 $(this).select2({

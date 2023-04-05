@@ -28,3 +28,40 @@ if (isset($_REQUEST['all'])) {
         echo json_encode("erreur");
     }
 }
+
+if (isset($_REQUEST['allLists'])) {
+
+    $sqlFetch = $db->prepare('Select id, nom from Liste');
+
+    if ($result = $sqlFetch->execute()) {
+        $rows = $sqlFetch->fetchAll(PDO::FETCH_ASSOC);
+        echo json_encode($rows);
+    } else {
+        echo json_encode("erreur");
+    }
+}
+
+if (isset($_REQUEST['allMethods'])) {
+
+    $sqlFetch = $db->prepare('Select id, mode from mode_diffusion');
+
+    if ($result = $sqlFetch->execute()) {
+        $rows = $sqlFetch->fetchAll(PDO::FETCH_ASSOC);
+        echo json_encode($rows);
+    } else {
+        echo json_encode("erreur");
+    }
+}
+
+if (isset($_REQUEST['getPostMethodsFromId'])) {
+    $id = strip_tags($_REQUEST['getPostMethodsFromId']);
+
+    $sqlFetch = $db->prepare("Select * from poste_liste_mode_diffusion where posteID = :posteid");
+
+    if ($result = $sqlFetch->execute(array(':posteid' => $id))) {
+        $rows = $sqlFetch->fetchAll(PDO::FETCH_ASSOC);
+        echo json_encode($rows);
+    } else {
+        echo json_encode("erreur");
+    }
+}
