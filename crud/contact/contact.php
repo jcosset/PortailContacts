@@ -6,7 +6,7 @@ require_once SITE_ROOT . "/inc/db.php";
 function getContact($idcontact)
 {
     global $db;
-    $sqlRecupContacts = "SELECT con.id,`Civilite`, `Nom`,`Prenom`,`Grade`,`Email`,`Statut`,`Photo`,`Poste_actuel`,`Date_MAJ`,`TAG`,`Commentaire`,`telephone`,`email_pro`,`commentaire_niv_2`,`addressID`, `Rue`, `Compl`, `CP`, `Ville`, `Pays`, `cedex`
+    $sqlRecupContacts = "SELECT con.id,`Civilite`, `Nom`,`Prenom`,`Grade`,`Email`,`Statut`,`Photo`,`Poste_actuel`,`date_debut`,`Date_MAJ`,`TAG`,`Commentaire`,`telephone`,`email_pro`,`commentaire_niv_2`,`addressID`, `Rue`, `Compl`, `CP`, `Ville`, `Pays`, `cedex`
                             FROM `Contact` as con
                             left Join `address` as addr on addr.id = con.addressID
                             WHERE id = $idcontact";
@@ -19,7 +19,7 @@ function getContact($idcontact)
 function getAllContacts()
 {
     global $db;
-    $sqlRecupContacts = "SELECT id, Nom, Prenom, Grade, Email, Statut, Poste_actuel, email_pro, telephone
+    $sqlRecupContacts = "SELECT id, Nom, Prenom, Grade, Email, Statut, Poste_actuel, date_debut, email_pro, telephone
      FROM Contact ORDER BY Nom";
     $queryRecupContacts = $db->prepare($sqlRecupContacts);
     $queryRecupContacts->execute();
@@ -34,6 +34,7 @@ function updateContact(
     $civil,
     $photo,
     $poste,
+    $date_debut,
     $grade,
     $email,
     $tag,
@@ -46,18 +47,20 @@ function updateContact(
     $statut
 ) {
     global $db;
-    $sqlUpdateContact = "UPDATE Contact SET Nom=:nom, Prenom=:prenom, Civilite=:civil, Photo=:photo, Poste_actuel=:poste, Grade=:grade,
-    Email=:email, TAG=:tag, Commentaire=:comment, email_pro=:emailPro, telephone=:telephone,
+    $sqlUpdateContact = "UPDATE Contact SET Nom=:nom, Prenom=:prenom, Civilite=:civil,
+    Photo=:photo, Poste_actuel=:poste, date_debut=:date_debut, Grade=:grade, Email=:email,
+    TAG=:tag, Commentaire=:comment, email_pro=:emailPro, telephone=:telephone,
     commentaire_niv_2=:commentaireNiv2, addressID=:addressID, compl=:compl, Statut=:statut
     where id=:id";
     $queryUpdateContact = $db->prepare($sqlUpdateContact);
-    $result =  $queryUpdateContact->execute(array(
+    return $queryUpdateContact->execute(array(
         ':nom' => $nom, ':prenom' => $prnom, ':civil' => $civil, ':photo' => $photo,
-        ':poste' => $poste, ':grade' => $grade, ':email' => $email, ':tag' => $tag, ':comment' => $comment,
-        ':emailPro' => $emailPro, ':telephone' => $telephone, ':commentaireNiv2' => $commentaireNiv2,
-        ':id' => $id, ':addressID' => $adresseId, ':compl' => $complement, ':statut' => $statut
+        ':poste' => $poste, ':date_debut' => date('Y-m-d', strtotime($date_debut)),
+        ':grade' => $grade, ':email' => $email, ':tag' => $tag,
+        ':comment' => $comment, ':emailPro' => $emailPro, ':telephone' => $telephone,
+        ':commentaireNiv2' => $commentaireNiv2, ':id' => $id, ':addressID' => $adresseId,
+        ':compl' => $complement, ':statut' => $statut
     ));
-    return $result;
 }
 
 function deleteContact($idContact)

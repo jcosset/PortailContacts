@@ -18,6 +18,9 @@ switch ($_GET['type']) {
     case "update":
         require "actions/contact/update_contact.php";
         break;
+    case 'upload':
+        require "actions/contact/upload_photo.php";
+        break;
 
     default:
         echo "error";

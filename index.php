@@ -41,7 +41,8 @@
                 <div style="display:flex" style="font-size:12px;">
                     <div style="width:50%;background:white;border:solid 1px;">
                         <div style="text-align:center">
-                            <div style="width:40%; margin:0 auto;"> <img src="images/photo.png" alt="phooto"></div>
+                            <div style="width:40%; margin:0 auto;"> <img src="images/photo.png" alt="photo"
+                                    id="contact-photo"></div>
 
                             <p><label>Statut :&nbsp </label><span id="status"></span></p>
                             <p><label>Date de mise à jour :&nbsp </label><span id="updateDate"></span></p>
@@ -133,7 +134,7 @@
                     <div style="width:50%;background:white;border:solid 1px;">
                         <div style="text-align:center">
                             <p id="partner">Nom du partenaire</p>
-                            <div style="width:40%; margin:0 auto;"> <img src="images/photo.png" alt="phooto"></div>
+                            <div style="width:40%; margin:0 auto;"> <img src="images/photo.png" alt="photo"></div>
                             <p id="tag">TAG</p>
                         </div>
 
@@ -220,7 +221,8 @@
                 <div style="display:flex" style="font-size:12px;">
                     <div style="width:50%;background:white;border:solid 1px;">
                         <div style="text-align:center">
-                            <div style="width:40%; margin:0 auto;"> <img src="images/photo.png" alt="phooto"></div>
+                            <div style="width:40%; margin:0 auto;"> <img src="images/photo.png" alt="photo"
+                                    id="entite-logo"></div>
                             <p id="state">Positionnement</p>
                             <p id="tag">TAG</p>
                         </div>

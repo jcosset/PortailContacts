@@ -9,11 +9,12 @@ debugScreen($_POST);
 if (isset($_POST['id'])) {
   $id = strip_tags($_POST['id']);
   //   $photo = strip_tags($_POST['photo']);
-  $photo = "#";
+  $photo = strip_tags($_POST['hidden-photo-update']);
   $civil = strip_tags($_POST['civilite']);
   $nom = strip_tags($_POST['nom']);
   $prnom = strip_tags($_POST['prenom']);
   $poste = strip_tags($_POST['poste']);
+  $date_debut = strip_tags($_POST['date_debut']);
   $grade = strip_tags($_POST['grade']);
   $email = strip_tags($_POST['email']);
   $tag = strip_tags($_POST['tag']);
@@ -38,9 +39,9 @@ if (isset($_POST['id'])) {
   } else {
     $adresseId = setAddress($rue, $cp, $ville, $pays, "");
   }
+  $date_debut = date('Y-m-d', strtotime($date_debut));
 
-
-  $result = updateContact($id, $nom, $prnom, $civil, $photo, $poste, $grade, $email, $tag, $comment, $emailPro, $telephone, $commentaireNiv2, $adresseId, $complement,   $statut);
+  $result = updateContact($id, $nom, $prnom, $civil, $photo, $poste, $date_debut, $grade, $email, $tag, $comment, $emailPro, $telephone, $commentaireNiv2, $adresseId, $complement,   $statut);
 
   if ($result) {
     deleteOrphanAddress();

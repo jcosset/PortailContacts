@@ -216,13 +216,22 @@ error_reporting(E_ALL);
                                     class="form-control">
                             </div>
                         </div>
-
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">Date de prise de poste</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="date_debut" name="date_debut" class="form-control"
+                                    value="<?php echo date("d-m-Y"); ?>">
+                            </div>
+                        </div>
                         <div class="row form-group">
                             <div class="col col-md-3">
                                 <label for="file-input" class=" form-control-label">Photo</label>
                             </div>
                             <div class="col-12 col-md-9">
                                 <input type="file" id="photo" name="photo" class="form-control-file">
+                                <input type="text" id="hidden-photo" name="hidden-photo" class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -270,6 +279,9 @@ error_reporting(E_ALL);
                             </div>
                         </div>
                         <div class="row form-group">
+                            <h5>Informations confidentielles</h5>
+                        </div>
+                        <div class="row form-group">
                             <div class="col col-md-3">
                                 <label for="text-input" class=" form-control-label">Téléphone portable</label>
                             </div>
@@ -280,7 +292,7 @@ error_reporting(E_ALL);
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">Email personnelle</label>
+                                <label for="text-input" class=" form-control-label">Email personnel</label>
                             </div>
                             <div class="col-12 col-md-9">
                                 <input type="text" id="email" name="email" placeholder="email@email.com"
@@ -299,7 +311,7 @@ error_reporting(E_ALL);
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-3">
-                                <label for="text-input" class=" form-control-label">Complement</label>
+                                <label for="text-input" class=" form-control-label">Complément</label>
                             </div>
                             <div class="col-12 col-md-9">
                                 <input type="text" id="complement" name="complement"

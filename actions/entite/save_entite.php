@@ -42,12 +42,6 @@ if (isset($_POST['nom']) & isset($_POST['uper_id'])) {
     $addressPosID = setAddress($adresse_pos, $CP_pos, $ville_pos, $pays_pos, "");
   }
 
-  debugScreen("geo id");
-  debugScreen($addressGeoID);
-  debugScreen("pos in bdd");
-  debugScreen($addressPosInBDD);
-  debugScreen("getIda pos");
-  debugScreen(getIdAddress($adresse_pos, $CP_pos, $ville_pos, $pays_pos));
   $returnSetEntity = setEntity($nom, $uper_id, $acronyme, $email, $telephone, $addressGeoID, $addressPosID, $site, $logo, $compl_geo, $compl_pos);
 
   if ($returnSetEntity) {

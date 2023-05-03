@@ -196,7 +196,7 @@ function modalRowButton({ label, name, defaultChoice, optionsHtml }) {
 }
 
 function modalRowFile({ label, name }) {
-    return `<input type="file" name=${name} class="form-control-file">`
+    return `<input type="file" id=${name} name=${name} class="form-control-file">`
 }
 
 function modalRowDisplayerFactory(data, type) {
@@ -295,8 +295,8 @@ function getEntite(id) {
             $(modalName).find("span#fonctEmail").text(response.email || "")
             $(modalName).find("span#standard").text(response.tel || "")
             $(modalName).find("span#website").text(response.site || "")
-
-
+            let img = response.logo ? 'upload/gestion/logo/' + response.logo : "images/photo.png";
+            $('#entite-logo').attr('src', img);
         },
         error: function () {
             alert("Error");
@@ -343,6 +343,8 @@ function getContact(id) {
             $(modalName).find("span#privateEmail").text(response.Email || "")
             $(modalName).find("span#niv2info").text(response.commentaire_niv_2 || "")
             $("#largeModal").find("p#tag").text(response.TAG || "")
+            let img = response.Photo ? 'upload/contact/photo/' + response.Photo : "images/photo.png";
+            $('#contact-photo').attr('src', img);
 
         },
         error: function () {
@@ -432,29 +434,6 @@ const ajaxGetPromise = (url) => {
     })
 }
 
-const handleImageUpload = event => {
-    const files = event.target.files
-    const formData = new FormData()
-    formData.append('logo', event.target.files[0])
-
-    fetch('actions.php?type=upload', {
-        method: 'POST',
-        body: formData
-    })
-        .then(response => response.json())
-        .then(data => {
-            $('#hidden-logo').val(data.path);
-        })
-        .catch(error => {
-            console.error(error)
-        })
-}
-
-if (document.querySelector('#logo-form')) {
-    document.querySelector('#logo-form').addEventListener('change', event => {
-        handleImageUpload(event)
-    })
-}
 
 function showEntiteModal(id) {
     let modal = $("#displayerModal .card-body")
@@ -477,7 +456,8 @@ function showEntiteModal(id) {
             modal.append(modalRowDisplayerFactory({ label: "Standard", name: "telephone", value: entity.tel, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Email fonctionnel", name: "email", value: entity.email, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Site", name: "site", value: entity.site, iSdisabled: false }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Logo", name: "log", value: entity.logo, iSdisabled: false, isRequired: false }, 'file'))
+            modal.append(modalRowDisplayerFactory({ label: "Logo", name: "logo-form-update", value: entity.logo, iSdisabled: false, isRequired: false }, 'file'))
+            modal.append(modalRowDisplayerFactory({ label: "Logo", name: "hidden-logo-update", value: entity.logo, iSdisabled: true }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Adresse Géographique", name: "adresseGeo", value: entity.rue_geo, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Complément", name: "complementGeo", value: entity.compl_geo, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Code Postal", name: "CPGeo", value: entity.cp_geo, iSdisabled: false }, 'input'))
@@ -500,6 +480,12 @@ function showEntiteModal(id) {
                     dropdownAutoWidth: true
                 });
             });
+
+            if (document.querySelector('#logo-form-update')) {
+                document.querySelector('#logo-form-update').addEventListener('change', event => {
+                    handleImageUpload(event, "update", '#hidden-logo', 'actions.php?type=upload')
+                })
+            }
         })
         .catch(err => console.log(err))
 }
@@ -559,7 +545,7 @@ function showContactModal(id) {
             var optionsHtmlPostes = ""
             for (poste of postes) {
                 let selected = contact.Poste_actuel == poste.id ? "selected" : ""
-                optionsHtmlPostes += `<option value='${poste.id}' ${selected}>${poste.entitename}\\${poste.Nom}</option>`
+                optionsHtmlPostes += `<option value='${poste.id}' ${selected}>${poste.entitename}/${poste.Nom}</option>`
 
             }
 
@@ -587,7 +573,8 @@ function showContactModal(id) {
             }
 
 
-            modal.append(modalRowDisplayerFactory({ label: "Photo", name: "photo", value: contact.Nom, iSdisabled: false, isRequired: false }, 'file'))
+            modal.append(modalRowDisplayerFactory({ label: "Photo", name: "photo-form-update", value: contact.Photo, iSdisabled: false, isRequired: false }, 'file'))
+            modal.append(modalRowDisplayerFactory({ label: "Photo", name: "hidden-photo-update", value: contact.Photo, iSdisabled: true }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Civilite", name: "civilite", optionsHtml: optionsHtmlCivilites, isRequired: false }, 'select'))
             modal.append(modalRowDisplayerFactory({ label: "Nom", name: "nom", value: contact.Nom, iSdisabled: false, isRequired: true }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Prénom", name: "prenom", value: contact.Prenom, iSdisabled: false, isRequired: true }, 'input'))
@@ -595,13 +582,15 @@ function showContactModal(id) {
             modal.append(modalRowDisplayerFactory({ label: "Grade", name: "grade", optionsHtml: optionsHtmlGrades }, 'select'))
 
             modal.append(modalRowDisplayerFactory({ label: "Email pro", name: "emailPro", value: contact.email_pro, iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: " Date de prise de poste", name: "date_debut", value: formateDate(contact.date_debut), iSdisabled: false }, 'input'))
 
             modal.append(modalRowDisplayerFactory({
                 label: "Adresse ID", name: "addressID", value: contact.addressID, iSdisabled: true, hidden: true
             }, 'input'))
 
             modal.append(modalRowDisplayerFactory({ label: "Tag", name: "tag", value: contact.TAG, iSdisabled: false }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: "Commentaire", name: "commentaire", value: contact.Commentaire, iSdisabled: false }, 'textarea'))
+            modal.append(modalRowDisplayerFactory({ label: "Commentaire", name: "commentaire", value: contact.Commentaire, iSdisabled: false }, 'textarea'));
+            modal.append('<div class="row form-group"> <h5>Informations confidentielles</h5> </div>');
             modal.append(modalRowDisplayerFactory({ label: "Téléphone portable", name: "telephone", value: contact.telephone, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Email personnelle", name: "email", value: contact.Email, iSdisabled: false }, 'input'))
             modal.append(modalRowDisplayerFactory({ label: "Adresse personnelle", name: "rue", value: contact.Rue, iSdisabled: false }, 'input'))
@@ -624,6 +613,12 @@ function showContactModal(id) {
                     dropdownAutoWidth: true
                 });
             });
+
+            if (document.querySelector('#photo-form-update')) {
+                document.querySelector('#photo-form-update').addEventListener('change', event => {
+                    handleImageUpload(event, "update", '#hidden-photo', 'actions_contact.php?type=upload')
+                })
+            }
 
         }).catch(err => console.log(err))
 
@@ -655,7 +650,7 @@ function showCreatePosteListeDiffusionModal(listeID) {
             })
 
             postes.forEach(async (poste) => {
-                optionsHtmlPostes += `<option value='${poste.id}' >${poste.entitename}\\${poste.Nom}</option>`
+                optionsHtmlPostes += `<option value='${poste.id}' >${poste.entitename}/${poste.Nom}</option>`
             })
 
             modal.append(modalRowDisplayerFactory({ label: "Poste", name: "poste", optionsHtml: optionsHtmlPostes, isRequired: true }, 'select'))
@@ -706,7 +701,7 @@ function showUpdateListeDiffusionModal(listeID) {
             var optionsHtmlPostes = ""
             postes.forEach(async (poste) => {
 
-                optionsHtmlPostes += `<option value='${poste.id}' >${poste.entitename}\\${poste.nom}</option>`
+                optionsHtmlPostes += `<option value='${poste.id}' >${poste.entitename}/${poste.nom}</option>`
             })
 
             modal.append(modalRowDisplayerFactory({ label: "Poste à retirer", name: "postes[]", optionsHtml: optionsHtmlPostes, isRequired: true }, 'select-multiple'))
@@ -772,4 +767,40 @@ function showAddPosteListeByIdModal(posteID) {
         }).catch(err => { console.log(err); })
 
 }
+
+const handleImageUpload = (event, type, target, path) => {
+    const files = event.target.files
+    const formData = new FormData()
+    formData.append('logo', event.target.files[0])
+
+    fetch(path, {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (type == "save") {
+                $(target).val(data.path);
+            } else if (type == "update") {
+                $(target + '-update').val(data.path);
+            }
+        })
+        .catch(error => {
+            console.error(error)
+        })
+}
+
+if (document.querySelector('#logo-form')) {
+    document.querySelector('#logo-form').addEventListener('change', event => {
+        handleImageUpload(event, "save", '#hidden-logo', 'actions.php?type=upload')
+    })
+}
+
+if (document.querySelector('#photo')) {
+    document.querySelector('#photo').addEventListener('change', event => {
+        handleImageUpload(event, "save", '#hidden-photo', 'actions_contact.php?type=upload')
+    })
+}
+
+
 $("input[required]").parent("label").addClass("required");

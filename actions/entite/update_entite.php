@@ -16,7 +16,6 @@ if (isset($_POST['nom']) & isset($_POST['uper_id']) & isset($_POST['id'])) {
   $email = strip_tags($_POST['email']);
   $telephone = strip_tags($_POST['telephone']);
   $site = strip_tags($_POST['site']);
-  $logo = "#logo";
   $adresse_geo = strip_tags($_POST['adresseGeo']);
   $compl_geo = strip_tags($_POST['complementGeo']);
   $cp_geo = strip_tags($_POST['CPGeo']);
@@ -27,14 +26,8 @@ if (isset($_POST['nom']) & isset($_POST['uper_id']) & isset($_POST['id'])) {
   $cp_pos = strip_tags($_POST['CPPos']);
   $ville_pos = strip_tags($_POST['villePos']);
   $pays_pos = strip_tags($_POST['paysPos']);
+  $logo = strip_tags($_POST['hidden-logo-update']);
 
-
-  if (isset($_FILES['file'])) {
-    $tmpName = $_FILES['file']['tmp_name'];
-    $logo = $_FILES['file']['name'];
-    $size = $_FILES['file']['size'];
-    $error = $_FILES['file']['error'];
-  }
 
 
   $adresseIdGeo = getIdAddress($adresse_geo, $cp_geo, $ville_geo, $pays_geo);

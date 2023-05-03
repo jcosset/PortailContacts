@@ -15,7 +15,7 @@ if (isset($_REQUEST['id'])) {
 
     if (isset($_REQUEST['filter']) && $_REQUEST['filter'] == "default") {
 
-        $stmt = 'SELECT con.id,`Civilite`, `Nom`,`Prenom`,`Grade`,`Email`,`Statut`,`Photo`,`Poste_actuel`,`Date_MAJ`,`TAG`,`Commentaire`,`telephone`,`email_pro`,`commentaire_niv_2`,`addressID`, `Rue`, `Compl`, `CP`, `Ville`, `Pays`
+        $stmt = 'SELECT con.id,`Civilite`, `Nom`,`Prenom`,`Grade`,`Email`,`Statut`,`Photo`,`Poste_actuel`, `date_debut`, `Date_MAJ`,`TAG`,`Commentaire`,`telephone`,`email_pro`,`commentaire_niv_2`,`addressID`, `Rue`, `Compl`, `CP`, `Ville`, `Pays`
         FROM `Contact` as con
         left Join `address` as addr on addr.id = con.addressID
         where con.id =:id';
@@ -40,7 +40,7 @@ if (isset($_REQUEST['id'])) {
     } else {
 
         $getContact = $db->prepare('Select Contact.id as id, addressID, Civilite, Contact.Nom as Nom, Prenom, Grade, Email, Statut,
-         Photo, Date_MAJ, TAG, Commentaire, commentaire_niv_2, Poste_actuel as Poste, email_pro, telephone
+         Photo, Date_MAJ, TAG, Commentaire, commentaire_niv_2, Poste_actuel as Poste, date_debut, email_pro, telephone
          from Contact join Poste as pos on (Contact.Poste_actuel=pos.id) and Contact.id =:id');
         if ($result = $getContact->execute(array(':id' => $id))) {
             $row = $getContact->fetch(PDO::FETCH_ASSOC);
