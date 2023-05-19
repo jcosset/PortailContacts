@@ -16,7 +16,7 @@ if (isset($_FILES)) {
 	$path_filename_ext = $destdir.$filename;
 
     if (uploadFile($logo)) {
-        if (move_uploaded_file($temp_name, $path_filename_ext)) {
+    if (move_uploaded_file($temp_name, $path_filename_ext)) {
             echo json_encode(["path" => $filename]);
             return true;
         } else {

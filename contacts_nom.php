@@ -251,7 +251,7 @@ error_reporting(E_ALL);
                                         $posteId = $poste["id"];
                                         $entitename = $poste["entitename"];
 
-                                        echo "<option value='$posteId'>$entitename\\$posteNom</option>";
+                                        echo "<option value='$posteId'>$entitename/$posteNom</option>";
                                     }
 
                                     ?>

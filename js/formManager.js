@@ -18,7 +18,7 @@ function defaultPostAjax({ url, data }) {
         url,
         data,
         success: function (response) {
-            window.location.reload();
+            // window.location.reload();
         },
         error: function () {
             alert("Error");
@@ -34,7 +34,7 @@ function saveFormModalSubmit({ formAttributeId, url }) {
         if ($(formAttributeId)[0].checkValidity() === false) {
             event.stopPropagation();
         } else {
-            let data = $(formAttributeId).serialize()
+            let data = $(formAttributeId).serialize();
             defaultPostAjax({ url, data })
         }
         $(formAttributeId).addClass('was-validated');
@@ -51,33 +51,11 @@ function updateFormModalSubmit({ formAttributeId, url }) {
         } else {
             let data = $(formAttributeId).serialize()
             let id = $("#itemID").data("id")
-            console.log(data);
             if (id) data = data + "&id=" + id,
                 defaultPostAjax({ url, data })
         }
         $(formAttributeId).addClass('was-validated');
     });
-
-
-    // $(formAttriuteId).submit(function (event) {
-    //     console.log(formAttributeId, url, "updateFormModalSubmit")
-
-    //     console.log($("form#addPosteListeByd").serialize())
-    //     event.preventDefault();
-    //     if ($(formAttributeId)[0].checkValidity() === false) {
-    //         event.stopPropagation();
-    //     } else {
-    //         let data = $(formAttributeId).serialize()
-    //         let id = $("#itemID").data("id")
-    //         console.log(id)
-
-    //         console.log($(formAttributeId).serialize())
-    //         if (id) data = data + "&id=" + id,
-    //             defaultPostAjax({ url, data })
-    //     }
-    //     $(formAttributeId).addClass('was-validated');
-    // });
-
 }
 
 function updatePostModalSubmitFactory({ formAttributeId, url }, action = "save") {
@@ -551,8 +529,8 @@ function showContactModal(id) {
 
             var optionsHtmlGrades = ""
             for (grade of grades) {
-                let selected = contact.Grade == grade.id ? "selected" : ""
-                optionsHtmlGrades += `<option value='${grade.id}' ${selected}> ${grade.grade}</option>`
+                let selected = contact.Grade == grade.grade ? "selected" : ""
+                optionsHtmlGrades += `<option value='${grade.grade}' ${selected}> ${grade.grade}</option>`
 
             }
 
@@ -685,27 +663,23 @@ function showUpdateListeDiffusionModal(listeID) {
 
     updatePostModalSubmitFactory({ formAttributeId: "form#updateListe", url: "actions_liste.php?type=update" })
 
-    Promise.all([ajaxGetPromise("actions_liste.php?type=getPoste&id=" + listeID)])
-        .then(([postes]) => {
+    Promise.all([ajaxGetPromise("actions_liste.php?type=get&allMethods=true"), ajaxGetPromise("actions_liste.php?type=get&getListMethodsFromId=" + listeID), ajaxGetPromise("actions_liste.php?type=get&selectById=" + listeID)])
+        .then(([modes, selectedModes, liste]) => {
+            optionsHtmlModes = ""
 
-            // let modesNames = ["helloe", "test"]
-            // let modesIds = ["helloe", "test"]
-
-            // optionsHtmlModes = ""
-
-            // modesNames.forEach(async (modeName, i) => {
-
-            //     optionsHtmlModes += `<option value='${modesIds[i]}' >${modeName}</option>`
-            // })
-
-            var optionsHtmlPostes = ""
-            postes.forEach(async (poste) => {
-
-                optionsHtmlPostes += `<option value='${poste.id}' >${poste.entitename}/${poste.nom}</option>`
+            modes.forEach((mode, i) => {
+                selected = "";
+                selectedModes.forEach((selectedMode, i) => {
+                    if (selected == "") {
+                        selected = mode.id == selectedMode.modeID ? "selected" : "";
+                    }
+                })
+                optionsHtmlModes += `<option value='${mode.id}' ${selected}>${mode.mode}</option>`
             })
 
-            modal.append(modalRowDisplayerFactory({ label: "Poste à retirer", name: "postes[]", optionsHtml: optionsHtmlPostes, isRequired: true }, 'select-multiple'))
-            //modal.append(modalRowDisplayerFactory({ label: "Mode de diffusion", name: "mode", optionsHtml: optionsHtmlModes, isRequired: true }, 'select'))
+
+            modal.append(modalRowDisplayerFactory({ label: "Nom de la liste", name: "Nom", value: liste.Nom, iSdisabled: false, isRequired: true }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: "Mode de diffusion", name: "modes[]", optionsHtml: optionsHtmlModes, isRequired: true }, 'select-multiple'))
             modal.append(modalRowDisplayerFactory({ label: "ID Liste", name: "listeID", value: listeID, isRequired: true, hidden: true }, 'input'))
 
             modal.parent().parent().find(".modal-footer").append(modalRowDisplayerFactory({}, 'submit'))
@@ -765,6 +739,38 @@ function showAddPosteListeByIdModal(posteID) {
             });
 
         }).catch(err => { console.log(err); })
+
+}
+
+function showAddPosteListeRecByIdModal(listeID) {
+
+    // $("#displayerModal form#updatePoste").off("submit")
+    let modal = $("#displayerModal .card-body")
+    let modalFooter = $("#displayerModal .modal-footer")
+
+    $("#displayerModal form").prop("id", "addPosteListeRecByd");
+
+    updatePostModalSubmitFactory({ formAttributeId: "form#addPosteListeRecByd", url: "actions_liste.php?type=addPoste&revert=true" })
+    modal.empty()
+    modalFooter.empty()
+    modal.parent().parent().find(".modal-footer").append(modalRowDisplayerFactory({}, 'submit'))
+    Promise.all([ajaxGetPromise("actions_liste.php?type=get&listree=" + listeID + "&filter=default"), ajaxGetPromise("actions_liste.php?type=get&allMethods")])
+        .then(([listes, modes]) => {
+            modal.append(modalRowDisplayerFactory({ label: "ID liste", name: "liste", value: listeID, hidden: true }, 'input'))
+            modal.append("<ul class='listree'>" + listes) + '</ul>';
+
+            $(".js-select-custom").each(function () {
+                $(this).select2({
+                    allowClear: true,
+                    placeholder: "Selectionner une option",
+                    dropdownParent: $(this).next('.dropDownSelect2'),
+                    dropdownAutoWidth: true
+                });
+            });
+            listree();
+
+        }).catch(err => { console.log(err); })
+
 
 }
 

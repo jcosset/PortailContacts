@@ -3,7 +3,7 @@ require_once __DIR__ . "/../../config.php";
 
 if (isset($_REQUEST['all'])) {
 
-    $sqlFetch = $db->prepare("SELECT id, grade from Grade");
+    $sqlFetch = $db->prepare("SELECT id, grade from grade");
 
     if ($result = $sqlFetch->execute()) {
         $rows = $sqlFetch->fetchAll(PDO::FETCH_ASSOC);

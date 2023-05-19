@@ -1,16 +1,18 @@
-<?php include 'inc/header.php';
+<?php
+include 'inc/header.php';
 include 'inc/db.php';
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 
-function debugScreen($var)
-{
-    echo '<pre>';
-    print_r($var);
-    echo '</pre>';
-}
+// function debugScreen($var)
+// {
+//     echo '<pre>';
+//     print_r($var);
+//     echo '</pre>';
+// }
 
 function getAllModeDiffusion()
 {
@@ -122,6 +124,12 @@ $listePostes = getListePoste();
                                                     <i class="zmdi zmdi-download"></i>
                                                 </button>
                                             </form>
+                                            <button class="item" data-toggle="modal" data-placement="top"
+                                                data-target='#displayerModal'
+                                                onClick="showAddPosteListeRecByIdModal(<?= ($liste['id']); ?>)"
+                                                title="Ajout liste diffusion">
+                                                <i class="zmdi zmdi-format-indent-increase"></i>
+                                            </button>
                                             <button class="item" data-toggle='modal' data-target='#displayerModal'
                                                 onClick="showUpdateListeDiffusionModal(<?= ($liste['id']); ?>)"
                                                 data-placement="top" title="Edit">

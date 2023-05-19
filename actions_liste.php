@@ -18,7 +18,6 @@ switch ($_GET['type']) {
     case "update":
         require "actions/liste/update_liste.php";
         break;
-
     case "addPoste":
         require "actions/liste/poste/save_poste.php";
         break;
