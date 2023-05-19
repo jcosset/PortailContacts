@@ -222,7 +222,7 @@ error_reporting(E_ALL);
                             </div>
                             <div class="col-12 col-md-9">
                                 <input type="text" id="date_debut" name="date_debut" class="form-control"
-                                    value="<?php echo date("d-m-Y"); ?>">
+                                    placeholder="jj-mm-yyyy" value="<?php echo date("d-m-Y"); ?>">
                             </div>
                         </div>
                         <div class="row form-group">

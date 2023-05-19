@@ -178,13 +178,11 @@ function modalRowFile({ label, name }) {
 }
 
 function modalRowDisplayerFactory(data, type) {
-
     let val = data.value
 
     if (val == null || val == undefined || val == "null" || val == "undefined" || val == "") {
         data.value = ""
-        data.placeholder = ""
-
+        // data.placeholder = ""
     }
 
     if (type == "input") {
@@ -560,7 +558,7 @@ function showContactModal(id) {
             modal.append(modalRowDisplayerFactory({ label: "Grade", name: "grade", optionsHtml: optionsHtmlGrades }, 'select'))
 
             modal.append(modalRowDisplayerFactory({ label: "Email pro", name: "emailPro", value: contact.email_pro, iSdisabled: false }, 'input'))
-            modal.append(modalRowDisplayerFactory({ label: " Date de prise de poste", name: "date_debut", value: formateDate(contact.date_debut), iSdisabled: false }, 'input'))
+            modal.append(modalRowDisplayerFactory({ label: " Date de prise de poste", placeholder: "jj-mm-yyyy", name: "date_debut", value: formateDate(contact.date_debut), iSdisabled: false }, 'input'))
 
             modal.append(modalRowDisplayerFactory({
                 label: "Adresse ID", name: "addressID", value: contact.addressID, iSdisabled: true, hidden: true
