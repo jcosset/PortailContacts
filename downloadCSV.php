@@ -21,19 +21,23 @@ if (isset($_POST["listeID"])) {
   ent.cedex as 'addrPostal cedex',
   addrGeo.Rue as 'addrGeo Rue',  ent.compl_geo as 'addrGeo Complement',
  addrGeo.Ville as 'addrGeo Ville', addrGeo.CP as 'addrGeo CP',  addrGeo.Pays as 'addrGeo Pays',
-Civilite, cont.Nom as 'Nom', Prenom, Grade, cont.Email as 'Email personnel',
-pos.Email_fonctionnel as 'Email fonctionnel',cont.telephone as 'telephone', mode as 'Mode de diffusion', pos.id, lis.id as ListeID, plmd.id as 'plmd'
+  Civilite, cont.Nom as 'Nom', Prenom, Grade, cont.Email as 'Email personnel',
+  pos.Email_fonctionnel as 'Email fonctionnel',cont.telephone as 'telephone', mode as 'Mode de diffusion'
 
-FROM poste_liste_mode_diffusion as plmd join mode_diffusion as md on (plmd.modeID=md.id) join
-Liste as lis on (plmd.listeID = lis.id) join Poste as pos on (plmd.posteID =pos.id)
-join Entite as ent on (pos.Entite =ent.id) join
-Contact as cont on (cont.Poste_actuel=pos.id) left join `address` as addrGeo on (ent.adresse_geo =addrGeo.id)
- left join `address` as addrPostal on (ent.adresse_postale =addrPostal.id)
-   and lis.id = :listeID where lis.id = :listeID group by plmd.id
+   FROM poste_liste_mode_diffusion as plmd
+   left join mode_diffusion as md on (plmd.modeID=md.id)
+   left join Liste as lis on (plmd.listeID = lis.id)
+   left join Poste as pos on (plmd.posteID =pos.id)
+   left join Entite as ent on (pos.Entite =ent.id)
+   left join Contact as cont on (cont.Poste_actuel=pos.id)
+   left join `address` as addrGeo on (ent.adresse_geo =addrGeo.id)
+   left join `address` as addrPostal on (ent.adresse_postale =addrPostal.id) and lis.id = :listeID
+   where plmd.listeID = :listeID
+   order by pos.Nom";
 
- ";
   $stmtPrepare = $db->prepare($stmt);
   $stmtPrepare->execute(array(":listeID" => $listeID));
+
 
   $filename = "listeDiffusion.csv";
   $fp = fopen($filename, 'w');

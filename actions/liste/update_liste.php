@@ -21,11 +21,7 @@ if (isset($_POST['listeID'])) {
     $firstLoop = false;
   }
   $insertListeModeDif = $db->prepare($query);
-
-  debugScreen($updateListe);
   $updateListe->execute();
-  debugScreen($deleteListeModeDif);
   $deleteListeModeDif->execute();
-  debugScreen($insertListeModeDif);
   $insertListeModeDif->execute();
 }

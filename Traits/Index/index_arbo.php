@@ -41,32 +41,29 @@ while ($items = $queryGetAllContact->fetch(PDO::FETCH_ASSOC)) {
 
 function posteArrayToHtml($menu, $itemId, $modes, $posteMethods)
 {
-
     global $menus;
     $htmlPoste = "";
 
     $optionsHtmlModesDefaultSelected = "";
 
 
-
     foreach ($menu[$itemId] as $poste) {
         $id = $poste['id'];
 
         $optionsHtmlModesDefaultSelected = '<select name="' . $id . '">
-            <option value="0" >Aucun</option>';
+            <option value="0">Aucun</option>';
 
         foreach ($modes as $mode) {
             $selected = "";
             foreach ($posteMethods as $posteMethod) {
-                $selected = (isset($posteMethod["posteID"]) && $posteMethod["posteID"] == $id) ? "selected" : "";
+                if ($selected == "") {
+                    $selected = ((isset($posteMethod["posteID"]) && $posteMethod["posteID"] == $id)
+                        && (isset($posteMethod["modeID"]) && $posteMethod["modeID"] == $mode['id'])) ? "selected" : "";
+                }
             }
             $optionsHtmlModesDefaultSelected .= "<option value='" . $mode['id'] . "' " . $selected . ">" . $mode['mode'] . "</option>";
         }
         $optionsHtmlModesDefaultSelected .= "</select>";
-
-
-
-
 
         if (isset($menus['contact'][$id])) {
 
@@ -103,7 +100,7 @@ function createMenu($parent_id, $menu, $modes, $posteMethods)
                 if (!isset($menu['poste'][$itemId])) {
 
                     $html .= "<li>" . $name  . "</li>";
-                } else if (isset($menu['poste'][$itemId])) {
+                } elseif (isset($menu['poste'][$itemId])) {
 
                     $html .= "<li>";
                     $html .= "<div class='listree-submenu-heading' >" . $name . "</div>";
