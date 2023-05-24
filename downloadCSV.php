@@ -21,7 +21,8 @@ if (isset($_POST["listeID"])) {
   ent.cedex as 'addrPostal cedex',
   addrGeo.Rue as 'addrGeo Rue',  ent.compl_geo as 'addrGeo Complement',
  addrGeo.Ville as 'addrGeo Ville', addrGeo.CP as 'addrGeo CP',  addrGeo.Pays as 'addrGeo Pays',
-  Civilite, cont.Nom as 'Nom', Prenom, Grade, cont.Email as 'Email personnel',
+  Civilite, cont.Nom as 'Nom', Prenom, Grade, cont.Email as 'Email personnel', cont.email_pro as 'Email pro',
+  concat(addrPerso.Rue, ' ', addrPerso.CP , ' ', addrPerso.Ville) as 'Addresse perso',
   pos.Email_fonctionnel as 'Email fonctionnel',cont.telephone as 'telephone', mode as 'Mode de diffusion'
 
    FROM poste_liste_mode_diffusion as plmd
@@ -31,6 +32,7 @@ if (isset($_POST["listeID"])) {
    left join Entite as ent on (pos.Entite =ent.id)
    left join Contact as cont on (cont.Poste_actuel=pos.id)
    left join `address` as addrGeo on (ent.adresse_geo =addrGeo.id)
+   left join `address` as addrPerso on (cont.addressID = addrPerso.id)
    left join `address` as addrPostal on (ent.adresse_postale =addrPostal.id) and lis.id = :listeID
    where plmd.listeID = :listeID
    order by pos.Nom";
@@ -52,7 +54,7 @@ if (isset($_POST["listeID"])) {
     "Parternaire geo rue",  "Parternaire geo complement", "Parternaire geo cp", "Parternaire geo ville",
     "Parternaire geo pays",
     "Civilite", "Nom", "Prenom", "Grade",
-    "Email personnel", "Email fonctionnel", "téléphone portale", "Mode de diffusion"
+    "Email personnel", "Email Pro", "Adresse Perso", "Email fonctionnel", "téléphone portale", "Mode de diffusion"
   );
   fputcsv($fp, $header, $seperator);
 

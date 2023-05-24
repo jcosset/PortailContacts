@@ -151,9 +151,6 @@ if (!isset($_SESSION["username"])) {
                                     <a href="gestion_liste.php">Liste</a>
                                 </li>
                                 <li>
-                                    <a href="liste_diffusion.php">Liste de diffusion</a>
-                                </li>
-                                <li>
                                     <a style="color:red;" href="correction.php">Correction</a>
                                 </li>
                             </ul>
@@ -184,10 +181,9 @@ if (!isset($_SESSION["username"])) {
             <header class="header-desktop">
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
-                        <div class="header-wrap">
+                        <!-- <div class="header-wrap">
                             <form class="form-header" action="" method="POST">
-                                <input class="au-input au-input--xl" type="text" name="search"
-                                    placeholder="Rechercher ..." />
+                                <input class="au-input au-input--xl" type="text" name="search" placeholder="Rechercher ..." />
                                 <button class="au-btn--submit" type="submit">
                                     <i class="zmdi zmdi-search"></i>
                                 </button>
@@ -213,7 +209,7 @@ if (!isset($_SESSION["username"])) {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </header>
